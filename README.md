@@ -1,88 +1,143 @@
-# ACLS 2025 視覺化辨識卡 v1.1
+# ACLS 2025 教學工具 v1.3
 
-互動式網頁工具,涵蓋 2025 AHA ACLS 指引的心電圖辨識、急救流程、ECPR 啟動時機、急救用藥、Megacode 練習等。
+> **單一 HTML 檔,離線可用,部署到 GitHub Pages 即可**
+> 更新日期:2026/05/01
 
-單檔 HTML(無外部依賴),可直接部署到 GitHub Pages 或本機開啟。
+---
 
-## 內容(8 個分頁)
+## 🆕 v1.3 新增
 
-- **心電圖圖鑑** — 16 種必考心律(SVG 重畫,點擊看辨識重點與處置)
-- **死人活人決策樹** — 視覺化急救流程,點節點看詳情
-- **ECPR 啟動時機** — 2025 Class 2a 新內容,搭配嘉基系統對應
-- **12 導程 STEMI** — 各區域導程與責任血管對照
-- **急救用藥** ★ 新增 — 38 種藥物 / 7 大類別,完整劑量、配製、副作用、2025 變動
-- **2020 vs 2025 完整差異** — 20 個變動點對照表
-- **Megacode 練習** — 12 題情境模擬
-- **自我測驗** — 隨機抽 EKG 判讀,localStorage 記錄答對率
+### 📚 官方題庫分頁(全新)
+- **202 題**完整收錄(中華急救教育推廣協會 ACLS 練習題 v2026.01.01)
+- 10 大類別精準分類:
+  - 基本救命術 BLS(27 題)
+  - 自動體外去顫器 AED(7 題)
+  - 呼吸道異物阻塞(5 題)
+  - 呼吸道與呼吸(21 題)
+  - 心搏停止治療流程(35 題)
+  - 動態心律不整(15 題)
+  - 心搏過慢治療流程(20 題)
+  - 心搏過速治療流程(29 題)
+  - 急性冠心症 ACS(23 題)
+  - 急性腦中風 CVA(20 題)
+- **三種練習模式**:
+  1. **分類複習** — 依類別逐題練習,適合有針對性備考
+  2. **隨機抽題** — 10 / 20 / 50 / 100 題模擬考試,計時計分
+  3. **錯題複習** — 自動收集答錯題目,反覆練習直到答對
+- 答錯自動加入錯題清單;答對自動移除
+- 已答題數、正確率、錯題數即時顯示
+- 統計資料儲存於 localStorage,跨會話保留
 
-## 急救用藥七大類(共 38 種)
+### 🎯 Megacode 擴增 12 → 31 題
+新增 19 題情境化考題,改寫自官方題庫的最強情境題,每題搭配 EKG 波形,涵蓋:
+- VF refractory 用藥決策(Amio 300 vs 150)
+- ROSC 後維持劑量
+- PEA 找原因(術後出血、張力性氣胸、高血鉀)
+- Asystole 不可電擊
+- 不穩定徐脈分階段(Atropine → TCP → Dopamine drip)
+- 寬 QRS 3° AVB 跳過 Atropine
+- PSVT 第一線 Vagal maneuver
+- 有脈 VT 同步整流(別去顫!)
+- ETT 給藥 LANE 口訣(Amio 不能!)
+- 威而剛禁忌 NTG
+- STEMI + 急性肺水腫先插管再 PCI
+- 缺血中風 BP < 220/120 不需降
+- tPA 候選 BP 控制 < 185/110
 
-- **CPR 期間用藥**(7):Epinephrine、Amiodarone、Lidocaine、Magnesium、Calcium、NaHCO3、Vasopressin
-- **心律調節**(6):Adenosine、Atropine、Diltiazem、Verapamil、Esmolol、Procainamide
-- **升壓循環支持**(4):Dopamine、Norepinephrine、Dobutamine、Phenylephrine
-- **ACS / STEMI Bundle**(7):Aspirin、Clopidogrel、Ticagrelor、Heparin、NTG、Morphine、Alteplase
-- **中風 / 溶栓**(2):Tenecteplase ★ 2025 新、Labetalol
-- **特殊解毒劑**(7):Naloxone、Flumazenil、Glucagon、IV Lipid、Hydroxocobalamin、Insulin/Glucose、Activated Charcoal
-- **RSI / 鎮靜插管**(5):Etomidate、Ketamine、Midazolam、Succinylcholine、Rocuronium
+---
 
-每張藥物卡顯示:中英藥名、主要適應症、速查劑量。點擊看完整內容:適應症、成人/小兒劑量、給藥途徑、配製方式、副作用、禁忌症、易踩雷、2025 更新。
+## 📦 完整功能列表(10 分頁)
 
-**10 種藥有 2025 變動標記** — 包括 Calcium / Vasopressin / NaHCO3 改 Class 3、Tenecteplase 新增、IV Lipid 升為明確建議、Insulin HIET 主流等。
+| 分頁 | 內容 |
+|------|------|
+| **1. ACLS 基礎** | 10 個摺疊區塊:CPR 重點 / 死人活人 / VF / VT / Brady / 5H5T / 給藥途徑 / Megacode 流程 / 用藥重點 / 中風 |
+| **2. 心電圖圖鑑** | 16 種 EKG 波形(SVG 動畫繪製),搜尋/收藏/全螢幕觀看 |
+| **3. 死人活人決策樹** | 互動式心律辨識路徑 |
+| **4. ECPR 啟動時機** | 嘉基本院流程整合 |
+| **5. 12 導程 STEMI** | 部位識別 + 血管對應 |
+| **6. 急救用藥** | 38 個藥物 / 7 大類別,英文為主名(Epinephrine、Amiodarone…) |
+| **7. 2020 vs 2025 差異** | 含 Calcium 改 Class 3 / ECPR Class 2a / 體溫管理等 9 大更新 |
+| **8. 📚 題庫(NEW)** | 202 題官方題庫,3 種模式 |
+| **9. Megacode** | 31 題情境決策考題,搭配 EKG 波形 |
+| **10. 自我測驗** | 隨機抽題快測 |
 
-## 功能
+---
 
-- 全文搜尋(打「VT」、「不穩定」、「房室阻斷」、「Epi」、「升壓」、「腎上腺素」都能找,同時搜心電圖和藥物)
-- ★ 收藏標記(localStorage)
-- 列印模式(瀏覽器列印按鈕)
-- 深色模式(跟隨系統設定)
-- 響應式設計(手機/平板/電腦皆適用)
+## 🚀 部署到 GitHub Pages
 
-## 部署到 GitHub Pages
+### 方法 1:GitHub 網頁直接編輯
+1. 進入您的 `cych05845-jpg/acls-2025` repo
+2. 找到 `index.html`,點 Edit
+3. 全選刪除舊內容,貼上新版 `index.html`
+4. Commit changes
+5. 1-2 分鐘後 GitHub Pages 自動更新
 
-### 方法一:新建 repo
-
+### 方法 2:VS Code clone
 ```bash
-git init
-git add index.html README.md
-git commit -m "ACLS 2025 v1.1"
-git branch -M main
-git remote add origin https://github.com/cych05845-jpg/acls-2025.git
-git push -u origin main
-```
-
-Settings → Pages → Source 選 `main` branch → Save。
-訪問 `https://cych05845-jpg.github.io/acls-2025/`。
-
-### 方法二:加到現有 repo 子目錄
-
-```bash
-mkdir acls-2025
-cp index.html acls-2025/
-git add acls-2025
-git commit -m "Add ACLS 2025 visual recognition card"
+cd ~/projects/acls-2025
+# 將下載的 index.html 覆蓋過去
+git add index.html
+git commit -m "v1.3: 加入官方題庫(202題)+ Megacode 擴增至 31 題"
 git push
 ```
 
-## 本機使用
+訪問:`https://cych05845-jpg.github.io/acls-2025/`
 
-雙擊 `index.html` 直接開啟。或丟到 USB / LINE 給同仁。
+---
 
-## 修改與擴充
+## 📊 v1.3 vs v1.2 比較
 
-所有資料都在單檔 `<script>` 區塊內:
+| 項目 | v1.2 | v1.3 |
+|------|------|------|
+| 分頁數 | 9 | **10** |
+| Megacode 題數 | 12 | **31** |
+| 題庫分頁 | ❌ | **✅ 202 題** |
+| 練習模式 | 1(全部抽 5) | **3**(分類/隨機/錯題) |
+| localStorage 紀錄 | 收藏 + 自我測驗 | 收藏 + 自我測驗 + **題庫紀錄** |
+| 檔案大小 | 175 KB | 310 KB |
 
-- `EKG_DATA` 陣列:新增/修改心律
-- `DRUG_DATA` 陣列:新增/修改藥物
-- `DRUG_CATEGORIES` 陣列:調整藥物類別與顏色
-- `MEGACODE_SCENARIOS` 陣列:新增情境題
-- `FLOW_DETAILS` / `ECPR_DETAILS` 物件:修改流程 modal 內容
+---
 
-## 資料來源
+## 💡 使用建議
 
-- AHA 2025 CPR & ECC Guidelines (2025/10/22 公告)
-- 原 ACLS 筆試破題解析 v.2020.11.24 (黃品叡)
-- 急救用藥參考 UpToDate、Lexicomp、AHA Pharmacology Guidelines
+### 教學科內同仁訓練流程
+1. **基礎打底**:看「ACLS 基礎」+「2020 vs 2025 差異」
+2. **辨識練習**:用「心電圖圖鑑」+「死人活人決策樹」反覆熟悉波形
+3. **情境決策**:Megacode 31 題逐一過(現在更全面了)
+4. **官方題庫**:202 題用「分類複習」模式,弱點類別重點加強
+5. **模考衝刺**:用「隨機抽題 50 題」或「100 題」當模擬考
+6. **考前最後**:用「錯題複習」掃清盲點
 
-## 授權
+### 備考者(Weng 自己)
+- 上下班通勤可用「隨機抽題 10 題」5 分鐘速練
+- 弱點類別深練:用「分類複習」針對性突破
+- 考前一天:錯題清單清空 = 上場無憂
 
-僅供臨床參考、教學、與個人備考使用。實際操作仍以 AHA 官方指引、院內 SOP 與主治醫師判斷為準。
+---
+
+## 🔧 技術備註
+
+- 單一 HTML 檔(內嵌 CSS / JS / EKG SVG)
+- 無外部相依,完全離線可用
+- localStorage keys:
+  - `acls2025_favs`(收藏 EKG)
+  - `acls2025_quiz_stats`(自我測驗統計)
+  - `acls2025_qbank_stats`(題庫統計,**v1.3 新增**)
+- 適用瀏覽器:Chrome / Edge / Safari / Firefox
+
+---
+
+## 📝 ACLS 2025 重點更新已整合
+
+✅ 鈣質 → Class 3 No Benefit(僅高鉀 EKG / 低鈣 / CCB 中毒)
+✅ ECPR → Class 2a「早期啟動」
+✅ Post-ROSC 體溫 32-37.5°C 主動體溫控制
+✅ 成人哽塞 → 5 背擊 + 5 腹推循環
+✅ 嬰兒 CPR → 刪除兩指法
+✅ Vasopressin → 不再替代 Epinephrine
+✅ 中風 → 新增 Tenecteplase 選項
+✅ BLS 流程 → 明確標示 Naloxone 投予時機
+
+---
+
+— 翁秀霞 / 嘉基急診護理部

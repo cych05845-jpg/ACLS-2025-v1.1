@@ -623,6 +623,139 @@ body {
   .modal h2 { font-size: 18px; }
 }
 
+/* ========== BASICS TAB ========== */
+.basics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.basics-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.basics-item[open] {
+  border-color: var(--red);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.basics-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+}
+.basics-summary::-webkit-details-marker { display: none; }
+.basics-summary:hover { background: var(--bg-soft); }
+.basics-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+.basics-summary-text { flex: 1; min-width: 0; }
+.basics-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 2px;
+  line-height: 1.4;
+}
+.basics-summary-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.basics-toggle {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s, background 0.2s;
+}
+.basics-item[open] .basics-toggle {
+  transform: rotate(45deg);
+  background: var(--red-light);
+  color: var(--red);
+}
+.basics-content {
+  padding: 8px 18px 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-soft);
+  border-top: 1px solid var(--border);
+  margin-top: 2px;
+}
+.basics-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--red);
+  margin: 14px 0 6px;
+  padding-left: 8px;
+  border-left: 3px solid var(--red);
+}
+.basics-content h4:first-child { margin-top: 8px; }
+.basics-content p, .basics-content li { margin: 4px 0; }
+.basics-content ul, .basics-content ol { margin: 4px 0; padding-left: 22px; }
+.basics-content strong { color: var(--text); font-weight: 600; }
+.basics-content .tip-info {
+  background: var(--blue-light);
+  color: #0C447C;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 8px 0;
+  font-size: 13.5px;
+}
+.basics-content .tip-warn {
+  background: var(--amber-light);
+  color: #633806;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 8px 0;
+  font-size: 13.5px;
+}
+@media (prefers-color-scheme: dark) {
+  .basics-content .tip-info { color: #B5D4F4; }
+  .basics-content .tip-warn { color: #FAC775; }
+}
+.basics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0;
+  font-size: 13px;
+}
+.basics-table td {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.basics-table td:first-child {
+  background: var(--bg-soft);
+  width: 35%;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .basics-summary { padding: 12px 14px; gap: 10px; }
+  .basics-icon { font-size: 20px; width: 24px; }
+  .basics-title { font-size: 14px; }
+  .basics-summary-sub { font-size: 12px; }
+  .basics-content { padding: 6px 14px 16px; font-size: 13.5px; }
+  .basics-table td:first-child { width: auto; white-space: normal; }
+}
+
 /* ========== DRUG TAB ========== */
 .drug-filter {
   display: flex;
@@ -714,17 +847,18 @@ body {
   margin: 0 0 6px;
   padding-right: 28px;
 }
-.drug-name-zh {
+.drug-name-en {
   font-size: 15px;
   font-weight: 700;
   color: var(--text);
   line-height: 1.3;
+  letter-spacing: 0.2px;
 }
-.drug-name-en {
+.drug-name-zh {
   font-size: 12px;
   color: var(--text-muted);
-  font-style: italic;
   margin-top: 2px;
+  font-weight: 500;
 }
 
 .drug-badge-2025 {
@@ -805,6 +939,61 @@ body {
   .drug-group { break-inside: avoid; }
   .main { max-width: 100%; padding: 0; }
 }
+
+/* ===== 題庫 (qbank) ===== */
+.qbank-stats-bar { display:flex; gap:.5em; align-items:center; padding:.6em 1em; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:1em; flex-wrap:wrap; }
+.qbank-stat { display:flex; flex-direction:column; padding:.2em .8em; }
+.qbank-stat-label { font-size:.75em; color:#64748b; }
+.qbank-stat-val { font-size:1.4em; font-weight:700; color:#1e293b; }
+.qbank-stat-val.qbank-warn { color:#dc2626; }
+.qbank-mode-h3 { font-size:1.1em; margin:1em 0 .5em; color:#475569; }
+.qbank-mode-cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:.8em; margin-bottom:1.2em; }
+.qbank-mode-card { background:#fff; border:2px solid #e2e8f0; border-radius:10px; padding:1em; cursor:pointer; transition:all .15s; position:relative; }
+.qbank-mode-card:hover { border-color:#3b82f6; transform:translateY(-2px); box-shadow:0 4px 12px rgba(59,130,246,.15); }
+.qbank-mode-card.qbank-disabled { opacity:.5; cursor:not-allowed; }
+.qbank-mode-card.qbank-disabled:hover { transform:none; border-color:#e2e8f0; box-shadow:none; }
+.qbank-mode-icon { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4em; color:#fff; font-weight:700; margin-bottom:.5em; }
+.qbank-mode-title { font-weight:700; font-size:1.05em; margin-bottom:.25em; color:#1e293b; }
+.qbank-mode-desc { font-size:.85em; color:#64748b; }
+.qbank-cat-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:.6em; margin-top:1em; }
+.qbank-cat-card { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:.8em 1em; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:all .15s; }
+.qbank-cat-card:hover { background:#f0f9ff; transform:translateX(2px); }
+.qbank-cat-name { font-weight:600; color:#1e293b; }
+.qbank-cat-count { font-size:.85em; color:#64748b; background:#f1f5f9; padding:.15em .6em; border-radius:12px; }
+.qbank-progress-bar-wrap { display:flex; align-items:center; gap:.6em; margin-bottom:.4em; flex-wrap:wrap; }
+.qbank-progress-text { color:#475569; font-size:.95em; }
+.qbank-score-pill { background:#10b981; color:#fff; padding:.2em .7em; border-radius:12px; font-size:.85em; font-weight:600; margin-left:auto; }
+.qbank-progress-bar { height:6px; background:#e2e8f0; border-radius:3px; overflow:hidden; margin-bottom:1em; }
+.qbank-progress-fill { height:100%; background:linear-gradient(90deg, #3b82f6, #10b981); transition:width .3s; }
+.qbank-question-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:1.2em; margin-bottom:1em; }
+.qbank-q-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:.7em; }
+.qbank-cat-badge { color:#fff; padding:.2em .7em; border-radius:12px; font-size:.78em; font-weight:600; }
+.qbank-q-id { color:#94a3b8; font-size:.85em; }
+.qbank-q-text { font-size:1.05em; line-height:1.65; color:#1e293b; margin-bottom:1em; }
+.qbank-options { display:flex; flex-direction:column; gap:.5em; }
+.qbank-opt { background:#f8fafc; border:2px solid #e2e8f0; border-radius:8px; padding:.7em 1em; cursor:pointer; display:flex; gap:.7em; align-items:flex-start; transition:all .12s; }
+.qbank-opt:hover { background:#f0f9ff; border-color:#3b82f6; }
+.qbank-opt-selected { background:#dbeafe; border-color:#3b82f6; }
+.qbank-opt-correct { background:#dcfce7 !important; border-color:#10b981 !important; }
+.qbank-opt-wrong { background:#fee2e2 !important; border-color:#ef4444 !important; }
+.qbank-opt-letter { font-weight:700; color:#475569; min-width:1.2em; }
+.qbank-opt-text { color:#1e293b; line-height:1.5; }
+.qbank-explain { margin-top:1em; padding:.9em 1em; background:#fef3c7; border-left:4px solid #f59e0b; border-radius:6px; }
+.qbank-ans-label { font-weight:700; color:#92400e; margin-bottom:.4em; }
+.qbank-exp { color:#1e293b; line-height:1.6; }
+.qbank-q-actions { margin-top:1em; display:flex; justify-content:flex-end; gap:.5em; }
+.qbank-result-card { text-align:center; background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:2.5em 1.5em; margin:1em 0; }
+.qbank-result-emoji { font-size:4em; margin-bottom:.4em; }
+.qbank-result-title { font-size:1.4em; font-weight:700; color:#1e293b; margin-bottom:.6em; }
+.qbank-result-score { font-size:2em; color:#475569; margin-bottom:.3em; }
+.qbank-result-num { font-size:1.5em; font-weight:800; color:#10b981; }
+.qbank-result-pct { font-size:1.2em; color:#3b82f6; font-weight:600; margin-bottom:.4em; }
+.qbank-result-time { color:#64748b; font-size:.95em; margin-bottom:1em; }
+.qbank-result-comment { color:#475569; line-height:1.6; max-width:36em; margin:0 auto 1.5em; padding:.8em; background:#f8fafc; border-radius:6px; }
+.qbank-result-actions { display:flex; justify-content:center; gap:.5em; flex-wrap:wrap; }
+.badge.danger { background:#ef4444; color:#fff; padding:.1em .5em; border-radius:10px; font-size:.7em; margin-left:.3em; }
+.btn-sm { padding:.3em .8em; font-size:.85em; }
+
 </style>
 </head>
 <body>
@@ -826,12 +1015,14 @@ body {
 
 <nav class="tab-bar">
   <div class="tab-bar-inner">
-    <button class="tab-btn active" onclick="switchTab('atlas', this)">心電圖圖鑑</button>
+    <button class="tab-btn active" onclick="switchTab('basics', this)">ACLS 基礎</button>
+    <button class="tab-btn" onclick="switchTab('atlas', this)">心電圖圖鑑</button>
     <button class="tab-btn" onclick="switchTab('flow', this)">死人活人決策樹</button>
     <button class="tab-btn" onclick="switchTab('ecpr', this)">ECPR 啟動時機</button>
     <button class="tab-btn" onclick="switchTab('stemi', this)">12 導程 STEMI</button>
     <button class="tab-btn" onclick="switchTab('drug', this)">急救用藥</button>
     <button class="tab-btn" onclick="switchTab('diff', this)">2020 vs 2025</button>
+    <button class="tab-btn" onclick="switchTab('qbank', this)">📚 題庫</button>
     <button class="tab-btn" onclick="switchTab('mega', this)">Megacode</button>
     <button class="tab-btn" onclick="switchTab('quiz', this)">自我測驗</button>
   </div>
@@ -839,8 +1030,11 @@ body {
 
 <main class="main">
 
+<!-- ========== TAB: BASICS ========== -->
+<section id="tab-basics" class="tab-panel active"></section>
+
 <!-- ========== TAB: ATLAS ========== -->
-<section id="tab-atlas" class="tab-panel active">
+<section id="tab-atlas" class="tab-panel">
   <h2 class="section-title">心電圖圖鑑</h2>
   <p class="section-sub">點任一波形看辨識重點與處置;★ 加入收藏</p>
   <div class="legend">
@@ -861,6 +1055,7 @@ body {
 <section id="tab-stemi" class="tab-panel"></section>
 <section id="tab-drug" class="tab-panel"></section>
 <section id="tab-diff" class="tab-panel"></section>
+<section id="tab-qbank" class="tab-panel"></section>
 <section id="tab-mega" class="tab-panel"></section>
 <section id="tab-quiz" class="tab-panel"></section>
 
@@ -1419,11 +1614,13 @@ function switchTab(name, btn) {
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
   // lazy 渲染各分頁
+  if (name === 'basics' && !window._basicsRendered) { renderBasics(); window._basicsRendered = true; }
   if (name === 'flow' && !window._flowRendered) { renderFlow(); window._flowRendered = true; }
   if (name === 'ecpr' && !window._ecprRendered) { renderECPR(); window._ecprRendered = true; }
   if (name === 'stemi' && !window._stemiRendered) { renderSTEMI(); window._stemiRendered = true; }
   if (name === 'drug' && !window._drugRendered) { renderDrug(); window._drugRendered = true; }
   if (name === 'diff' && !window._diffRendered) { renderDiff(); window._diffRendered = true; }
+  if (name === 'qbank' && !window._qbankRendered) { renderQbank(); window._qbankRendered = true; }
   if (name === 'mega' && !window._megaRendered) { renderMega(); window._megaRendered = true; }
   if (name === 'quiz' && !window._quizRendered) { renderQuiz(); window._quizRendered = true; }
 }
@@ -2076,6 +2273,2806 @@ function renderDiff() {
 }
 
 // ========== Megacode 練習 ==========
+
+// ============================================================
+// 官方題庫 (中華急救教育推廣協會 v2026.01.01) — 共 202 題
+// 10 大類別:bls, aed, airway_obs, airway_breath, arrest,
+//            arrhythmia, brady, tachy, acs, cva
+// ============================================================
+const QBANK_CATEGORIES = [
+  { id: 'bls',           name: '基本救命術 BLS',       color: '#ef4444' },
+  { id: 'aed',           name: '自動體外去顫器 AED',    color: '#f59e0b' },
+  { id: 'airway_obs',    name: '呼吸道異物阻塞',        color: '#fbbf24' },
+  { id: 'airway_breath', name: '呼吸道與呼吸',          color: '#10b981' },
+  { id: 'arrest',        name: '心搏停止治療流程',      color: '#dc2626' },
+  { id: 'arrhythmia',    name: '動態心律不整',          color: '#8b5cf6' },
+  { id: 'brady',         name: '心搏過慢治療流程',      color: '#3b82f6' },
+  { id: 'tachy',         name: '心搏過速治療流程',      color: '#06b6d4' },
+  { id: 'acs',           name: '急性冠心症 ACS',        color: '#ec4899' },
+  { id: 'cva',           name: '急性腦中風 CVA',        color: '#a855f7' }
+];
+
+const QBANK_DATA = [
+  ...[
+  // ===== BLS =====
+  {
+    id: 1, cat: 'bls',
+    q: '有關成人 OHCA 院外心跳停止「生存之鏈」排列順序,何者正確?<br>1.高品質 CPR 2.進階高級心臟救命術 3.早期求救 4.早期電擊治療 5.整合之心臟停止後照護 6.復原與存活',
+    options: [
+      { text: '123465', correct: false },
+      { text: '231465', correct: false },
+      { text: '314256', correct: true },
+      { text: '421356', correct: false }
+    ],
+    ans: 'C',
+    exp: '成人生存之鏈順序是早期求救、早期 CPR、早期電擊、早期 ACLS、整合心臟停止後照護、以及復原與存活。'
+  },
+  {
+    id: 2, cat: 'bls',
+    q: 'VF 倒地後若沒有 CPR 也未電擊,每過一分鐘存活率約下降?',
+    options: [
+      { text: '3-4%', correct: false },
+      { text: '7-10%', correct: true },
+      { text: '12-15%', correct: false },
+      { text: '18-20%', correct: false }
+    ],
+    ans: 'B',
+    exp: 'VF/pVT 延遲 1 分鐘不做 CPR,救回機率減 7-10%;有做 CPR 但每延遲 1 分鐘才電擊,存活率減 3-4%。'
+  },
+  {
+    id: 3, cat: 'bls',
+    q: '院外心跳停止病人,所謂早期電擊是指倒地後幾分鐘內?',
+    options: [
+      { text: '3 分鐘', correct: false },
+      { text: '5 分鐘', correct: true },
+      { text: '6 分鐘', correct: false },
+      { text: '10 分鐘', correct: false }
+    ],
+    ans: 'B',
+    exp: '腦部細胞在心跳停止後 4-6 分鐘開始損傷。建議:院內 3 分鐘內、院外 5 分鐘內電擊。'
+  },
+  {
+    id: 4, cat: 'bls',
+    q: '專業人員面對無意識病人,檢查脈搏時間不應該超過?',
+    options: [
+      { text: '3 秒', correct: false },
+      { text: '5 秒', correct: false },
+      { text: '10 秒', correct: true },
+      { text: '1 分鐘', correct: false }
+    ],
+    ans: 'C',
+    exp: '檢查脈搏時間不超過 10 秒,當判斷無脈搏時即應開始 CPR。'
+  },
+  {
+    id: 5, cat: 'bls',
+    q: '關於成人高品質胸部按壓的描述,下列何者正確?',
+    options: [
+      { text: '以 4 公分深度無干擾的按壓', correct: false },
+      { text: '胸部按壓但不須通氣', correct: false },
+      { text: '按壓速率低於 100 或高於 120 次/分', correct: false },
+      { text: '須讓胸部完全回彈', correct: true }
+    ],
+    ans: 'D',
+    exp: '2025 AHA 強調:壓夠快(100-120/分)、壓夠深(成人 5cm)、胸回彈完全、莫中斷(< 10 秒)。'
+  },
+  {
+    id: 6, cat: 'bls',
+    q: '2025 年版有關按壓深度,下列何者正確?',
+    options: [
+      { text: '成人壓胸深度為 5-6 公分', correct: false },
+      { text: '小孩壓胸深度為 5 公分或胸廓厚度 1/3', correct: false },
+      { text: '嬰兒壓胸深度為 4 公分或胸廓厚度 1/3', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '成人 5-6 cm、小孩 5 cm 或胸廓 1/3、嬰兒 4 cm 或胸廓 1/3。'
+  },
+  {
+    id: 7, cat: 'bls',
+    q: '體外心臟按摩造成的心輸出量為正常時的多少?',
+    options: [
+      { text: '10-20%', correct: false },
+      { text: '25-33%', correct: true },
+      { text: '37-40%', correct: false },
+      { text: '46-50%', correct: false }
+    ],
+    ans: 'B',
+    exp: '高品質 CPR 約能提供正常心輸出量的 1/3,故 EtCO2 監測非常重要。'
+  },
+  {
+    id: 8, cat: 'bls',
+    q: '由施救者口中吹氣,其氧濃度約為多少?',
+    options: [
+      { text: '25%', correct: false },
+      { text: '22%', correct: false },
+      { text: '17%', correct: true },
+      { text: '13%', correct: false }
+    ],
+    ans: 'C',
+    exp: '吐氣含氧約 17%,因此口對口僅作為過渡,有 BVM 應立刻換用。'
+  },
+  {
+    id: 9, cat: 'bls',
+    q: '有關 2025 年 AHA ACLS 復甦指導原則,何者錯誤?',
+    options: [
+      { text: 'OHCA 強調儘早 CPR:先壓胸並進行快速去顫', correct: false },
+      { text: 'SCA 診斷重點:無反應 + 無呼吸或僅有喘息', correct: false },
+      { text: '進階呼吸道後配合持續壓胸,每分鐘給 8 次吹氣', correct: true },
+      { text: 'PETCO2 < 10 mmHg 需嘗試改善 CPR 品質', correct: false }
+    ],
+    ans: 'C',
+    exp: '進階呼吸道建立後,壓胸不停,每分鐘給 10 次吹氣(每 6 秒一次),不是 8 次。'
+  },
+  {
+    id: 10, cat: 'bls',
+    q: '2025 ACLS 透過智慧型手機應用程式或簡訊呼叫求救,下列何者正確?',
+    options: [
+      { text: '可縮短旁人反應時間、增加旁人施救率', correct: false },
+      { text: '可縮短電擊時間', correct: false },
+      { text: '增加出院存活率', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '智慧型手機 app 通知附近會 CPR 的志工,在多個 OHCA 研究中顯示有效。'
+  },
+  {
+    id: 11, cat: 'bls',
+    q: '2025 提高 CPR 品質研究結果之建議,下列何者正確?',
+    options: [
+      { text: '使用視聽回饋設備監測,可提升急救品質', correct: false },
+      { text: '連續監測動脈血壓和 ETCO2,可促進急救品質', correct: false },
+      { text: '再次強調胸部按壓質量的重要性', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '視聽回饋、有創血壓、EtCO2 三者都是 CPR 品質工具。'
+  },
+  {
+    id: 12, cat: 'bls',
+    q: '有關 2025 年生存之鏈之敘述,下列何者正確?',
+    options: [
+      { text: '心跳停止倖存者透過整合式照護系統可改善預後', correct: false },
+      { text: '第六環是出院前提供身體、神經、心肺、認知失能多方面評估', correct: false },
+      { text: '第六環建議含照護者全方位多方面出院計畫', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '2025 強調 Recovery 環(第六環)。OHCA 大多數情境下,優先進行現場復甦對 ROSC 較佳。'
+  },
+  {
+    id: 13, cat: 'bls',
+    q: '有關 CPR 之描述,下列何者錯誤?',
+    options: [
+      { text: '不論 1 或 2 人,成人 CPR 壓吹比 30:2', correct: false },
+      { text: '應連續做 5 個循環或每 2 分鐘檢查心律', correct: false },
+      { text: '非醫療人員看到瀕死喘息高度懷疑心跳停止就需 CPR', correct: false },
+      { text: '人工呼吸吹氣時最好深吸一口氣再吹', correct: true }
+    ],
+    ans: 'D',
+    exp: '不用先深吸再吹,病人不需過量氧氣,也避免施救者過度換氣頭暈。'
+  },
+  {
+    id: 14, cat: 'bls',
+    q: 'CPR 5 個循環後脈搏恢復但仍無呼吸,尚未建立進階呼吸道,何者正確?',
+    options: [
+      { text: '快速連續給氣,每口 1 秒', correct: false },
+      { text: '維持每分鐘 10 次/分,約每 6 秒一口氣', correct: true },
+      { text: '擺復甦姿勢', correct: false },
+      { text: '以上皆是', correct: false }
+    ],
+    ans: 'B',
+    exp: '2025 更新:不管有無進階呼吸道,每分鐘 10 次人工呼吸,每 6 秒一口氣。'
+  },
+  {
+    id: 15, cat: 'bls',
+    q: '下列描述何者正確?',
+    options: [
+      { text: 'CPR 壓胸位置為胸部中央,壓胸深度至少 2 吋', correct: false },
+      { text: '若有插管,壓胸與呼吸獨立執行不須 30:2', correct: false },
+      { text: '按壓時可每兩分鐘換手一次', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '進階呼吸道後各自維持壓胸 100-120 次/分及呼吸 10 次/分。每 2 分鐘換手避免疲乏。'
+  },
+  {
+    id: 16, cat: 'bls',
+    q: '單一施救者且無法立即求救/取 AED,下列何種情境建議先做 2 分鐘 CPR 再離開?',
+    options: [
+      { text: '無反應的嬰兒或兒童', correct: true },
+      { text: '目擊成人突然倒地', correct: false },
+      { text: '身旁已有 AED 可立即取得', correct: false },
+      { text: '以上皆是', correct: false }
+    ],
+    ans: 'A',
+    exp: '嬰兒/兒童多為缺氧導致心停,先 CPR 2 分鐘比快點電擊重要。成人目擊倒地應先求救取 AED。'
+  },
+  {
+    id: 17, cat: 'bls',
+    q: 'CPR 急救時病人已插管,可暫時停止胸部按壓的時機是?',
+    options: [
+      { text: '電擊器充電時', correct: false },
+      { text: '檢查心律時', correct: true },
+      { text: '給予正壓呼吸時', correct: false },
+      { text: '給 Epinephrine IV push 時', correct: false }
+    ],
+    ans: 'B',
+    exp: '進階呼吸道時,只有檢查心律要暫停壓胸,其餘時機都不間斷壓胸。'
+  },
+  {
+    id: 18, cat: 'bls',
+    q: '醫療上及法律上接受終止 CPR 的時機是?',
+    options: [
+      { text: 'CPR 30 分鐘後仍無效', correct: false },
+      { text: '瞳孔對光無反應', correct: false },
+      { text: '對腦部是否完全恢復有疑問時', correct: false },
+      { text: '經過 BLS 及 ACLS 之努力仍無適當反應時', correct: true }
+    ],
+    ans: 'D',
+    exp: '終止 CPR 沒有時間標準,要考慮民情;經過 CPR/ACLS 努力後仍無反應,與家屬溝通達成共識即可。'
+  },
+  {
+    id: 19, cat: 'bls',
+    q: '孩童心跳停止之主要原因為?',
+    options: [
+      { text: '致命性心律不整', correct: false },
+      { text: '心肌梗塞', correct: false },
+      { text: '心臟瓣膜疾病', correct: false },
+      { text: '呼吸停止後之缺氧', correct: true }
+    ],
+    ans: 'D',
+    exp: '孩童心停常見原因是呼吸停止,故單一施救者要先對孩童做 5 個循環 CPR 再求援。'
+  },
+  {
+    id: 20, cat: 'bls',
+    q: 'CPR 按壓速率上限 120 次/分,過快的按壓速率會導致?',
+    options: [
+      { text: '施救者容易疲勞', correct: false },
+      { text: '按壓深度不足', correct: true },
+      { text: '張力性氣胸', correct: false },
+      { text: '肋骨骨折', correct: false }
+    ],
+    ans: 'B',
+    exp: '速率 100-119 時深度不當約 35%,速率 120-139 時增至 50%,> 140 時達 70%。'
+  },
+  {
+    id: 21, cat: 'bls',
+    q: '人工呼吸吹氣後患者胸部沒有起伏,何者不能解釋?',
+    options: [
+      { text: '未正確打開呼吸道', correct: false },
+      { text: '口對口吹氣有漏氣', correct: false },
+      { text: '患者口中異物阻塞', correct: false },
+      { text: '沒有起伏是正常,不必在意', correct: true }
+    ],
+    ans: 'D',
+    exp: '吹氣後胸部沒起伏不正常,要考慮:呼吸道未開、漏氣、異物阻塞。'
+  },
+  {
+    id: 22, cat: 'bls',
+    q: '對已有進階呼吸道病人提供 CPR 的最佳策略?',
+    options: [
+      { text: '兩位施救者每分鐘交換位置', correct: false },
+      { text: '提供 30:2 比例的胸部按壓及通氣', correct: false },
+      { text: '在胸部按壓停頓時提供每 6 秒兩次通氣', correct: false },
+      { text: '提供沒有停頓的持續性壓胸,及每分鐘 10 次通氣', correct: true }
+    ],
+    ans: 'D',
+    exp: '進階呼吸道後,持續壓胸 100-120/分 + 每分鐘 10 次通氣;每 2 分鐘換手。'
+  },
+  {
+    id: 23, cat: 'bls',
+    q: '在 CPR 中,下列何者可幫助減少胸部按壓的干擾?',
+    options: [
+      { text: '只在通氣時給予藥物', correct: false },
+      { text: '在電擊後立即檢查脈搏', correct: false },
+      { text: '在電擊器充電時繼續按壓', correct: true },
+      { text: '當手動去顫器到達時繼續使用 AED', correct: false }
+    ],
+    ans: 'C',
+    exp: '電擊後立即作 5 循環 CPR,不再檢查脈搏。充電時持續壓胸減少中斷。'
+  },
+  {
+    id: 24, cat: 'bls',
+    q: '下列關於有效成人高品質 CPR 特徵,何者為非?',
+    options: [
+      { text: '若體力尚可,不須每兩分鐘換手', correct: true },
+      { text: 'PETCO2 持續 < 10 mmHg 提示灌流/壓胸品質需改善', correct: false },
+      { text: '急救後出現脈搏和血壓 (ROSC)', correct: false },
+      { text: '動脈內舒張壓 > 20 mmHg', correct: false }
+    ],
+    ans: 'A',
+    exp: '每 2 分鐘建議輪替壓胸者以避免疲乏。EtCO2 突然 ≥ 40 mmHg 提示 ROSC。'
+  },
+  {
+    id: 25, cat: 'bls',
+    q: '在 BLS 守則中,下列何者可改進胸部按壓品質?',
+    options: [
+      { text: '按壓深度越深效果越好', correct: false },
+      { text: '每兩分鐘(5 個週期)換手 CPR', correct: true },
+      { text: '按壓胸骨上半部,並 100-120 次/分', correct: false },
+      { text: '不建議每次按壓後胸部完全回彈', correct: false }
+    ],
+    ans: 'B',
+    exp: '深度建議至少 5 cm 但不超過 6 cm。壓胸位置在胸骨下半段。每 2 分鐘換手。'
+  },
+  {
+    id: 26, cat: 'bls',
+    q: '張老太太 75 歲,糖尿病、高血壓及心臟病史。兒子回家見病人沒反應、CPR 中。EMT 在病人倒下後 8 分鐘到達,第一件事要做什麼?',
+    options: [
+      { text: '建立進階呼吸道', correct: false },
+      { text: '先做 5 個循環胸部按壓再接 AED', correct: false },
+      { text: '趕快把病患移上救護車送到醫院', correct: false },
+      { text: '最短時間內接上 AED 查看是否可去顫', correct: true }
+    ],
+    ans: 'D',
+    exp: '心搏停止流程,CPR 後需盡快接 AED 判讀心律看是否可去顫,去顫後盡快恢復 CPR。'
+  },
+  {
+    id: 27, cat: 'bls',
+    q: '有關 CPR 對於 VF 病人之敘述,何者有誤?',
+    options: [
+      { text: '去顫開始時間和目擊者開始 CPR 時間與 VF 病人存活率相關', correct: false },
+      { text: '若目擊者立即 CPR,5 分鐘內進行去顫者多可存活而無神經功能障礙', correct: false },
+      { text: 'CPR 能延長 VF 持續時間,並為心臟和腦提供少量氧合血流', correct: false },
+      { text: '單獨執行 CPR 可消除大多數 VF 並恢復灌注心律', correct: true }
+    ],
+    ans: 'D',
+    exp: 'CPR 不能消除 VF,VF 唯一有效治療是去顫;CPR 只能延長 VF 到 Asystole 的時間。'
+  },
+
+  // ===== AED =====
+  {
+    id: 28, cat: 'aed',
+    q: '有關 AED 的使用,下列敘述何者正確?',
+    options: [
+      { text: '電擊板放在胸部任何位置,效果都一樣', correct: false },
+      { text: '若病患胸前有藥品貼片,電擊不需避免接觸', correct: false },
+      { text: '去顫應儘快電擊,不須確認人員接觸病人', correct: false },
+      { text: '溺水病患若需電擊,應將胸前的水擦乾再電擊', correct: true }
+    ],
+    ans: 'D',
+    exp: '電極板 Sternum 放右鎖骨中線、Apex 放左乳頭下前腋中線。電擊前移除藥物貼布、拭乾水分。'
+  },
+  {
+    id: 29, cat: 'aed',
+    q: 'AED 操作四項共通流程的正確先後順序為何?(1.分析心律 2.貼上電擊片 3.按下電擊按鈕 4.打開電源)',
+    options: [
+      { text: '4 1 2 3', correct: false },
+      { text: '4 2 1 3', correct: true },
+      { text: '2 1 4 3', correct: false },
+      { text: '2 4 1 3', correct: false }
+    ],
+    ans: 'B',
+    exp: 'AED 步驟:打開電源 → 貼上電極片 → 分析心律 → 按下電擊按鈕。'
+  },
+  {
+    id: 30, cat: 'aed',
+    q: '一位男性突發倒地,AED 分析指示電擊,在給過 1 次電擊之後,病人沒有反應。下一步?',
+    options: [
+      { text: '讓 AED 再分析一次心律', correct: false },
+      { text: '立刻給予 5 個 30:2 循環 CPR,然後再評估脈搏', correct: false },
+      { text: '立刻給 30:2 循環 CPR,2 分鐘後 AED 自動再分析心律', correct: true },
+      { text: '移除 AED,繼續 CPR 直到救護人員到達', correct: false }
+    ],
+    ans: 'C',
+    exp: 'AED 電擊完應立即 CPR,2 分鐘後 AED 會自動再分析心律。'
+  },
+  {
+    id: 31, cat: 'aed',
+    q: 'AED 連接到一位 43 歲沒呼吸沒脈搏病人,AED 指令是「不需要電擊」。應如何處置?',
+    options: [
+      { text: '立即重新啟動 AED 再次分析,以避免誤判', correct: false },
+      { text: '立即給予 2 分鐘或 5 個循環 CPR,然後讓 AED 重新分析', correct: true },
+      { text: '停止 CPR、擺復甦姿勢、等 EMT 到達', correct: false },
+      { text: '解除 AED,繼續 CPR 等 EMT 到達', correct: false }
+    ],
+    ans: 'B',
+    exp: '不需電擊心律應盡快恢復 CPR 2 分鐘,再以 EKG monitor 或 AED 判讀。'
+  },
+  {
+    id: 32, cat: 'aed',
+    q: '關於 AED 下列何者為誤?',
+    options: [
+      { text: '找不到適當電擊貼片時,大人電擊貼片可用在小孩身上', correct: false },
+      { text: '電擊後應檢測脈搏確認有無 ROSC', correct: true },
+      { text: '電擊及機器分析心律時不應接觸病患', correct: false },
+      { text: '電擊完後繼續 CPR 2 分鐘再評估心律', correct: false }
+    ],
+    ans: 'B',
+    exp: '電擊後應持續 CPR 2 分鐘,直到 AED 提示是否可電擊。如不可電擊才檢測脈搏確認 ROSC。'
+  },
+  {
+    id: 33, cat: 'aed',
+    q: '下列關於 AED 使用上的相關敘述,下列何者為是?',
+    options: [
+      { text: '若病患無反應但呈現瀕死呼吸則 AED 不能使用', correct: false },
+      { text: '如病患裝有心臟植入物,AED 貼片仍可貼在植入物相對胸口位置', correct: false },
+      { text: '若 ICD 正在電擊過程中,應等 30-60 秒後待 ICD 完成電擊再放置 AED', correct: true },
+      { text: '1-8 歲兒童應使用兒童 AED,若無法取得則不應使用成人型', correct: false }
+    ],
+    ans: 'C',
+    exp: 'AED 貼片避免放在心臟植入物上方。1-8 歲兒童如無兒童 AED 可用成人型。'
+  },
+  {
+    id: 34, cat: 'aed',
+    q: '65 歲路倒男性無意識、無呼吸、無脈搏,CPR 2 分鐘後 AED 抵達分析建議電擊,以下何者為對?',
+    options: [
+      { text: '繼續 CPR,CPR 滿 2 分鐘後電擊一次', correct: false },
+      { text: '電擊三次後立刻 CPR', correct: false },
+      { text: '電擊一次後立刻 CPR', correct: true },
+      { text: '電擊一次後檢查脈搏', correct: false }
+    ],
+    ans: 'C',
+    exp: 'AED 電擊一次後立刻 CPR,2 分鐘後再讓 AED 判讀心律。'
+  },
+
+  // ===== 呼吸道異物阻塞 =====
+  {
+    id: 35, cat: 'airway_obs',
+    q: '對呼吸道異物完全阻塞病患急救,若病人已意識喪失,下列處置何者有誤?',
+    options: [
+      { text: '應立即跨跪於病人兩大腿上方進行哈姆立克法', correct: true },
+      { text: '施救者應執行 CPR,維持壓胸吹氣 30:2', correct: false },
+      { text: '壓胸後打開呼吸道時可同時檢查口中有無異物再試吹氣', correct: false },
+      { text: '研究顯示壓胸比壓腹更能讓呼吸道產生更高的壓力', correct: false }
+    ],
+    ans: 'A',
+    exp: '哈姆立克用於有意識且嚴重阻塞病人。意識喪失要平躺進行 CPR(壓胸比壓腹有效)。'
+  },
+  {
+    id: 36, cat: 'airway_obs',
+    q: '下列何者並非嚴重呼吸道阻塞的可能症狀?',
+    options: [
+      { text: '無法呼吸', correct: false },
+      { text: '發紺', correct: false },
+      { text: '意識逐漸昏迷', correct: false },
+      { text: '大聲咳嗽', correct: true }
+    ],
+    ans: 'D',
+    exp: '嚴重阻塞:無法呼吸、發紺、意識改變。仍能大聲咳嗽 = 阻塞輕微 → 鼓勵咳嗽。'
+  },
+  {
+    id: 37, cat: 'airway_obs',
+    q: '一個人倒地,執行叫叫 CAB 壓胸 30 次後人工呼吸,卻發現吹氣後胸部沒有起伏,應作何動作?',
+    options: [
+      { text: '再打開一次呼吸道,予以吹第二口氣', correct: true },
+      { text: '檢查有無異物堵塞', correct: false },
+      { text: '開始作哈姆立克急救術', correct: false },
+      { text: '放棄吹氣開始作心臟按摩', correct: false }
+    ],
+    ans: 'A',
+    exp: '吹氣後沒起伏最常見是呼吸道沒打開,應重新打開呼吸道再嘗試吹氣。'
+  },
+  {
+    id: 38, cat: 'airway_obs',
+    q: '對於有意識的呼吸道阻塞病人,適當之處理步驟為何?',
+    options: [
+      { text: '若仍可呼吸、咳嗽,鼓勵患者用力咳嗽', correct: false },
+      { text: '若無法呼吸、說話,立刻開始 5 次背部拍擊 + 5 次腹部推擠(反覆循環)', correct: false },
+      { text: '應持續到阻塞解除或意識昏迷為止', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '輕微阻塞:鼓勵咳嗽。嚴重且意識清醒:5 背擊 + 5 腹推循環。轉無反應立刻 CPR。'
+  },
+  {
+    id: 39, cat: 'airway_obs',
+    q: '肚子很大的成人呼吸道異物完全梗塞病患(嚴重肥胖、末期懷孕),應如何處理?',
+    options: [
+      { text: '儘量鼓勵病人咳嗽', correct: false },
+      { text: '以胸部推擠(chest thrusts)替代腹部推擠', correct: true },
+      { text: '執行平躺式腹部按壓', correct: false },
+      { text: '以上皆非', correct: false }
+    ],
+    ans: 'B',
+    exp: '末期懷孕或無法環抱腹部者,改以胸部推擠取代腹部推擠,直到異物排出或無反應。'
+  }
+],
+  ...[
+  // ===== 呼吸道(Airway)與呼吸(Breathing) =====
+  {
+    id: 40, cat: 'airway_breath',
+    q: '有關 Bag-Valve-Mask (袋瓣罩)的敘述,下列何者錯誤?',
+    options: [
+      { text: '使用於成人時,潮氣容積量約為 500-600ml', correct: false },
+      { text: '在呼吸道確切建立後,仍需配合壓胸給予通氣', correct: true },
+      { text: '過度換氣會增加胸內壓力,減少回心血流', correct: false },
+      { text: 'CPR 未建立進階呼吸道時以 30:2 進行', correct: false }
+    ],
+    ans: 'B',
+    exp: '進階呼吸道後,壓胸者 100-120/分,吹氣者 10/分,兩者獨立進行不須配合。'
+  },
+  {
+    id: 41, cat: 'airway_breath',
+    q: '心臟停止病患置放氣管內管時,不建議中斷胸部按壓多久?',
+    options: [
+      { text: '10 秒', correct: true },
+      { text: '25 秒', correct: false },
+      { text: '45 秒', correct: false },
+      { text: '30 秒', correct: false }
+    ],
+    ans: 'A',
+    exp: '插管中斷壓胸時間 < 10 秒。'
+  },
+  {
+    id: 42, cat: 'airway_breath',
+    q: '成人置放氣管內管時,適當的深度應該是前牙位於管子的那一刻度?',
+    options: [
+      { text: '14-20 cm', correct: false },
+      { text: '19-23 cm', correct: true },
+      { text: '20-24 cm', correct: false },
+      { text: '15-19 cm', correct: false }
+    ],
+    ans: 'B',
+    exp: '成人 EET 深度約 19-23 cm(從前牙測量)。男性偏深、女性偏淺。'
+  },
+  {
+    id: 43, cat: 'airway_breath',
+    q: '執行抽吸管抽吸時,其時間不應超過?',
+    options: [
+      { text: '6 秒', correct: false },
+      { text: '15 秒', correct: true },
+      { text: '30 秒', correct: false },
+      { text: '40 秒', correct: false }
+    ],
+    ans: 'B',
+    exp: '抽吸時間不超過 15 秒,以免低血氧。'
+  },
+  {
+    id: 44, cat: 'airway_breath',
+    q: '使用 BVM 時,其理想的潮氣量約為多少?',
+    options: [
+      { text: '200-300 ml', correct: false },
+      { text: '500-600 ml', correct: true },
+      { text: '700-900 ml', correct: false },
+      { text: '800-1000 ml', correct: false }
+    ],
+    ans: 'B',
+    exp: 'BVM 潮氣量 500-600 ml,過大會壓迫胃部及減少回心血流。'
+  },
+  {
+    id: 45, cat: 'airway_breath',
+    q: '有關急救呼吸 (Rescue breathing)之提供次數(病人已 ROSC),下列描述何者錯誤?',
+    options: [
+      { text: '無氣管內管,BVM 吹氣大人 10-12 次/分', correct: false },
+      { text: '已插上氣管內管,大人 10 次/分', correct: false },
+      { text: '已插上氣管內管,小孩 12-20 次/分', correct: true },
+      { text: '無氣管內管,小孩 20-30 次/分', correct: false }
+    ],
+    ans: 'C',
+    exp: '已插管小孩:20-30 次/分(每 2-3 秒一次)。原舊版才是 10 次/分。'
+  },
+  {
+    id: 46, cat: 'airway_breath',
+    q: '簡單型氧氣面罩以 6-10 L/min 流速給予氧氣,可提供多少濃度?',
+    options: [
+      { text: '20-40%', correct: false },
+      { text: '40-60%', correct: true },
+      { text: '60-80%', correct: false },
+      { text: '80-100%', correct: false }
+    ],
+    ans: 'B',
+    exp: '簡單面罩 6-10 L/min 提供 40-60% 氧氣濃度。'
+  },
+  {
+    id: 47, cat: 'airway_breath',
+    q: '使用鼻導管給予氧氣,流量 4 L/min,氧氣濃度約為?',
+    options: [
+      { text: '28%', correct: false },
+      { text: '32%', correct: false },
+      { text: '36%', correct: true },
+      { text: '40%', correct: false }
+    ],
+    ans: 'C',
+    exp: '大氣 20% + 鼻管每 1 L 增加 4%,故 4 L/min ≈ 20+(4×4) = 36%。'
+  },
+  {
+    id: 48, cat: 'airway_breath',
+    q: '有關鼻咽呼吸道的使用,下列何者不正確?',
+    options: [
+      { text: '僅可用於昏迷之病人', correct: true },
+      { text: '尺寸選擇為鼻孔至耳垂之長度', correct: false },
+      { text: '顏面創傷或顱底骨折病患應避免使用', correct: false },
+      { text: '可用於仍有嘔吐反射的病人', correct: false }
+    ],
+    ans: 'A',
+    exp: '鼻咽呼吸道可用於半昏迷或仍有咳嗽嘔吐反射的病人,刺激性較少。'
+  },
+  {
+    id: 49, cat: 'airway_breath',
+    q: '休克及深度昏迷之創傷病人,下列哪一種氣道最適合?',
+    options: [
+      { text: '氣管內管', correct: true },
+      { text: '觀察即可', correct: false },
+      { text: '鼻咽氣道', correct: false },
+      { text: '口咽氣道', correct: false }
+    ],
+    ans: 'A',
+    exp: '休克 + 深昏迷 + 創傷:需要正壓通氣 + 避免胃充氣 → 進階呼吸道(ETT)。'
+  },
+  {
+    id: 50, cat: 'airway_breath',
+    q: '心跳停止後 ROSC,插管後上腹聽不到蠕動音、兩肺擴張及呼吸音相同,但無法偵測 EtCO2,應採取?',
+    options: [
+      { text: '應立即將氣管內管拔除', correct: false },
+      { text: '改用食道偵測儀(EDD)', correct: true },
+      { text: 'SpO2 < 95% 就應拔管', correct: false },
+      { text: '保留氣管內管,不再做位置確認', correct: false }
+    ],
+    ans: 'B',
+    exp: '心停時肺血流量低,EtCO2 可能測不到,即使位置正確也如此。應用其他方式進一步確認(EDD)。插管後惡化記住 DOPE。'
+  },
+  {
+    id: 51, cat: 'airway_breath',
+    q: '有關 Sellick maneuver 的描述,下列何者錯誤?',
+    options: [
+      { text: '可以防止吸入胃反流物', correct: false },
+      { text: '已不建議常規使用於心跳停止之患者', correct: false },
+      { text: '當 Endo 推進氣管時不必等 cuff 充氣後就可放開', correct: true },
+      { text: '若做此動作時發生嘔吐,則給予抽吸鬆開壓力', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Sellick maneuver 須等 cuff 充氣後才可放開。臨床證據有限,已不建議常規使用。'
+  },
+  {
+    id: 52, cat: 'airway_breath',
+    q: '以下何者須強烈懷疑氣管內管未放置於氣管內?',
+    options: [
+      { text: '可看見管子通過聲帶', correct: false },
+      { text: '吐氣末二氧化碳偵測器變成黃色', correct: false },
+      { text: '食道偵測器的球並未膨脹', correct: true },
+      { text: '胃部沒聽到通氣聲,肺部上下四點有聽到', correct: false }
+    ],
+    ans: 'C',
+    exp: '食道偵測器(EDD)的球若在氣管內會膨脹;在食道內則塌陷。'
+  },
+  {
+    id: 53, cat: 'airway_breath',
+    q: '關於呼吸道的建立,下列何者為是?',
+    options: [
+      { text: '鼻咽通道簡單安全,但不適合用於意識模糊的病患', correct: false },
+      { text: '口咽通道適合意識清楚的病患', correct: false },
+      { text: '氣管內管放置時,患者咽口腔氣管三軸線最好排列成一直線', correct: true },
+      { text: '進階呼吸道後壓胸與換氣比仍需 30:2', correct: false }
+    ],
+    ans: 'C',
+    exp: '插管姿勢:嗅花姿勢(三軸對齊 = sniffing position)。'
+  },
+  {
+    id: 54, cat: 'airway_breath',
+    q: '25 歲女性機車騎士車禍從砂石車底救出,意識不清,呼吸有雜音,脈搏血壓微弱,右大腿開放性骨折,此時應該先給予?',
+    options: [
+      { text: '壓額抬顎法打開呼吸道', correct: false },
+      { text: '下顎推擠法(Jaw thrust)打開呼吸道', correct: true },
+      { text: '打兩條大號 IV 給林格氏液 2000 c.c.', correct: false },
+      { text: '環甲膜切開術建立呼吸道', correct: false }
+    ],
+    ans: 'B',
+    exp: '懷疑頸椎受傷的病人,優先 Jaw thrust 並避免頸部過度伸展。'
+  },
+  {
+    id: 55, cat: 'airway_breath',
+    q: '插管後確認成功置入氣管內管的方法,以下何者為非?',
+    options: [
+      { text: '臨床確認(看通過聲帶、看蒸氣、看胸部起伏、聽呼吸音)非絕對可靠', correct: false },
+      { text: '食道偵測球未膨脹可能誤入食道,但也可能正確置入(過胖、孕婦、氣喘)', correct: false },
+      { text: 'EtCO2 偵測器為最準確,若無則應為誤置入食道', correct: true },
+      { text: '看到 EET 通過聲帶仍應使用其他輔助儀器確認', correct: false }
+    ],
+    ans: 'C',
+    exp: 'EtCO2 偽陰性可發生在肺栓塞、嚴重低血壓、檢測器被胃內容物汙染、嚴重氣流受阻。'
+  },
+  {
+    id: 56, cat: 'airway_breath',
+    q: '關於口咽 / 鼻咽呼吸道的敘述,何者錯誤?',
+    options: [
+      { text: '口咽呼吸道只可用於沒有意識與沒咳嗽反射的病人', correct: false },
+      { text: '約 30% 病患在放入鼻咽呼吸道後可能造成呼吸道出血', correct: false },
+      { text: '口咽與鼻咽呼吸道可使用於顱底骨折的外傷病患', correct: true },
+      { text: '由訓練人員放置口咽呼吸道於沒意識患者屬於 Class IIa', correct: false }
+    ],
+    ans: 'C',
+    exp: '鼻咽呼吸道使用禁忌:顏面創傷或懷疑顱底骨折。'
+  },
+  {
+    id: 57, cat: 'airway_breath',
+    q: '關於呼吸道處置的描述,下列何者正確?',
+    options: [
+      { text: '心臟休止以 BVM 給氧時應常規使用 Sellick maneuver', correct: false },
+      { text: '口咽呼吸道適用於嘔吐反射完整的病患', correct: false },
+      { text: '懷疑顱底骨折的外傷病患可使用鼻咽呼吸道', correct: false },
+      { text: 'EET 氣囊膨脹後可減少胃內容物吸入的風險', correct: true }
+    ],
+    ans: 'D',
+    exp: '已不推薦於心停常規 Sellick。口咽用於完全昏迷無咳嗽嘔吐反射。鼻咽禁忌顏面創傷/顱底骨折。'
+  },
+  {
+    id: 58, cat: 'airway_breath',
+    q: '有關 On Endo 前 BVM bagging 的敘述,下列何者有誤?',
+    options: [
+      { text: '建議常規使用 Sellick maneuver 避免空氣進入胃部', correct: true },
+      { text: '呼吸衰竭尚有循環的病人,Bagging 時間依 SaO2 上升情況', correct: false },
+      { text: '尚未衰竭病人可先用 NRM 提高 SaO2 至 99-100% 後再 on Endo', correct: false },
+      { text: '若只是短暫呼吸抑制可在短期內恢復,可先 bagging 維持暫不插管', correct: false }
+    ],
+    ans: 'A',
+    exp: '已不推薦於心停常規 Sellick。'
+  },
+  {
+    id: 59, cat: 'airway_breath',
+    q: '40 歲男氣喘病患插管後轉送大醫院,途中血氧下降、嘴唇發紺,以下處置何者為非?',
+    options: [
+      { text: '考量氣管內管滑脫,可看蒸氣胸部起伏聽呼吸音再次確認位置', correct: false },
+      { text: '嘗試用軟抽吸管抽吸看是否痰堵塞', correct: false },
+      { text: '聽診兩側呼吸音,若一邊聽不到應考慮氣胸', correct: false },
+      { text: '若手腳冰冷可能末梢循環不良致血氧偵測錯誤', correct: true }
+    ],
+    ans: 'D',
+    exp: '已插管後出現呼吸問題,應先排除 DOPE(Displacement / Obstruction / Pneumothorax / Equipment)。'
+  },
+  {
+    id: 60, cat: 'airway_breath',
+    q: '有關簡單型面罩,下列何者錯誤?',
+    options: [
+      { text: '建議流速 6-10 L/min,可提供 35-60% 氧氣濃度', correct: false },
+      { text: '不建議流速低於 6 L/min,以避免二氧化碳滯留', correct: false },
+      { text: '可有效提供高濃度的氧氣', correct: true },
+      { text: '建議張口呼吸病人使用', correct: false }
+    ],
+    ans: 'C',
+    exp: '簡單面罩無法提供高濃度氧氣;高濃度需 NRM 或 BVM 接氧氣。'
+  },
+
+  // ===== 心搏停止治療流程 =====
+  {
+    id: 63, cat: 'arrest',
+    q: '造成 PEA 最常見之 5H5T 中,不包括下列何者?',
+    options: [
+      { text: '酸中毒', correct: false },
+      { text: '冠心症', correct: false },
+      { text: '肺水腫', correct: true },
+      { text: '低體溫', correct: false }
+    ],
+    ans: 'C',
+    exp: '5H5T:5H(Hypoxia/Hypothermia/Hypovolemia/Hyper-Hypokalemia/H+酸中毒)+ 5T(Thrombosis 心/肺、Tamponade、Tension pneumothorax、Toxins)。肺水腫不在內。'
+  },
+  {
+    id: 64, cat: 'arrest',
+    q: '院內 999 病患無意識無脈搏,監視器接上後出現 PEA 波形,下一步指示?',
+    options: [
+      { text: '進行氣管內管插管', correct: false },
+      { text: '給予 Epinephrine 1 mg IV', correct: false },
+      { text: '先給予壓胸 CPR', correct: true },
+      { text: '給予去顫電擊', correct: false }
+    ],
+    ans: 'C',
+    exp: 'PEA:先給予壓胸 CPR 後再給 Epinephrine 1 mg IV。'
+  },
+  {
+    id: 65, cat: 'arrest',
+    q: '治療 VF 的藥物包括下列何者? (1) Amiodarone (2) Epinephrine (3) Adenosine (4) Lidocaine (5) Isoptin',
+    options: [
+      { text: '2、3', correct: false },
+      { text: '1、2、4、5', correct: false },
+      { text: '2、4、5', correct: false },
+      { text: '1、2、4', correct: true }
+    ],
+    ans: 'D',
+    exp: 'VF 治療藥物:Epinephrine、Amiodarone、Lidocaine。'
+  },
+  {
+    id: 66, cat: 'arrest',
+    q: '有關心臟停止之心律及其治療,下列何者錯誤?',
+    options: [
+      { text: '目擊者心臟停止約 40% 為 VF 或 pVT', correct: false },
+      { text: '高品質 CPR 可矯正 VF 或 pVT', correct: true },
+      { text: '若 VF 延遲電擊,每分鐘急救成功率下降 7-10%', correct: false },
+      { text: '若 VF 病人等電擊時有 CPR,每分鐘平均存活率下降 3-4%', correct: false }
+    ],
+    ans: 'B',
+    exp: '高品質 CPR 不能矯正 VF/pVT,只能延長 VF 到 Asystole 的時間。'
+  },
+  {
+    id: 67, cat: 'arrest',
+    q: '有關 PEA 治療,下列敘述何者錯誤?',
+    options: [
+      { text: '無囉音可考慮快速灌注 N/S 增加循環容積', correct: false },
+      { text: '應重點評估理學檢查及病史,儘快尋找原因', correct: false },
+      { text: 'Epinephrine 1 mg IV push', correct: false },
+      { text: 'Lidocaine 1 mg/kg IV push', correct: true }
+    ],
+    ans: 'D',
+    exp: 'PEA 治療藥物為 Epinephrine,Lidocaine 用於 VF 及 pVT。'
+  },
+  {
+    id: 68, cat: 'arrest',
+    q: '下列哪一項 PEA 原因,較難在床邊迅速診斷及處置?',
+    options: [
+      { text: '張力性氣胸', correct: false },
+      { text: '肺栓塞', correct: true },
+      { text: '低血容', correct: false },
+      { text: '心包膜填塞', correct: false }
+    ],
+    ans: 'B',
+    exp: '肺栓塞需電腦斷層診斷,CPR 時難達成。其他三項可由理學檢查 + 超音波床邊判斷。'
+  },
+  {
+    id: 69, cat: 'arrest',
+    q: '有關 PEA,下列何者在初期即較常為寬 QRS 波形?',
+    options: [
+      { text: '低血容', correct: false },
+      { text: '高血鉀', correct: true },
+      { text: '心包膜填塞', correct: false },
+      { text: '張力性氣胸', correct: false }
+    ],
+    ans: 'B',
+    exp: '高血鉀的心電圖 QRS 變寬,並導致致命性心律不整。透析病人 PEA 第一個想高鉀。'
+  },
+  {
+    id: 70, cat: 'arrest',
+    q: '56 歲男 PEA,寬而緩慢的心律。下列原因何者較少引起寬而緩慢的 PEA?',
+    options: [
+      { text: '高血鉀(血鉀 > 7.0)', correct: false },
+      { text: '低血容', correct: true },
+      { text: '藥物中毒(TCA、BB、CCB 等)', correct: false },
+      { text: '以上皆不可能', correct: false }
+    ],
+    ans: 'B',
+    exp: '低血容導致的 PEA 初期大多為窄波;高血鉀和心臟毒物中毒則常為寬波。'
+  },
+  {
+    id: 71, cat: 'arrest',
+    q: '想在短時間內找出 PEA/Asystole 病人可能原因,快速理學檢查不包含?',
+    options: [
+      { text: '查看頸靜脈是否怒張', correct: false },
+      { text: '測量深肌腱反射', correct: true },
+      { text: '聽診兩側呼吸音', correct: false },
+      { text: '超音波檢視心臟及腹部', correct: false }
+    ],
+    ans: 'B',
+    exp: '無脈搏病人一般無深肌腱反射,也無法依此找出可治療原因。'
+  },
+  {
+    id: 72, cat: 'arrest',
+    q: '下列描述何者錯誤?',
+    options: [
+      { text: '電擊用於 Asystole 反而會使副交感神經放電,減少恢復心律機會', correct: false },
+      { text: '高劑量 Epinephrine (0.2 mg/kg) 可增加 Asystole 病患出院率', correct: true },
+      { text: 'Atropine 已不建議使用於 Asystole', correct: false },
+      { text: 'PEA 治療流程與 Asystole 相同,但更強調要找原因', correct: false }
+    ],
+    ans: 'B',
+    exp: '高劑量 Epi 與標準劑量比不能增加出院率和神經學恢復率。'
+  },
+  {
+    id: 73, cat: 'arrest',
+    q: 'PEA 之治療何者為正確?',
+    options: [
+      { text: 'PEA 病人在心室心律 < 50 bpm 時才壓胸', correct: false },
+      { text: 'PEA 治療成功在於確認及治療產生 PEA 之 5H 及 5T 病因', correct: true },
+      { text: 'Atropine 可考慮用於治療慢的 PEA', correct: false },
+      { text: 'PEA 很少因低血容引起,靜脈輸液是禁忌', correct: false }
+    ],
+    ans: 'B',
+    exp: 'PEA/Asystole 唯一治療:CPR + 藥物(Epi)+ 找原因(5H5T)。Atropine 已不建議用於 Asystole 或慢 PEA。'
+  },
+  {
+    id: 74, cat: 'arrest',
+    q: '62 歲女,3 週前主動脈瓣及二尖瓣置換手術 + 抗凝血劑。在家不省人事到院。CPR + 插管 + 100% 氧氣。窄 QRS 80 bpm 但無脈搏,UCG 無心包填塞。何者最適合?',
+    options: [
+      { text: 'Atropine 1 mg q3-5min 至 0.04 mg/kg + Vasopressin 40 U IV', correct: false },
+      { text: 'NaHCO3 1 mEq/kg q3-5min 治療高鉀', correct: false },
+      { text: 'Epinephrine 1 mg + 輸液推注並尋找可治療原因', correct: true },
+      { text: '會診原本手術之醫師', correct: false }
+    ],
+    ans: 'C',
+    exp: '此病人 PEA 原因可能是出血造成 hypovolemia(剛開刀且抗凝血劑)。Atropine 不用於 PEA;尚未明確原因前不建議常規 NaHCO3。'
+  },
+  {
+    id: 75, cat: 'arrest',
+    q: '何種 PEA 病人接受 NaHCO3 1 mEq/kg 最有效果?',
+    options: [
+      { text: '二氧化碳過高酸中毒及壓力性氣胸減壓治療之病人', correct: false },
+      { text: '短暫心跳呼吸停止之病人', correct: false },
+      { text: '已確定有高血鉀之病人', correct: true },
+      { text: '已確定有低血鉀之病人', correct: false }
+    ],
+    ans: 'C',
+    exp: '只在已確定有高血鉀病人使用 NaHCO3 才是標準治療(Class I)。其他情境不建議常規給。'
+  },
+  {
+    id: 76, cat: 'arrest',
+    q: '30 歲精神科男性跳樓自殺,到院無意識無脈搏,EKG monitor 心率 35 bpm 規則寬 QRS,首先應如何處置?',
+    options: [
+      { text: '建立 IV + Atropine 1 mg', correct: false },
+      { text: 'TCP 將心率控制在 70 bpm', correct: false },
+      { text: '聯絡頭部 CT 及會診神經外科', correct: false },
+      { text: '立刻 CPR 並尋找 5H5T 原因', correct: true }
+    ],
+    ans: 'D',
+    exp: '無脈搏 + 非 VT/VF/Asystole 心律 = PEA,唯一治療 CPR + Epi + 找 5H5T。'
+  },
+  {
+    id: 77, cat: 'arrest',
+    q: '26 歲女性重大車禍,到院無脈搏無呼吸,EKG 顯示規則有 P 波窄 QRS,40/min,此心律是?',
+    options: [
+      { text: 'Idioventricular rhythm', correct: false },
+      { text: 'Asystole', correct: false },
+      { text: 'Atrial fibrillation', correct: false },
+      { text: 'Pulseless electrical activity', correct: true }
+    ],
+    ans: 'D',
+    exp: 'PEA:有電氣活動、有 EKG 波形,但無有效機械收縮 → 無脈搏。'
+  },
+  {
+    id: 78, cat: 'arrest',
+    q: 'COPD 男咳嗽多日剛到急診,忽變很喘,幾分鐘後倒地,目擊無呼吸無脈搏,EKG 為 PEA,以下何者為非?',
+    options: [
+      { text: 'CPR 壓胸 100-120/分', correct: false },
+      { text: '每 3-5 分鐘 IV Epinephrine 1 mg', correct: false },
+      { text: '不應浪費時間找原因,只繼續壓胸給藥最好', correct: true },
+      { text: '此狀況下不應電擊,要繼續 CPR', correct: false }
+    ],
+    ans: 'C',
+    exp: 'PEA/Asystole 必須儘快找出可逆原因(5H5T)。COPD 急喘倒地可能張力性氣胸 → 立刻針減壓。'
+  },
+  {
+    id: 79, cat: 'arrest',
+    q: '寒冬,中年男倒在陸橋下,全身酒味,到院無自主呼吸無脈搏,monitor Asystole,以下何者錯誤?',
+    options: [
+      { text: '應儘速矯正可能的低體溫', correct: false },
+      { text: '可考慮使用 Epinephrine', correct: false },
+      { text: '儘速電擊比 CPR 更有效', correct: true },
+      { text: '低血鉀、藥物中毒需列入鑑別診斷', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Asystole 不應電擊(無好處且有害)。唯一治療:CPR + Epi + 找原因(低體溫、低鉀、藥物中毒)。'
+  },
+  {
+    id: 80, cat: 'arrest',
+    q: '當發現心律為 VF 時,下列敘述何者錯誤?',
+    options: [
+      { text: '應立即連續給三個連續電擊', correct: true },
+      { text: 'VF 最主要治療是迅速電擊去顫', correct: false },
+      { text: '電擊一次後應立即 CPR 2 分鐘', correct: false },
+      { text: '單向電擊器電量為 360J', correct: false }
+    ],
+    ans: 'A',
+    exp: '單一次電擊後立刻 CPR 2 分鐘。連續三次電擊是 2010 年前的舊做法。'
+  },
+  {
+    id: 81, cat: 'arrest',
+    q: '插管病人 EKG 規則無 P 波寬 QRS 180 次/分,無自發呼吸無脈搏,CPR 進行中,何者處置不適當?',
+    options: [
+      { text: '持續高品質 CPR', correct: false },
+      { text: '充電 200J 後雙相非同步去顫一次', correct: false },
+      { text: 'Verapamil 1 amp IV', correct: true },
+      { text: '找出 pulseless VT 原因', correct: false }
+    ],
+    ans: 'C',
+    exp: 'pVT 處置:CPR + 電擊 + 藥物 + 找原因。藥物用 Epinephrine、Amiodarone、Lidocaine,不是 Verapamil。'
+  },
+  {
+    id: 82, cat: 'arrest',
+    q: '關於 VF 及 Defibrillation 的敘述,下列何者有誤?',
+    options: [
+      { text: '對 VF 唯一最有效的治療為 defibrillation', correct: false },
+      { text: '高品質 CPR 可將 VF 轉為正常的心率', correct: true },
+      { text: 'VF 若不處理可能在數分鐘內變成 Asystole', correct: false },
+      { text: 'Defibrillation 成功率隨時間延遲變小', correct: false }
+    ],
+    ans: 'B',
+    exp: 'VF 唯一有效治療是去顫。CPR 只能延長 VF 到 Asystole 的時間,無法轉成正常心律。'
+  },
+  {
+    id: 83, cat: 'arrest',
+    q: '50 歲菸槍高血壓男在心臟科候診時忽然倒下,以下何者為非?',
+    options: [
+      { text: '身旁民眾首先要拍肩叫喚,無反應立即請人求救', correct: false },
+      { text: '目擊猝死多為致命性心律不整,應立刻給予胸前重擊再去取 AED', correct: true },
+      { text: '無意識也無呼吸時不需檢查脈搏便應 CPR', correct: false },
+      { text: '若需電擊則直接使用 200 J', correct: false }
+    ],
+    ans: 'B',
+    exp: '目擊倒下:叫叫 CAB,儘快取 AED + CPR,而非胸前重擊。'
+  },
+  {
+    id: 84, cat: 'arrest',
+    q: '關於 VF 藥物使用,建立 IV 後優先給予以下何藥物?',
+    options: [
+      { text: 'Epinephrine', correct: true },
+      { text: 'Lidocaine', correct: false },
+      { text: 'Amiodarone', correct: false },
+      { text: 'MgSO4', correct: false }
+    ],
+    ans: 'A',
+    exp: '心搏停止治療流程,IV 建好後首先給 Epinephrine,可每 3-5 分鐘重複一次。'
+  },
+  {
+    id: 85, cat: 'arrest',
+    q: '關於 VF 的敘述,以下何者錯誤?',
+    options: [
+      { text: 'MgSO4 僅建議使用在 Torsades 病患', correct: false },
+      { text: '即使 VF 變成 Asystole 後仍應繼續電擊治療', correct: true },
+      { text: 'Lidocaine 可考慮使用,劑量 1-1.5 mg/kg', correct: false },
+      { text: 'Amiodarone 可考慮使用,劑量 300mg IV', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Asystole 為不可電擊心律,應持續高品質 CPR 及每 3-5 分鐘 Epinephrine。'
+  },
+  {
+    id: 86, cat: 'arrest',
+    q: '2025 ACLS 對成人 VF 治療敘述,下列何者為非?',
+    options: [
+      { text: '強調電擊一次後儘快給予高品質 CPR', correct: false },
+      { text: 'VF 最有效治療為去顫電擊', correct: false },
+      { text: '電擊板放右上胸骨及左腋中線心尖,以 25 磅力量壓緊胸部', correct: false },
+      { text: '所有無脈搏患者皆要分秒必爭早些電擊', correct: true }
+    ],
+    ans: 'D',
+    exp: '電擊只用於可電擊心律(VF/pVT),Asystole 和 PEA 不須電擊。'
+  },
+  {
+    id: 87, cat: 'arrest',
+    q: '67 歲男雜貨店昏倒,EMT 6:10 抵達,無意識無呼吸無心跳開始 CPR,接 AED 為可電擊,下一步?',
+    options: [
+      { text: '停止 CPR,待 AED 電擊後再馬上 CPR', correct: true },
+      { text: '停止 CPR,待 AED 電擊後再等 AED 確定是否仍可電擊', correct: false },
+      { text: '建立進階呼吸道後再電擊', correct: false },
+      { text: '時間超過 5 分鐘所以持續 CPR 送醫院,現場不電擊', correct: false }
+    ],
+    ans: 'A',
+    exp: 'AED 分析為可電擊心律,應立刻電擊後再馬上 CPR,2 分鐘後 AED 再分析。'
+  },
+  {
+    id: 88, cat: 'arrest',
+    q: '承上題,病患到急診仍 VF,CPR + Epinephrine 後,下列藥物何者正確?',
+    options: [
+      { text: 'Amiodarone 300 mg IV', correct: true },
+      { text: 'Amiodarone 150 mg IV drip', correct: false },
+      { text: 'Lidocaine 0.5-0.75 mg/kg IV', correct: false },
+      { text: 'Adenosine 6 mg fast IV', correct: false }
+    ],
+    ans: 'A',
+    exp: 'VF/pVT 對 CPR + 電擊 + Epi 反應差,Amiodarone 起始劑量 300 mg IV push,可再 150 mg。'
+  },
+  {
+    id: 89, cat: 'arrest',
+    q: '承上題,Epi 及 Amio 後 ROSC,下一步處置何者較適當?',
+    options: [
+      { text: 'Lidocaine 1-1.5 mg/kg', correct: false },
+      { text: '已恢復心跳,持續監測待心律不整復發再考慮用藥', correct: false },
+      { text: 'Epinephrine 2-10 mcg/min 增加腦心血流灌流', correct: false },
+      { text: '繼續 Amiodarone,前 6 hr 1 mg/min,後 18 hr 0.5 mg/min', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Amiodarone ROSC 後維持劑量:前 6 hr 1 mg/min,後 18 hr 0.5 mg/min。'
+  },
+  {
+    id: 90, cat: 'arrest',
+    q: '50 歲男逛賣場胸悶倒地,EMS CPR 至急診仍 VF,以下處置不合適?',
+    options: [
+      { text: '立即雙相電擊器電擊 200J', correct: false },
+      { text: '電擊後立即壓胸,5 循環 / 2 分鐘後再確認心律', correct: false },
+      { text: '再次仍 VF,Epinephrine', correct: false },
+      { text: '若 IV 未建立可經氣管內管給 Amiodarone', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Amiodarone 不建議經 ETT 給藥(只有 LANE - Lidocaine、Atropine、Naloxone、Epinephrine 可)。'
+  },
+  {
+    id: 91, cat: 'arrest',
+    q: '35 歲男上班暈倒醒來,到急診後抽搐,EKG monitor 顯示寬 QRS 規則 tachycardia,何者較正確?',
+    options: [
+      { text: '若無脈搏先雙相同步電擊 100J', correct: false },
+      { text: '若有脈搏先雙相同步電擊 100J', correct: true },
+      { text: '若有脈搏先雙相不同步電擊 200J', correct: false },
+      { text: '若有脈搏先 Amiodarone 150 mg IV 10 分鐘', correct: false }
+    ],
+    ans: 'B',
+    exp: '無脈 VT 唯一有效是去顫(雙相 120-200J)。有脈 monomorphic VT 同步從 100J 開始。'
+  },
+  {
+    id: 92, cat: 'arrest',
+    q: '關於 Amiodarone 敘述何者錯誤?',
+    options: [
+      { text: '會造成 QT 延長', correct: false },
+      { text: '經由腎臟代謝,腎衰竭病患禁用', correct: true },
+      { text: '可治療 VF', correct: false },
+      { text: '常見及最嚴重併發症為低血壓', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Amiodarone 主要由肝代謝,Torsades 不宜使用(會惡化 QT)。'
+  },
+  {
+    id: 93, cat: 'arrest',
+    q: '有關電擊器使用的敘述,何者正確?',
+    options: [
+      { text: '裝有 pacemaker 病人不可用體外電擊器', correct: false },
+      { text: '心搏過速休克但有脈搏的規則 QRS,因急不需按同步鍵', correct: false },
+      { text: 'VF 可考慮直接連續電擊三次以增強效果', correct: false },
+      { text: 'VF 若用單相電擊器應直接非同步電擊 360J', correct: true }
+    ],
+    ans: 'D',
+    exp: '電擊器可用於有 pacemaker 病人,避免直接電擊裝置。心搏過速有脈搏必須同步整流。VF 現只電一次即 CPR。'
+  },
+  {
+    id: 94, cat: 'arrest',
+    q: '關於張力性氣胸導致之 PEA,下列何者為誤?',
+    options: [
+      { text: '使用呼吸器的病人有較高發生機率', correct: false },
+      { text: '可因外傷或肺部疾病(COPD 等)導致', correct: false },
+      { text: '懷疑時應藉由 CXR 儘速診斷', correct: true },
+      { text: '可藉由氣管偏移及頸靜脈怒張等理學檢查發現', correct: false }
+    ],
+    ans: 'C',
+    exp: '張力性氣胸是急症,PEA 病患不應等 CXR(會延長救治),臨床高度懷疑時即治療(針減壓)。'
+  },
+  {
+    id: 95, cat: 'arrest',
+    q: '50 歲菸槍候診倒下,5 分鐘時送至急診,途中無 CPR,以下何者為對?',
+    options: [
+      { text: '不需先 CPR,應立即用電擊器察看是否 VF', correct: false },
+      { text: 'VF 電擊一次無反應應緊接著電擊第二次', correct: false },
+      { text: 'VF 用單向電擊器應先 200J', correct: false },
+      { text: '電擊後立刻壓胸,2 分鐘後再檢查心律', correct: true }
+    ],
+    ans: 'D',
+    exp: '建議立即 CPR + 接 EKG monitor。VF 電擊一次後立刻 CPR,不檢查心律。'
+  },
+  {
+    id: 96, cat: 'arrest',
+    q: '精神病患過度換氣給 Valium 後突然失去意識摸不到頸動脈,monitor 顯示無脈 VT,如何處置?',
+    options: [
+      { text: '雙相去顫電擊 200J', correct: true },
+      { text: '單相去顫電擊 200J', correct: false },
+      { text: '單相同步電擊 100J', correct: false },
+      { text: '病患詐病不予理會', correct: false }
+    ],
+    ans: 'A',
+    exp: '無脈性 VT 立即 CPR + 雙相去顫 120-200J。'
+  },
+  {
+    id: 97, cat: 'arrest',
+    q: 'CPR 中 EKG 為 VF 的病患,首先應給下列那種治療?',
+    options: [
+      { text: 'NaHCO3', correct: false },
+      { text: 'CaCl2', correct: false },
+      { text: 'Lidocaine', correct: false },
+      { text: '去顫術', correct: true }
+    ],
+    ans: 'D',
+    exp: 'VF 唯一有效治療為早期去顫。'
+  }
+],
+  ...[
+  // ===== 動態心律不整 =====
+  {
+    id: 99, cat: 'arrhythmia',
+    q: '下列有關於心律不整的判讀,何者有誤?',
+    options: [
+      { text: '正常心跳速率介於 60-100 beats/min', correct: false },
+      { text: '寬的 QRS complex 是指 QRS 寬度 ≧ 5 小格(0.2 秒)', correct: true },
+      { text: 'P 波的有無可作為判讀心律的參考', correct: false },
+      { text: 'P 波與 QRS complex 間的關係可幫助分辨產生心律不整的部位', correct: false }
+    ],
+    ans: 'B',
+    exp: '寬 QRS 定義是 QRS 寬度 ≧ 3 小格(0.12 秒),不是 5 小格。'
+  },
+  {
+    id: 100, cat: 'arrhythmia',
+    q: 'EKG 上呈現多型 QRS、振幅變化呈紡錘狀的心律,為何種心律?',
+    options: [
+      { text: 'VT (Ventricular Tachycardia)', correct: false },
+      { text: 'Af (Atrial Fibrillation)', correct: false },
+      { text: 'Torsades de pointes', correct: true },
+      { text: 'MAT (Multifocal Atrial Tachycardia)', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Torsades de pointes 是 QT prolong 引起的心律不整,典型紡錘狀波形。'
+  },
+  {
+    id: 101, cat: 'arrhythmia',
+    q: 'EKG 顯示 PR 固定但偶有 QRS 突然消失,為何種心律?',
+    options: [
+      { text: 'Type-I Second degree AV block (Mobitz I)', correct: false },
+      { text: 'Type-II Second degree AV block (Mobitz II)', correct: true },
+      { text: 'Third degree AV block', correct: false },
+      { text: 'Sinus Bradycardia', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Mobitz II:PR 固定,QRS 突然不見。Mobitz I:PR 漸延長後一個 QRS 不見。'
+  },
+  {
+    id: 102, cat: 'arrhythmia',
+    q: 'EKG 顯示無 QRS 或 P 波、不規則粗細顫動波形,為何種心律?',
+    options: [
+      { text: 'Atrial fibrillation', correct: false },
+      { text: 'Atrial Flutter', correct: false },
+      { text: 'Ventricular Fibrillation', correct: true },
+      { text: 'Ventricular Tachycardia', correct: false }
+    ],
+    ans: 'C',
+    exp: 'VF 為心室纖顫,EKG 完全混亂無辨認 QRS。'
+  },
+  {
+    id: 103, cat: 'arrhythmia',
+    q: 'EKG 顯示無 P 波、寬大 QRS、規則高速 (~150-200/min) 心律,為何種?',
+    options: [
+      { text: 'Atrial fibrillation', correct: false },
+      { text: 'Atrial Flutter', correct: false },
+      { text: 'Ventricular Fibrillation', correct: false },
+      { text: 'Ventricular Tachycardia', correct: true }
+    ],
+    ans: 'D',
+    exp: 'VT 為心室頻脈,寬 QRS 規則高速。'
+  },
+  {
+    id: 104, cat: 'arrhythmia',
+    q: 'EKG 顯示 PR 固定但 QRS 突然不見,為何種心律?',
+    options: [
+      { text: '1° AV block', correct: false },
+      { text: '2° AV block, Mobitz I', correct: false },
+      { text: '2° AV block, Mobitz II', correct: true },
+      { text: '3° AV block', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Mobitz II 特徵:PR 固定,QRS 突然消失,危險性高。'
+  },
+  {
+    id: 105, cat: 'arrhythmia',
+    q: 'EKG 顯示鋸齒狀 P 波(F 波)、規則窄 QRS,為何種心律?',
+    options: [
+      { text: '心室上頻脈 (PSVT)', correct: false },
+      { text: '心房纖維顫動 (Atrial Fibrillation)', correct: false },
+      { text: '心房撲動 (Atrial Flutter)', correct: true },
+      { text: '心室頻脈 (VT)', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Atrial Flutter 特徵:鋸齒狀 F 波(典型 II、III、aVF 導程明顯)。'
+  },
+  {
+    id: 106, cat: 'arrhythmia',
+    q: '心電圖沒看到明顯 P 波,合併 QRS 變寬,推斷為心室心律不整。QRS 變寬定義 ≧ 幾秒?',
+    options: [
+      { text: '0.12 秒', correct: true },
+      { text: '0.16 秒', correct: false },
+      { text: '0.08 秒', correct: false },
+      { text: '0.2 秒', correct: false }
+    ],
+    ans: 'A',
+    exp: '> 0.12 秒(三小格)為 Wide QRS。'
+  },
+  {
+    id: 107, cat: 'arrhythmia',
+    q: '50 歲酒癮男腹痛,突然意識不清無呼吸心跳,EKG 紡錘狀波形,此心律為?',
+    options: [
+      { text: 'Ventricular Tachycardia', correct: false },
+      { text: '3° AV block', correct: false },
+      { text: 'Atrial fibrillation', correct: false },
+      { text: 'Torsades de pointes', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Torsades 紡錘狀典型,治療首選 MgSO4。'
+  },
+  {
+    id: 108, cat: 'arrhythmia',
+    q: '在急救無脈搏病人時,以下心律何者不該進行去顫?(A) VT (B) Wide QRS tachy (C) VF (D) 緩慢窄 QRS PEA',
+    options: [
+      { text: '(A)', correct: false },
+      { text: '(B)', correct: false },
+      { text: '(C)', correct: false },
+      { text: '(D)', correct: true }
+    ],
+    ans: 'D',
+    exp: 'PEA 應先壓胸 CPR,不應電擊。VT/VF/Wide QRS tachy(在無脈搏)都應去顫。'
+  },
+  {
+    id: 109, cat: 'arrhythmia',
+    q: '60 歲男心悸胸痛喘,BP 70/40 SpO2 88%,EKG 寬 QRS 規則 tachycardia,此心律為?',
+    options: [
+      { text: 'PEA', correct: false },
+      { text: 'PSVT', correct: false },
+      { text: 'Atrial flutter', correct: false },
+      { text: 'Ventricular Tachycardia', correct: true }
+    ],
+    ans: 'D',
+    exp: '寬 QRS + 規則 + 高速 + 不穩定 = VT,屬不穩定心搏過速。'
+  },
+  {
+    id: 110, cat: 'arrhythmia',
+    q: '第一度房室傳導阻滯定義,PR interval 大於?',
+    options: [
+      { text: '0.24 秒', correct: false },
+      { text: '0.20 秒', correct: true },
+      { text: '0.16 秒', correct: false },
+      { text: '0.12 秒', correct: false }
+    ],
+    ans: 'B',
+    exp: '1° AVB:PR > 0.20 秒,但每個 P 後都有 QRS。'
+  },
+  {
+    id: 111, cat: 'arrhythmia',
+    q: 'EKG 顯示窄 QRS、無 P 波、規則 40-60 bpm 心律,為何種?',
+    options: [
+      { text: 'Ventricular Tachycardia', correct: false },
+      { text: '3° AV block', correct: false },
+      { text: 'Atrial flutter', correct: false },
+      { text: 'Junctional rhythm', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Junctional rhythm 起源於 AV 接合處,窄 QRS 但無 P 波或倒 P 波。'
+  },
+  {
+    id: 112, cat: 'arrhythmia',
+    q: '25 歲女心悸,BP 100/70 SpO2 94%,EKG 顯示窄 QRS 規則 ~150-180/min 無 P 波,為何種心律?',
+    options: [
+      { text: 'Sinus rhythm', correct: false },
+      { text: 'Atrial flutter', correct: false },
+      { text: 'PSVT', correct: true },
+      { text: 'Atrial fibrillation', correct: false }
+    ],
+    ans: 'C',
+    exp: 'PSVT 特徵:無 P 波、窄 QRS、規則、高速,治療首選 Vagal maneuver / Adenosine。'
+  },
+  {
+    id: 113, cat: 'arrhythmia',
+    q: '發現病患 EKG 有單一 PVC,以下處置何者較適當?',
+    options: [
+      { text: '若沒症狀可不用治療', correct: true },
+      { text: '立即給 Lidocaine', correct: false },
+      { text: '給 Amiodarone 滴注 > 10 分鐘', correct: false },
+      { text: '準備電擊,雙相 100J 開始', correct: false }
+    ],
+    ans: 'A',
+    exp: '單一無症狀 PVC 不需治療,只需找原因(電解質、缺氧、缺血)。'
+  },
+
+  // ===== 心搏過慢治療流程 =====
+  {
+    id: 114, cat: 'brady',
+    q: '65 歲男 75kg,呼吸喘,BP 80/60,HR 45,EKG 一度 AVB,無心臟病史。下列藥物何者優先?',
+    options: [
+      { text: 'Atropine 1 mg IV', correct: true },
+      { text: 'Isoproterenol 2-10 mcg/min IV drip', correct: false },
+      { text: 'Lidocaine 75 mg IV push', correct: false },
+      { text: 'Dopamine 2 mcg/min/kg IV drip', correct: false }
+    ],
+    ans: 'A',
+    exp: '不穩定徐脈藥物第一線是 Atropine 1mg q3-5min,max 3mg。'
+  },
+  {
+    id: 115, cat: 'brady',
+    q: '林先生 75 歲,大餐後肚痛,T 36.5,HR 40,RR 14,BP 180/100,無胸痛無休克,EKG 3° AVB,如何處理?',
+    options: [
+      { text: 'Atropine 1 mg IV', correct: false },
+      { text: 'Dopamine 5-20 mcg/kg/min IV', correct: false },
+      { text: 'TCP', correct: false },
+      { text: '觀察、找原因,但須準備 TCP', correct: true }
+    ],
+    ans: 'D',
+    exp: '穩定徐脈不須藥物治療,要觀察、監測、找原因,必要時會診專家。3° AVB 須備 TCP。'
+  },
+  {
+    id: 116, cat: 'brady',
+    q: '病人 BP 70/40 盜汗胸悶,EKG 為 3° AVB 寬 QRS,最有幫助處理為?',
+    options: [
+      { text: 'Epinephrine 1 mg IV', correct: false },
+      { text: 'Atropine 1 mg IV push', correct: false },
+      { text: 'TCP', correct: true },
+      { text: 'Dopamine 5 mg/kg/min IV', correct: false }
+    ],
+    ans: 'C',
+    exp: '3° AVB 合併寬 QRS 對 Atropine 反應差,應立即 TCP。Epi 劑量錯誤(那是心停劑量)。'
+  },
+  {
+    id: 117, cat: 'brady',
+    q: '何者不是 TCP 使用之適應症?',
+    options: [
+      { text: '有症狀不穩定竇性心跳過慢', correct: false },
+      { text: '低血壓休克竇性心跳過慢', correct: false },
+      { text: '完全房室傳導阻滯合併肺水腫', correct: false },
+      { text: '長時間的 Asystole', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Asystole 使用 TCP 沒有好處,不建議使用。'
+  },
+  {
+    id: 118, cat: 'brady',
+    q: '住院病人查房:頭暈、四肢冰冷、潮濕,HR 45 規則,BP 80/60,EKG 3° AVB 合併新的寬 QRS,何者最適當?',
+    options: [
+      { text: 'Adenosine 6 mg IV push', correct: false },
+      { text: 'Dopamine 5-20 mcg/kg/min IV', correct: true },
+      { text: 'Isoproterenol 2-10 mcg/kg/min IV', correct: false },
+      { text: 'Epinephrine 1 mg IV push', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Mobitz II 或 3° AVB 合併寬 QRS 病人,Atropine 效果不佳,應 TCP 或二線 Dopamine/Epi。'
+  },
+  {
+    id: 119, cat: 'brady',
+    q: '骨盆脫臼徒手復位,鎮靜後呼吸 6/min,BP 96/64,EKG 竇性心搏過緩,如何處理?',
+    options: [
+      { text: '先給氧與輔助通氣', correct: true },
+      { text: 'Atropine 1 mg IV', correct: false },
+      { text: 'Dopamine 5-20 mcg/kg/min IV', correct: false },
+      { text: 'TCP', correct: false }
+    ],
+    ans: 'A',
+    exp: '所有徐脈病人先 O2 / IV / Monitor。此例為鎮定藥物呼吸抑制,優先給氧通氣即可恢復心跳。'
+  },
+  {
+    id: 120, cat: 'brady',
+    q: '下列何種情況不建議使用 Atropine 作為心跳過慢的治療?',
+    options: [
+      { text: '剛接受心臟移植的陳先生,竇性徐脈不穩定症狀', correct: true },
+      { text: '心衰病史李太太,端坐呼吸喘,1° AVB', correct: false },
+      { text: '冒冷汗呼吸困難邱老,竇性徐脈,BP 100/40', correct: false },
+      { text: '昏厥杜老,BP 70/40,2°-1 AVB', correct: false }
+    ],
+    ans: 'A',
+    exp: '心臟移植病人因無迷走神經分佈,Atropine 可能無效。'
+  },
+  {
+    id: 121, cat: 'brady',
+    q: '對於 Bradycardia 病患急救過程,何者為非?',
+    options: [
+      { text: 'TCP 是重要治療方法', correct: false },
+      { text: '不管血壓穩定與否皆應放置 TCP', correct: true },
+      { text: '等 TCP 期間可考慮 Atropine 1 mg IV', correct: false },
+      { text: '等 TCP 期間可考慮 Epinephrine 2-10 mcg/min IV drip', correct: false }
+    ],
+    ans: 'B',
+    exp: '無症狀徐脈不必治療只觀察。Mobitz II 或 3° AVB 合併寬 QRS 才考慮立即 TCP 或 Epi/Dopamine。'
+  },
+  {
+    id: 122, cat: 'brady',
+    q: '68 歲女誤服一週量降壓藥,O2 6L/min,HR 32,BP 120/80,RR 16,SpO2 99%,神智清,12 lead 為竇性徐脈無 ST-T 變化,最適合處置?',
+    options: [
+      { text: '持續監測生命徵象', correct: true },
+      { text: 'Atropine 1 mg IV push', correct: false },
+      { text: '貼上 TCP 開始 pacing', correct: false },
+      { text: 'Aspirin 325 mg PO', correct: false }
+    ],
+    ans: 'A',
+    exp: '無症狀徐脈不必治療,只需觀察及監測。'
+  },
+  {
+    id: 123, cat: 'brady',
+    q: '承上題,2 hr 後 EKG 出現 PR 固定但 QRS 偶爾消失,為何種?',
+    options: [
+      { text: '竇性心搏過緩', correct: false },
+      { text: '3° AVB', correct: false },
+      { text: '2° AVB Mobitz I', correct: false },
+      { text: '2° AVB Mobitz II', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Mobitz II:PR 固定,QRS 突然不見。'
+  },
+  {
+    id: 124, cat: 'brady',
+    q: '承上題,Mobitz II 此時最適合處置?',
+    options: [
+      { text: '持續監測生命徵象', correct: false },
+      { text: 'Atropine 1 mg IV push', correct: false },
+      { text: 'TCP 開始予刺激', correct: false },
+      { text: '立刻貼上 TCP 備用,但不需要立刻給予刺激', correct: true }
+    ],
+    ans: 'D',
+    exp: '生命徵象沒變化、無新症狀暫不須治療。但 Mobitz II 或 3° AVB 變化可能性高,可 TCP standby。'
+  },
+  {
+    id: 125, cat: 'brady',
+    q: '承上題,2 hr 後病患冒冷汗、覺得快昏倒,BP 70/40,要 TCP,以下何者不合理?',
+    options: [
+      { text: '同時可考慮 Dopamine drip', correct: false },
+      { text: 'TCP 時除電氣波動,也要確認是否有有效脈搏', correct: false },
+      { text: 'TCP 穩定後應把電流降低 10mA 避免傷害心臟', correct: false },
+      { text: 'TCP 貼片放左胸上方右肩下,需要時不會妨礙電擊', correct: true }
+    ],
+    ans: 'D',
+    exp: 'TCP 貼片標準位置:右上(鎖骨中線下)+ 左下側(腋中線左乳外側),即 STERNUM-APEX 位置。'
+  },
+  {
+    id: 126, cat: 'brady',
+    q: 'TCP 後心律按 70 下/分跳動且摸到脈搏,但血壓還是 70/40,以下何者合理?',
+    options: [
+      { text: '把電流量往上調高血壓會升高', correct: false },
+      { text: '應把 TCP 關掉以免傷害心臟', correct: false },
+      { text: 'Dopamine 5-20 mcg/kg/min', correct: true },
+      { text: 'Dobutamine 2-10 mcg/kg/min', correct: false }
+    ],
+    ans: 'C',
+    exp: 'TCP 已 capture 但 BP 低,說明問題不在心律。Dopamine α/β 雙效,可用於低血壓徐脈(Class IIb)。'
+  },
+  {
+    id: 127, cat: 'brady',
+    q: '78 歲女胸悶冒冷汗,BP 80/40,EKG 為 3° AVB,下列何者錯誤?',
+    options: [
+      { text: '此心律為 3° AVB', correct: false },
+      { text: '首選藥物 Atropine,因此心律對 Atropine 反應良好', correct: true },
+      { text: 'Atropine 無效可考慮 Dopamine 或 Epinephrine', correct: false },
+      { text: '可使用 TCP', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Atropine 對 3° AVB 合併寬 QRS 反應差(阻斷在 AV node 下方)。'
+  },
+  {
+    id: 128, cat: 'brady',
+    q: '有關緊急心臟節律器的敘述,下列何者錯誤?',
+    options: [
+      { text: 'Asystole 或 PEA 不建議用 TCP,效果不佳', correct: false },
+      { text: '心跳過緩有嚴重症狀時可用 TCP', correct: false },
+      { text: 'Transvenous Pacing 比 TCP 更適合立即用於徐脈者', correct: true },
+      { text: 'Transvenous Pacing 比 TCP 效果好', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Transvenous pacing 效果好但無法立即使用。TCP 對於症狀性徐脈是適當立即選擇。'
+  },
+  {
+    id: 129, cat: 'brady',
+    q: '陳先生 50 歲高中老師心臟病史,因咳嗽多日,HR 40,BP 120/80,無胸痛喘,EKG 心搏過慢,如何處理?',
+    options: [
+      { text: 'Atropine 1 mg IV', correct: false },
+      { text: 'Dopamine 5-20 mcg/kg/min IV', correct: false },
+      { text: 'TCP', correct: false },
+      { text: '觀察即可,檢查可能原因,不需緊急處理', correct: true }
+    ],
+    ans: 'D',
+    exp: '穩定徐脈病患先觀察及監測患者是否出現組織灌流不足症狀。'
+  },
+  {
+    id: 130, cat: 'brady',
+    q: '下列關於 3° AVB 的敘述何者正確?',
+    options: [
+      { text: '當病患出現此心律時,須立即使用 TCP', correct: false },
+      { text: 'Atropine 治療效果仍是很好的(雖為 His Bundle 以下傳導阻滯)', correct: false },
+      { text: '指心房激動波無法傳入房室結,心室需自行發出激動波', correct: true },
+      { text: '心室節律通常規則,與心房節律有明確關連性', correct: false }
+    ],
+    ans: 'C',
+    exp: '3° AVB:心房與心室間沒電衝動傳遞,心室需自行發 escape rhythm。心房心室節律無關連。'
+  },
+  {
+    id: 131, cat: 'brady',
+    q: '不穩定徐脈用 Atropine 的方式?',
+    options: [
+      { text: '只能給予一次,不得重覆給予', correct: false },
+      { text: '得重覆給,次數不限,兩次給藥相距 3-5 分鐘', correct: false },
+      { text: '應連續給 6 次,每次 0.5 mg,總 3 mg', correct: false },
+      { text: '得重覆給,每次 1 mg,最高 3 mg', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Atropine 1 mg q3-5min,最大累積 3 mg。'
+  },
+  {
+    id: 132, cat: 'brady',
+    q: '80 歲男呼吸困難胸悶,T 36.2,HR 45,BP 89/51,RR 30,何者最不合適?',
+    options: [
+      { text: '給予氧氣', correct: false },
+      { text: '接 EKG monitor 並完成 12 導程', correct: false },
+      { text: '立刻 Amiodarone 150 mg IV drip', correct: true },
+      { text: '準備 TCP', correct: false }
+    ],
+    ans: 'C',
+    exp: '不穩定徐脈未有 Amiodarone 的角色。'
+  },
+  {
+    id: 133, cat: 'brady',
+    q: '王先生 51 歲老師糖尿病高血壓,頭昏胸悶,HR 45,BP 65/35,RR 25,兩肺囉音,EKG 徐脈,何處置?',
+    options: [
+      { text: '立刻 Epinephrine 1 mg IV', correct: false },
+      { text: '立刻 N/S 500 ml IV', correct: false },
+      { text: 'TCP', correct: true },
+      { text: '會診心臟科後再決定', correct: false }
+    ],
+    ans: 'C',
+    exp: '不穩定徐脈合併肺水腫。Epi 1 mg 是心停劑量。N/S 不適合(已有囉音)。應立即 TCP。'
+  }
+],
+  ...[
+  {
+    id: 134, cat: 'tachy',
+    q: '下列何者為鈣離子阻斷劑(CCB)?',
+    options: [
+      { text: 'Diltiazem、Atenolol', correct: false },
+      { text: 'Atenolol、Metoprolol', correct: false },
+      { text: 'Metoprolol、Diltiazem', correct: false },
+      { text: 'Diltiazem、Verapamil', correct: true }
+    ],
+    ans: 'D',
+    exp: 'Atenolol、Metoprolol 為 BB(Beta-blocker)。Diltiazem、Verapamil 為 CCB。'
+  },
+  {
+    id: 135, cat: 'tachy',
+    q: '關於 Adenosine 敘述,下列何者錯誤?',
+    options: [
+      { text: '是穩定規則窄 QRS 的 PSVT 治療首選', correct: false },
+      { text: '也可用來治療不穩定規則窄 QRS PSVT', correct: false },
+      { text: '是 Beta-blocker,所以可治療 SVT', correct: true },
+      { text: '對穩定規則寬 QRS 的 tachy 可診斷兼治療', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Adenosine 為內生性嘌呤類核甘酸,不是 BB。'
+  },
+  {
+    id: 136, cat: 'tachy',
+    q: '關於 Adenosine 的敘述,下列何者錯誤?',
+    options: [
+      { text: '半衰期短,需快速 IV push + 20mL N/S 快推', correct: false },
+      { text: '不宜用於不穩定不規則多型寬 QRS tachy', correct: false },
+      { text: '副作用有臉潮紅、胸悶、呼吸喘,氣喘患者仍可小心使用', correct: true },
+      { text: '藥物特性是短暫抑制房室結傳導', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Adenosine 會引起呼吸喘及氣管痙攣,不可用於氣喘病患。'
+  },
+  {
+    id: 137, cat: 'tachy',
+    q: '關於 Lidocaine 敘述,下列何者不正確?',
+    options: [
+      { text: '可治療穩定單型 VT', correct: false },
+      { text: '可用於不明原因寬 QRS tachy', correct: false },
+      { text: '治療特性為鈉離子通道阻斷劑', correct: false },
+      { text: '可預防單型 VT 復發或治療頑固性心室心律不整,在冠心症且心室功能不良病患有效', correct: true }
+    ],
+    ans: 'D',
+    exp: '預防單型 VT 復發或治療頑固性心室心律不整,Amiodarone 較有效,Lidocaine 較不建議。'
+  },
+  {
+    id: 138, cat: 'tachy',
+    q: '23 歲心悸,HR 160,BP 110/80,EKG 窄 QRS tachy 無 P 波,下列治療何者正確?',
+    options: [
+      { text: 'Adenosine 靜脈緩慢注射', correct: false },
+      { text: 'Lidocaine IV', correct: false },
+      { text: 'Verapamil 靜脈快速推注', correct: false },
+      { text: '頸動脈竇按摩', correct: true }
+    ],
+    ans: 'D',
+    exp: '穩定 PSVT 可用迷走神經刺激(Valsalva 17%、改良 Valsalva 43%、頸動脈竇按摩 25%)。Adenosine 應快推不慢推。'
+  },
+  {
+    id: 139, cat: 'tachy',
+    q: '50 歲 70kg 男心絞痛糖尿病高血壓,胸痛盜冷汗心悸,EKG 單型 VT,HR 160,BP 85/60,優先處置?',
+    options: [
+      { text: 'Lidocaine 100 mg IV push', correct: false },
+      { text: 'Amiodarone 150 mg IV push', correct: false },
+      { text: '立刻 200J 去顫電擊', correct: false },
+      { text: '鎮靜後 100J 同步電擊', correct: true }
+    ],
+    ans: 'D',
+    exp: '活人心搏過速且不穩定 → 同步電擊。電擊前可先止痛鎮靜。VT 同步從 100J 開始。'
+  },
+  {
+    id: 140, cat: 'tachy',
+    q: '氣喘 75 歲男頭暈心悸 1 週,HR 160,BP 100/70,理學檢查無異常無心衰,12 lead 為 Af RVR,初步處置?',
+    options: [
+      { text: '立即去顫電擊', correct: false },
+      { text: 'O2-IV-Monitor 並監測組織灌流不足症狀', correct: true },
+      { text: '不需治療暫先觀察', correct: false },
+      { text: '每 3-5 分鐘 Epinephrine 1 mg IV', correct: false }
+    ],
+    ans: 'B',
+    exp: '穩定的心搏過快初步處置 O2-IV-Monitor + 12 導程。Af 持續 > 48 hr 不應貿然立即電擊(血栓風險)。'
+  },
+  {
+    id: 141, cat: 'tachy',
+    q: '承上題,Af 持續一週生命跡象穩定,以下治療何者最適當?',
+    options: [
+      { text: 'Labetalol 減慢心室反應', correct: false },
+      { text: 'Verapamil 減慢心室反應', correct: true },
+      { text: 'Amiodarone 將 Af 轉成 sinus', correct: false },
+      { text: '同步電擊', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Verapamil 為 CCB,可控制心室速率。Af > 48 hr 用 Amiodarone 或 cardioversion 有血栓中風危險。Labetalol 為 BB,氣喘患者引發發作風險。'
+  },
+  {
+    id: 142, cat: 'tachy',
+    q: '27 歲男 PSVT,Adenosine 兩次 + Verapamil 一次後,HR 180,BP 70 mmHg 意識喪失,下一步?',
+    options: [
+      { text: 'Atropine 1 mg IV', correct: false },
+      { text: 'Adenosine 12 mg IV push', correct: false },
+      { text: '同步整流 100 Joules', correct: true },
+      { text: 'Verapamil 10 mg IV push 1-2 分鐘', correct: false }
+    ],
+    ans: 'C',
+    exp: 'PSVT 從穩定變不穩定 → 立即同步整流。SVT 初始能量 100J。'
+  },
+  {
+    id: 143, cat: 'tachy',
+    q: '30 歲 70kg 男心悸,EKG PSVT,Adenosine 6+12 mg 都未改善,BP 120/78,RR 18,下一步?',
+    options: [
+      { text: 'Verapamil 5 mg IV slow push', correct: true },
+      { text: 'Lidocaine 100 mg IV slow push', correct: false },
+      { text: '鎮靜後同步整流 100J', correct: false },
+      { text: '立刻 200J 去顫電擊', correct: false }
+    ],
+    ans: 'A',
+    exp: '穩定病患不建議同步整流。Verapamil 2.5-5 mg IV slow push 為 CCB 控制心室速率。'
+  },
+  {
+    id: 144, cat: 'tachy',
+    q: '60 歲男心肌梗塞病史,心悸頭暈持續胸痛,BP 70/40,EKG 規則寬 QRS tachy,下列處理較適當?',
+    options: [
+      { text: 'Amiodarone 150 mg IV drip 10 分鐘', correct: false },
+      { text: '立即同步整流不需鎮靜止痛', correct: false },
+      { text: '雙相 200J 電擊去顫', correct: false },
+      { text: '單相 100J 同步整流', correct: true }
+    ],
+    ans: 'D',
+    exp: '不穩定病患(持續胸痛、低血壓)建議同步整流。規則 VT 同步整流 100J。'
+  },
+  {
+    id: 145, cat: 'tachy',
+    q: '70 歲心悸盜汗喘,HR 170,BP 70/40,EKG 規則寬 QRS,給氧後首先使用?',
+    options: [
+      { text: '立即 Lidocaine 1.5 mg/kg IV push', correct: false },
+      { text: '立即 Adenosine 6 mg IV push', correct: false },
+      { text: '立即 Amiodarone 150 mg IV drip 10 分鐘', correct: false },
+      { text: '立即雙相同步電擊 100J', correct: true }
+    ],
+    ans: 'D',
+    exp: '不穩定病患(低血壓)建議同步整流。規則 VT 雙相同步 100J。'
+  },
+  {
+    id: 146, cat: 'tachy',
+    q: '78 歲老伯爭執扭打後頭暈胸口不適,意識清,BP 110/55,HR 160,EKG 規則寬 QRS,下一步何者最不適當?',
+    options: [
+      { text: '給 O2、IV、詢問病史、做 12 導程', correct: false },
+      { text: 'EKG 懷疑 VT,立即雙相去顫 200J', correct: true },
+      { text: 'EKG 懷疑 VT,給 Amiodarone 控制心律', correct: false },
+      { text: '尋找可能原因適時照會專家', correct: false }
+    ],
+    ans: 'B',
+    exp: '穩定病患找原因/用藥物。VT 有脈搏其能量是同步整流 100J,不可去顫電擊。'
+  },
+  {
+    id: 147, cat: 'tachy',
+    q: '30 歲女甲亢史,胸悶心悸,T 38,HR 130,BP 105/43,EKG sinus tachy,何者較正確?',
+    options: [
+      { text: '支持治療(退燒、N/S IV)即可', correct: true },
+      { text: '雙相同步電擊 50J', correct: false },
+      { text: '雙相同步電擊 100J', correct: false },
+      { text: 'Amiodarone 150 mg IV 10 分鐘', correct: false }
+    ],
+    ans: 'A',
+    exp: '竇性心搏過速:評估找原因(發燒、貧血、休克),不以抗心律不整藥物治療。'
+  },
+  {
+    id: 148, cat: 'tachy',
+    q: '關於 SVT 的治療,何者為非?',
+    options: [
+      { text: '迷走神經刺激可終止約 20-25% SVT', correct: false },
+      { text: 'Adenosine 不可使用在孕婦身上', correct: true },
+      { text: 'Adenosine 副作用:臉潮紅、呼吸困難、胸痛', correct: false },
+      { text: 'BB 用於有肺部疾病病人要小心支氣管收縮', correct: false }
+    ],
+    ans: 'B',
+    exp: 'Adenosine 於懷孕安全有效。'
+  },
+  {
+    id: 149, cat: 'tachy',
+    q: '72 歲男心悸,意識清,呼吸平順,BP 145/85,HR 不規則 ~155,EKG QRS < 0.12 秒,平常就有心率不整。如何治療?',
+    options: [
+      { text: '同步整流(單相 100J)', correct: false },
+      { text: '非同步電擊(單相 360J)', correct: false },
+      { text: 'Amiodarone IV 轉換心率', correct: false },
+      { text: 'Diltiazem IV 控制速率', correct: true }
+    ],
+    ans: 'D',
+    exp: '穩定 + 不規則窄 QRS(Af) → 控制速率(BB/CCB)。Amio/cardioversion 是轉換心律,Af > 48 hr 有血栓風險。'
+  },
+  {
+    id: 150, cat: 'tachy',
+    q: 'BB 的使用禁忌為何? (1)低血壓 (2)急性 CHF (3)心律過慢 (4)支氣管痙攣',
+    options: [
+      { text: '1, 3', correct: false },
+      { text: '1, 2, 3', correct: false },
+      { text: '1, 3, 4', correct: false },
+      { text: '1, 2, 3, 4', correct: true }
+    ],
+    ans: 'D',
+    exp: 'BB 禁忌:徐脈、2°-3° AVB、低血壓、嚴重 CHF、支氣管痙攣肺病、Af/AFlutter 合併 WPW。'
+  },
+  {
+    id: 151, cat: 'tachy',
+    q: '24 歲女酒後胸悶心悸,BP 95/65 SpO2 100%,EKG sinus tachy,正確處置?',
+    options: [
+      { text: '不必矯正心律,先安撫情緒讓呼吸放慢,再檢查其他問題', correct: true },
+      { text: 'N/S 250 ml 快輸,未改善再給 250 ml', correct: false },
+      { text: '迷走神經刺激術', correct: false },
+      { text: 'Adenosine 6 mg IV', correct: false }
+    ],
+    ans: 'A',
+    exp: '竇性心搏過速:找原因(此例為焦慮過度換氣),不以藥物治療。'
+  },
+  {
+    id: 152, cat: 'tachy',
+    q: '75 歲男心律不整與家人吵架後吞 10 顆 Flecainide,意識清心悸,EKG 單型 VT,RR 18,BP 120/75,SaO2 98%,適當處置?',
+    options: [
+      { text: '鎮靜止痛後 100J 同步電擊', correct: false },
+      { text: 'Amiodarone 300 mg IV push', correct: false },
+      { text: 'Labetalol 5 mg IV push', correct: false },
+      { text: 'Lidocaine 1-1.5 mg/kg IV drip', correct: true }
+    ],
+    ans: 'D',
+    exp: '穩定 VT 用藥物。Lidocaine 1-1.5 mg/kg over 5 min,需要時 q5-10min 再 0.5-0.75 mg/kg,max 3 mg/kg。Amio 應 IV drip 而非 push。'
+  },
+  {
+    id: 153, cat: 'tachy',
+    q: '66 歲女待住院突然 EKG 改變,意識清無不適,BP 140/88,正確處置?',
+    options: [
+      { text: '迷走神經刺激術(頸動脈竇按摩)', correct: false },
+      { text: 'Adenosine 6 mg IV push', correct: true },
+      { text: 'Amiodarone 300 mg IV', correct: false },
+      { text: '鎮靜 + 同步整流 100J', correct: false }
+    ],
+    ans: 'B',
+    exp: '穩定規則寬 QRS tachy 可能為 SVT with aberrancy,可先嘗試 Adenosine。'
+  },
+  {
+    id: 154, cat: 'tachy',
+    q: '25 歲女偶發心悸,平常咳嗽憋氣可緩解,今喝咖啡後又發作試多次無效到急診,EKG 規則窄 QRS 高速無 P 波,最有可能心律?',
+    options: [
+      { text: '竇性心律過速', correct: false },
+      { text: '心房撲動', correct: false },
+      { text: '陣發性心室上心搏過速', correct: true },
+      { text: '心房顫動', correct: false }
+    ],
+    ans: 'C',
+    exp: 'PSVT 特徵:無 P 波 + 快規則窄 QRS。'
+  },
+  {
+    id: 155, cat: 'tachy',
+    q: '有關 Adenosine 的描述,下列何者錯誤?',
+    options: [
+      { text: '可用來診斷窄 QRS 心律過速', correct: false },
+      { text: '初劑量為 6 mg,可重複 12 mg 一次', correct: false },
+      { text: '給藥時應慢慢滴注', correct: true },
+      { text: '副作用有臉潮紅或幾秒缺血似的胸痛症狀', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Adenosine 半衰期 < 10 秒,需快速 IV push + 20 mL N/S flush。'
+  },
+  {
+    id: 156, cat: 'tachy',
+    q: '關於各種不穩定型心搏過速,常見建議電擊起始劑量,何者為非?',
+    options: [
+      { text: 'Af - 同步整流 50J', correct: true },
+      { text: '有脈 VT - 同步整流 100J', correct: false },
+      { text: 'PSVT - 同步 100J', correct: false },
+      { text: '規則 AFlutter - 同步 200J', correct: false }
+    ],
+    ans: 'A',
+    exp: 'Af(窄不規則):同步整流 200J。AFlutter 規則:同步 50-100J 即可。窄規則 PSVT:50-100J。寬規則 VT:100J。寬不規則:去顫劑量。'
+  },
+  {
+    id: 157, cat: 'tachy',
+    q: '下列何種情況應先使用同步整流之電擊治療?',
+    options: [
+      { text: '60 歲男全身無力,EKG 3° AVB', correct: false },
+      { text: '65 歲男意識昏迷,EKG VF', correct: false },
+      { text: '70 歲女突發胸悶意識清 BP 低,EKG AFlutter', correct: true },
+      { text: '28 歲女心悸 BP 呼吸正常,EKG SVT', correct: false }
+    ],
+    ans: 'C',
+    exp: '心搏過速組織灌流不足(意識不清、胸痛、低血壓、急性肺水腫)→ 立刻同步電擊。VF 應去顫(非同步)。'
+  },
+  {
+    id: 158, cat: 'tachy',
+    q: '有關 Amiodarone 的描述,下列何者正確?',
+    options: [
+      { text: '治療 Vf 時 Amiodarone 必須優先選擇', correct: false },
+      { text: '治療 Vf 劑量 150 mg IV 10 分鐘', correct: false },
+      { text: '若電擊治療讓心跳回來必須使用 Amio 維持劑量預防復發', correct: false },
+      { text: '維持劑量:前 6 hr 1 mg/min,後 18 hr 0.5 mg/min', correct: true }
+    ],
+    ans: 'D',
+    exp: 'VF 治療 Class I 是去顫。VF 用 Amio 劑量是 300 mg。維持劑量正確為前 6 hr 1mg/min,後 18 hr 0.5mg/min。'
+  },
+  {
+    id: 159, cat: 'tachy',
+    q: '依 ACLS 心搏過速處置流程,下列何種情況要立刻同步電擊? (1)心悸 (2)意識不清 (3)頸靜脈怒張兩側肺有囉音 (4)BP 70/40',
+    options: [
+      { text: '1, 2, 3', correct: false },
+      { text: '2, 3, 4', correct: true },
+      { text: '3, 4', correct: false },
+      { text: '1, 2, 4', correct: false }
+    ],
+    ans: 'B',
+    exp: '組織灌流不足臨床徵候(意識改變、缺血性胸痛、急性心衰、低血壓等)立刻同步電擊。心悸是主觀感覺,非客觀灌流不足。'
+  },
+  {
+    id: 160, cat: 'tachy',
+    q: '19 歲男跑 4000 公尺結束時昏倒,意識漸清,BP 75/50,EKG 顯示 PSVT,下列何者較不適當?',
+    options: [
+      { text: '備好去顫器下,先嘗試 Adenosine 6 mg fast IV', correct: false },
+      { text: 'N/S 500 ml IV', correct: false },
+      { text: '單向同步整流 100J', correct: false },
+      { text: 'BB 或 CCB IV', correct: true }
+    ],
+    ans: 'D',
+    exp: 'BB/CCB 副作用:低血壓、心搏過緩、引發心衰。BP 已 75/50 不適合。'
+  },
+  {
+    id: 161, cat: 'tachy',
+    q: 'EKG 出現 wide QRS tachy 病人 BP 106/82 意識清,合適治療?',
+    options: [
+      { text: '同步整流單相 100J', correct: false },
+      { text: '雙相 200J 去顫', correct: false },
+      { text: 'CPR', correct: false },
+      { text: 'Amiodarone 150 mg IV drip > 10 分鐘', correct: true }
+    ],
+    ans: 'D',
+    exp: '穩定 VT 可考慮 IV drip Amiodarone、Procainamide 或 Sotalol(Class IIb)。'
+  },
+  {
+    id: 162, cat: 'tachy',
+    q: '不穩定心搏過速 EKG 為 AFlutter 鋸齒狀 P 波,電擊方式及能量是?',
+    options: [
+      { text: '同步整流 50 焦耳', correct: false },
+      { text: '同步整流 200 焦耳', correct: true },
+      { text: '雙向去顫 200 焦耳', correct: false },
+      { text: '單向去顫 200 焦耳', correct: false }
+    ],
+    ans: 'B',
+    exp: '不穩定心搏過速 → 同步整流。AFlutter 從 200J 開始(原文)。'
+  }
+],
+  ...[
+  // ===== 急性冠心症 ACS =====
+  {
+    id: 163, cat: 'acs',
+    q: '有關 ACS,下列何者錯誤?',
+    options: [
+      { text: '早期打通血管很重要', correct: false },
+      { text: '因 ACS 猝死的病人,52% 送醫院前就已死亡', correct: false },
+      { text: '所有 ACS 不論血壓為何都應給 MONA 治療', correct: true },
+      { text: 'Unstable angina、NSTEMI 不適合給血栓溶解劑', correct: false }
+    ],
+    ans: 'C',
+    exp: 'MONA 中 Morphine 和 NTG 在血壓低時為禁忌症。UA / NSTEMI 不能給血栓溶解劑(可用抗凝血)。'
+  },
+  {
+    id: 164, cat: 'acs',
+    q: '關於 Primary PCI 的敘述,下列何者正確?',
+    options: [
+      { text: 'STEMI 應等血栓溶解劑無效後再 PCI', correct: false },
+      { text: '所有 STEMI 急性期應儘快做 PCI,沒條件限制', correct: false },
+      { text: '入急診後 60 min 到導管室門口,90 min 內打通血管', correct: true },
+      { text: '預後比血栓溶解劑差', correct: false }
+    ],
+    ans: 'C',
+    exp: '4Ds:Door-to-data、data-to-decision、decision-to-drug。STEMI Bundle:D2N ≤ 30、D2B ≤ 90、DIDO ≤ 30。'
+  },
+  {
+    id: 165, cat: 'acs',
+    q: '若病人胸痛係因心臟引起,所謂 MONA 治療,下列何者有誤?',
+    options: [
+      { text: 'Morphine 2-4 mg IV', correct: false },
+      { text: 'O2 4-6 L/min', correct: false },
+      { text: 'NTG 靜脈滴注', correct: true },
+      { text: 'Aspirin 162-325 mg 咬碎吞下', correct: false }
+    ],
+    ans: 'C',
+    exp: 'NTG 用舌下含片或噴劑,不是 IV(IV 用於難治胸痛/心衰/高血壓急症)。'
+  },
+  {
+    id: 166, cat: 'acs',
+    q: '嚴重壓迫胸痛 > 30 分鐘,BP 120/75,HR 60,12 lead sinus 60 bpm。Aspirin、O2 5L、NTG 無法緩解,下一步何藥?',
+    options: [
+      { text: 'Atropine 1 mg IV', correct: false },
+      { text: 'Lidocaine 1-1.5 mg/kg', correct: false },
+      { text: 'Furosemide 20-40 mg IV', correct: false },
+      { text: 'Morphine 2-4 mg IV', correct: true }
+    ],
+    ans: 'D',
+    exp: 'NTG 無法緩解胸痛時,Morphine 2-4 mg IV 為下一步(MONA 中 M)。'
+  },
+  {
+    id: 167, cat: 'acs',
+    q: '49 歲男胸痛盜汗 30 分鐘,BP 85/60,HR 58,RR 29,處置應為?(1) NTG SL (2) Morphine 3mg IV (3) O2 nasal 5L (4) Demerol 50mg IM (5) Aspirin 100mg×3 PO',
+    options: [
+      { text: '1, 3, 5', correct: false },
+      { text: '1, 2, 3', correct: false },
+      { text: '3, 5', correct: true },
+      { text: '1, 2, 3, 5', correct: false }
+    ],
+    ans: 'C',
+    exp: 'BP 85/60(低血壓),Morphine 和 NTG 都是禁忌。剩 O2 + Aspirin。'
+  },
+  {
+    id: 168, cat: 'acs',
+    q: 'ACS 治療中,可有效降低死亡率的措施為?',
+    options: [
+      { text: '立即給高濃度氧氣,維持 SpO2 > 98%', correct: false },
+      { text: '立即給 NTG SL 緩解症狀', correct: false },
+      { text: '立即給 Aspirin 162-325 mg PO', correct: true },
+      { text: '給 O2/IV/Monitor 後不用給藥,立即聯絡心臟科', correct: false }
+    ],
+    ans: 'C',
+    exp: 'Aspirin 經由抑制 Thromboxane A2 快速產生抗血小板效應,減少血栓溶解後再阻塞及缺血復發。'
+  },
+  {
+    id: 169, cat: 'acs',
+    q: '何種病人發生 AMI 時較容易出現非典型或模糊症狀? (1)年輕人 (2)老年人 (3)糖尿病 (4)女性',
+    options: [
+      { text: '1, 2, 3, 4', correct: false },
+      { text: '1, 3, 4', correct: false },
+      { text: '2, 3, 4', correct: true },
+      { text: '3, 4', correct: false }
+    ],
+    ans: 'C',
+    exp: '老年人、糖尿病、女性常出現非典型胸痛或無胸痛 AMI。'
+  },
+  {
+    id: 170, cat: 'acs',
+    q: '70 歲 STEMI 男胸悶冒冷汗端坐呼吸,SpO2 90%,BP 80/60,HR 140 sinus tachy,JVD,兩肺囉音,要心導管但無法躺平,先給?',
+    options: [
+      { text: 'Morphine 3 mg IV', correct: false },
+      { text: 'NTG SL 一顆', correct: false },
+      { text: 'Verapamil 2.5-5 mg IV slow', correct: false },
+      { text: '插管維持呼吸道', correct: true }
+    ],
+    ans: 'D',
+    exp: 'ACS 急性肺水腫合併呼吸窘迫:優先 ABC + 早期插管。BP 80/60 不適合 NTG / Morphine。Verapamil 在心衰禁忌。'
+  },
+  {
+    id: 171, cat: 'acs',
+    q: '關於 ACS 治療,下列何者為非?',
+    options: [
+      { text: '懷疑 STEMI 應常規使用 MONA', correct: true },
+      { text: 'Aspirin 對 MI / UA 皆有好處', correct: false },
+      { text: 'Heparin 60 U/kg 起始 + 12 U/kg/hr', correct: false },
+      { text: 'STEMI 24 hr 內無禁忌可考慮 BB / Statin / ACEI', correct: false }
+    ],
+    ans: 'A',
+    exp: 'MONA 中 Morphine 和 NTG 在血壓低時為禁忌,應評估個案。並非常規使用。'
+  },
+  {
+    id: 172, cat: 'acs',
+    q: '關於 ACS 處理時間建議,下列何者為非?',
+    options: [
+      { text: '進急診 20 min 內完成 EKG 判讀及一般治療', correct: true },
+      { text: 'STEMI 給 t-PA 應入院 30 min 內', correct: false },
+      { text: 'STEMI 該醫院無法心導管時應 30 min 內轉出', correct: false },
+      { text: 'STEMI 給心導管應 90 min 內打通血管', correct: false }
+    ],
+    ans: 'A',
+    exp: 'D2E ≤ 10 min(不是 20)、D2N ≤ 30、D2B ≤ 90、DIDO ≤ 30。'
+  },
+  {
+    id: 173, cat: 'acs',
+    q: 'NSTEMI 或 UA 病人,何者非高危險群?',
+    options: [
+      { text: '治療後仍有持續頑固的胸痛', correct: false },
+      { text: '復發性或持續性 ST 節段變化', correct: false },
+      { text: '血流動力學不穩或心衰徵候', correct: false },
+      { text: '竇性心搏過速', correct: true }
+    ],
+    ans: 'D',
+    exp: '竇性心搏過速常因發燒、貧血、休克等非心因性因素引起。'
+  },
+  {
+    id: 174, cat: 'acs',
+    q: '對於胸痛的判斷,下列何者為非?',
+    options: [
+      { text: '冠心症胸痛可伴隨頭昏冷汗噁心,但糖尿病病人可能不明顯', correct: false },
+      { text: '胸痛若用胃乳改善的患者,可完全排除心絞痛可能性', correct: true },
+      { text: '心臟引起胸痛可輻射到下巴喉嚨左肩左前臂背部', correct: false },
+      { text: '心因性胸痛可因活動引發,休息時也可能發作', correct: false }
+    ],
+    ans: 'B',
+    exp: '即使其他原因引起的非心因性胸痛緩解,在心臟高危險的患者仍不能排除心絞痛。'
+  },
+  {
+    id: 175, cat: 'acs',
+    q: '關於 NTG IV,何者正確?',
+    options: [
+      { text: '使冠脈平滑肌收縮,提昇後負荷讓 BP 上昇', correct: false },
+      { text: 'AMI 即使 BP < 90 仍應使用', correct: false },
+      { text: '適合給右心室梗塞病人', correct: false },
+      { text: '24 hr 內用過 PDE5 抑制劑(威而鋼)應避免', correct: true }
+    ],
+    ans: 'D',
+    exp: 'PDE5 抑制劑會加強硝酸鹽降血壓效果,造成 BP 過低危及生命。NTG 是擴張血管不是收縮。'
+  },
+  {
+    id: 176, cat: 'acs',
+    q: '使用在 AMI 病患的藥物,下列何者錯誤?',
+    options: [
+      { text: '要進行 PCI 的病人,使用 Heparin 無益處且可能有害', correct: true },
+      { text: '懷孕後期不建議用 ACEI', correct: false },
+      { text: 'BP < 100 不建議用 BB', correct: false },
+      { text: '嚴重心搏過緩(HR < 50)不建議用 NTG', correct: false }
+    ],
+    ans: 'A',
+    exp: 'UFH 和 LMWH 都可用於 PCI 或血栓溶解劑治療的病人。'
+  },
+  {
+    id: 177, cat: 'acs',
+    q: 'ACS 病患若考慮血栓溶解劑,何者為絕對禁忌?',
+    options: [
+      { text: '無法控制之高血壓 (>180/110)', correct: false },
+      { text: '懷孕婦女', correct: false },
+      { text: '活動性消化道出血', correct: true },
+      { text: '3 個月內缺血性中風', correct: false }
+    ],
+    ans: 'C',
+    exp: '活動性消化道出血是絕對禁忌(其他選項是相對禁忌或限制條件)。'
+  },
+  {
+    id: 178, cat: 'acs',
+    q: '65 歲男抽煙史,服威而剛行房時胸痛到急診,BP 114/75,12 lead V2-V5 ST 上昇,下列治療何者為非?',
+    options: [
+      { text: 'Morphine 3 mg IV', correct: false },
+      { text: '儘快安排心導管治療', correct: false },
+      { text: 'NTG SL', correct: true },
+      { text: 'Aspirin PO', correct: false }
+    ],
+    ans: 'C',
+    exp: '24 hr 內用過威而剛 NTG 為絕對禁忌。'
+  },
+  {
+    id: 179, cat: 'acs',
+    q: '心導管 PCI Class I 治療為?',
+    options: [
+      { text: '50 歲 NSTEMI 剛發作無高危險因子', correct: false },
+      { text: '75 歲 NSTEMI 6 hr,嚴重 LV 異常及心因性休克', correct: true },
+      { text: '心肌酵素未升高 ST 段下降,初步治療有反應', correct: false },
+      { text: '下壁 STEMI 16 hr 沒休克或 LV 異常', correct: false }
+    ],
+    ans: 'B',
+    exp: 'NSTEMI 合併血流動力學不穩或休克為 PCI Class I 適應症。'
+  },
+  {
+    id: 180, cat: 'acs',
+    q: '何種 STEMI 病患需做右側心電圖?',
+    options: [
+      { text: 'V1-3 ST 段升高', correct: false },
+      { text: 'V4-6 ST 段升高', correct: false },
+      { text: 'II、III、aVF ST 段升高', correct: true },
+      { text: '全部 STEMI', correct: false }
+    ],
+    ans: 'C',
+    exp: '下壁 STEMI(II/III/aVF)要做右側 EKG 看 V4R,排除右室梗塞(NTG 在右室梗塞為禁忌)。'
+  },
+  {
+    id: 181, cat: 'acs',
+    q: '關於 STEMI 病人的藥物治療,下列何者正確?',
+    options: [
+      { text: '即使心搏過緩也應立即給 BB 保護心臟', correct: false },
+      { text: '無禁忌且合併肺水腫或 EF < 40% 時 24 hr 內給 ACEI 或 ARB', correct: true },
+      { text: 'STEMI 不需降血脂治療', correct: false },
+      { text: 'STEMI PCI 前不需服用雙抗血小板', correct: false }
+    ],
+    ans: 'B',
+    exp: 'BB 有諸多禁忌(心搏過慢首位)。STEMI 病人需 DAPT(Aspirin + P2Y12)和 Statin。'
+  },
+  {
+    id: 182, cat: 'acs',
+    q: '下列何者為 ACS 的診斷條件?',
+    options: [
+      { text: '臨床症狀', correct: false },
+      { text: 'EKG 變化', correct: false },
+      { text: '心肌酵素', correct: false },
+      { text: '以上三項符合兩項即可', correct: true }
+    ],
+    ans: 'D',
+    exp: 'ACS 診斷三大條件:症狀、EKG、心肌酵素;符合 2 項即可診斷。'
+  },
+  {
+    id: 183, cat: 'acs',
+    q: '針對 NSTEMI 病人的治療,下列何者正確?',
+    options: [
+      { text: '需要及早使用血栓溶解劑', correct: false },
+      { text: 'NSTEMI 胸痛惡化對藥物無效時應立即心導管', correct: true },
+      { text: '建議例行性給 BB 降低死亡率', correct: false },
+      { text: '不需追蹤心肌酵素 EKG 與症狀', correct: false }
+    ],
+    ans: 'B',
+    exp: 'NSTEMI 高危險症狀時須及早心導管。BB 有諸多禁忌不能例行給。'
+  },
+  {
+    id: 184, cat: 'acs',
+    q: 'ACS 患者於急診室 10 分鐘內應完成?',
+    options: [
+      { text: '評估生命徵象、血氧、病史、身體檢查', correct: false },
+      { text: '心肌酵素、CBC、凝血功能', correct: false },
+      { text: '12 導程心電圖判讀', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: 'D2E ≤ 10 min:完整評估包含病史、檢查、抽血、12 lead EKG 判讀。'
+  },
+  {
+    id: 185, cat: 'acs',
+    q: '75 歲意識清男前胸壓迫性胸痛,傳到下巴上臂,蒼白冷汗,BP 100/60,HR 192,RR 22,SpO2 90%,EKG 單型 VT,治療?',
+    options: [
+      { text: 'O2、IV、CPR、100J 同步電擊', correct: false },
+      { text: 'O2、IV、給鎮靜劑、100J 同步電擊', correct: true },
+      { text: 'O2、IV、給鎮靜劑、200J 非同步電擊', correct: false },
+      { text: 'O2、IV、NTG SL、Amiodarone 150 mg IV', correct: false }
+    ],
+    ans: 'B',
+    exp: '單型 VT 有脈搏 + 不穩定徵兆 → 同步整流 100J,電前鎮靜止痛。'
+  },
+
+  // ===== 急性腦中風 CVA =====
+  {
+    id: 187, cat: 'cva',
+    q: '急性腦中風急救時,下列何者較不合適?',
+    options: [
+      { text: '到院後立即評估神經學', correct: false },
+      { text: '靜脈路徑使用 5% 葡萄糖水增加腦細胞存活', correct: true },
+      { text: '到院後 20 分鐘內完成 CT', correct: false },
+      { text: '到院後 45 分鐘內完成 CT 判讀', correct: false }
+    ],
+    ans: 'B',
+    exp: '中風病人不要單獨用糖水,避免血糖升高加重腦水腫。應用生理食鹽水。'
+  },
+  {
+    id: 188, cat: 'cva',
+    q: '急性缺血性中風患者給予 tPA 治療,下列何者可用 tPA?',
+    options: [
+      { text: '> 18 歲缺血性中風 + 神經缺損,症狀 < 4.5 hr', correct: true },
+      { text: '< 70 歲 CT 高密度顯影疑似腦出血 + 神經缺損', correct: false },
+      { text: '> 18 歲缺血性中風 < 4.5 hr,但症狀後曾有癲癇', correct: false },
+      { text: '< 70 歲缺血性中風但無法確認發作時間', correct: false }
+    ],
+    ans: 'A',
+    exp: 'tPA 條件:> 18 歲、缺血性中風、症狀 < 4.5 hr、無禁忌(癲癇發作及無法確認時間都不可用)。'
+  },
+  {
+    id: 189, cat: 'cva',
+    q: '有關中風之治療,下列描述何者錯誤?',
+    options: [
+      { text: '大多數腦中風病人血壓會在疼痛、躁動、腦壓控制後自然降低', correct: false },
+      { text: '缺血性中風 BP > 220/120 才要緊急降壓', correct: false },
+      { text: '4.5 hr 內 t-PA 治療死亡率都有明顯下降', correct: true },
+      { text: 't-PA 治療缺血性中風劑量為 0.9 mg/kg(max 90mg)', correct: false }
+    ],
+    ans: 'C',
+    exp: 't-PA 可減少神經學損傷,但不能降低死亡率。'
+  },
+  {
+    id: 190, cat: 'cva',
+    q: '急性中風時 ACLS 指導原則,下列何者為誤?',
+    options: [
+      { text: '救護人員以辛辛那提及中風嚴重指數評估並通知醫院', correct: false },
+      { text: '到院後立即進行一般及神經學評估', correct: false },
+      { text: '靜脈路徑要用生理食鹽水', correct: false },
+      { text: '到院後 20 min 神經學評估,45 min 安排 CT,60 min CT 判讀', correct: true }
+    ],
+    ans: 'D',
+    exp: '到院 20 min 內做完 CT,45 min 內完成 CT 判讀。'
+  },
+  {
+    id: 191, cat: 'cva',
+    q: '70 歲住院男 1 hr 前突然右側無力,以下處置何者較不適當?',
+    options: [
+      { text: '驗血糖 40 給 50% 葡萄糖', correct: false },
+      { text: 'SpO2 90% 給氧', correct: false },
+      { text: 'BP 200/100 立即 Labetalol 10 mg IV 以免中風惡化', correct: true },
+      { text: 'CT 無腦出血 NIHSS 3 分,神內評估不給 t-PA', correct: false }
+    ],
+    ans: 'C',
+    exp: '一般缺血性中風 BP 控制 < 220/120 即可,不可貿然降壓會減腦灌流。要打 t-PA 才需 < 185/110。'
+  },
+  {
+    id: 192, cat: 'cva',
+    q: '馬先生 58 歲高血壓 10 年,疑急性缺血性中風送急診,腦 CT 無顱內出血。症狀 2 hr 前開始,無 rtPA 禁忌,BP 200/120,可選擇何藥?',
+    options: [
+      { text: 'Labetalol 10-20 mg IV,可重複 1 或 2 次', correct: true },
+      { text: 'Nitroprusside 20 mg IV', correct: false },
+      { text: 'Sublingual Nifedipine', correct: false },
+      { text: 'Apresoline 50 mg PO', correct: false }
+    ],
+    ans: 'A',
+    exp: 'tPA 候選 SBP 180-230 或 DBP 105-120 用 Labetalol 10 mg IV over 1-2 min,q10-20min 或雙倍 max 300 mg。'
+  },
+  {
+    id: 193, cat: 'cva',
+    q: '對急性缺血性中風病患到急診後,建議高血壓控制處置,何者治療敘述不適當?',
+    options: [
+      { text: 'SBP > 220 或 DBP > 120:可用 Labetalol 10-20 mg IV', correct: false },
+      { text: 'SBP > 220 或 DBP > 120:可用 Nicardipine IV', correct: false },
+      { text: 'DBP > 140:應用 NTG IV 使 DBP 下降 10-15%', correct: true },
+      { text: '過度高血壓控制可能會降低腦灌注血流', correct: false }
+    ],
+    ans: 'C',
+    exp: 'DBP > 140 用 Sodium nitroprusside 0.5 mcg/kg/min IV,不是 NTG。'
+  },
+  {
+    id: 194, cat: 'cva',
+    q: '以下徵兆及症狀與急性腦中風可能類似?',
+    options: [
+      { text: '低血糖', correct: true },
+      { text: '急性心肌梗塞', correct: false },
+      { text: '張力性氣胸', correct: false },
+      { text: '有脈搏 WPW SVT', correct: false }
+    ],
+    ans: 'A',
+    exp: '低血糖可表現肢體無力、笨拙、說話困難、迷亂、神志喪失、抽搐,類似中風。疑中風者必驗血糖。'
+  },
+  {
+    id: 195, cat: 'cva',
+    q: '關於缺血性腦中風病患 tPA 的治療,以下何者為是?',
+    options: [
+      { text: '0.9 mg/Kg,10% bolus 90% drip 60 min,沒有最高限制劑量', correct: false },
+      { text: '使用 tPA 後若意識不清,應立即放尿管及鼻胃管', correct: false },
+      { text: '給予 tPA 24 hr 內禁止中心靜脈導管置放', correct: true },
+      { text: '為嚴密監測 BP 應放動脈導管', correct: false }
+    ],
+    ans: 'C',
+    exp: 'tPA 最大 90mg。給藥 30 min 內避免放尿管,24 hr 內儘量不放鼻胃管,應避免動脈導管。'
+  },
+  {
+    id: 196, cat: 'cva',
+    q: '45 歲中風 1 hr 內到醫學中心,符合 tPA 條件。下列何者非急性梗塞性腦中風使用 tPA 之禁忌症?',
+    options: [
+      { text: 'NIHSS > 25 分', correct: false },
+      { text: 'CT 正常但臨床高度懷疑 SAH', correct: false },
+      { text: '中風發生時病患有癲癇表現', correct: false },
+      { text: '治療開始前 BP 170/110', correct: true }
+    ],
+    ans: 'D',
+    exp: 'BP > 185/110 才需藥物降壓,如降不下來才不能用 tPA。BP 170/110 可用 tPA。'
+  },
+  {
+    id: 197, cat: 'cva',
+    q: '小型醫院急診,CT 故障。一名 60 歲男症狀半小時前發生右側無力說話不清吞嚥困難。GCS E2V2M4,BP 170/100,HR 120,以下處置何者錯誤?',
+    options: [
+      { text: '儘速給 Aspirin 治療,維持呼吸道情況下儘速轉院', correct: true },
+      { text: '維持呼吸道暢通必要時插管,儘速轉院至有 CT 醫院', correct: false },
+      { text: 'BP 雖偏高目前不考慮降血壓', correct: false },
+      { text: 'EKG 為中風常規處置,但不可因 EKG 耽誤轉院取得 CT', correct: false }
+    ],
+    ans: 'A',
+    exp: '建議先做 CT 確定無腦出血再給 Aspirin。'
+  },
+  {
+    id: 198, cat: 'cva',
+    q: '60 歲男無心血管病史無口服抗凝劑或 heparin。中風 2 hr 後到貴院急診,2:45 hr 評估符合 tPA。INR 和 aPTT 因實驗室故障 30 分鐘後才有,以下處置何者有誤?',
+    options: [
+      { text: '仍應儘速給 tPA,不可等 INR/aPTT 而擔誤治療黃金時間', correct: false },
+      { text: 'tPA 出血風險很高應等 INR 和 aPTT 後再考慮', correct: true },
+      { text: '仍應儘速給 tPA。若之後 INR > 1.7 或 aPTT 大於標準必須停止', correct: false },
+      { text: '24 hr 內不可給抗凝血劑或抗血小板', correct: false }
+    ],
+    ans: 'B',
+    exp: '腦中風醫學會建議:未曾用抗凝劑且無凝血資料時可逕行治療。可能用過抗凝劑者才需等。'
+  },
+  {
+    id: 199, cat: 'cva',
+    q: '70 歲男疑中風發作 30 分鐘內到貴院。意識清,BP 180/108,T 38.3,血糖 160,左側肢體無力,CT 無出血腦腫瘤膿瘍,以下處置何者有誤?',
+    options: [
+      { text: 'BP 180/108 偏高可能使中風惡化應給藥治療', correct: true },
+      { text: '中風合併癲癇是 tPA 禁忌', correct: false },
+      { text: 'T 偏高應降溫,因會增加腦部耗氧', correct: false },
+      { text: '血糖在可接受範圍暫不需降血糖', correct: false }
+    ],
+    ans: 'A',
+    exp: '急性缺血性中風 BP 未超過 220/120 暫不須降壓,以免腦灌流減少使缺血更惡化。'
+  },
+  {
+    id: 200, cat: 'cva',
+    q: '有關急性腦中風一般照護,何者較不適當?',
+    options: [
+      { text: '血糖 > 200 給胰島素', correct: false },
+      { text: '給 N/S IV 流速 75 ml/hr', correct: false },
+      { text: '常規給 Dilantin 預防癲癇', correct: true },
+      { text: '評估吞嚥功能,若嗆到考慮 NG 餵食', correct: false }
+    ],
+    ans: 'C',
+    exp: '癲癇會加重中風嚴重度須加以控制,但不需特別預防,不需投予抗癲癇藥物 Dilantin。'
+  },
+  {
+    id: 201, cat: 'cva',
+    q: '65 歲男 EMS 送來,10 分鐘前突然說話不清肢體無力。右側手腳無力,左臉下垂,根據 2025 ACLS 此病患症狀 < 3 hr,下列處置何者錯誤?',
+    options: [
+      { text: '到達急診應立即做完一般評估及神經學評估', correct: false },
+      { text: '應在 45 min 內判讀 CT', correct: false },
+      { text: '25 min 內完成 CT 掃描', correct: false },
+      { text: '評估為 tPA 候選人,BP 突升 212/116 mmHg 給予觀察即可', correct: true }
+    ],
+    ans: 'D',
+    exp: 'BP > 185/110 需給藥降血壓,降不下來不可用 tPA。'
+  },
+  {
+    id: 202, cat: 'cva',
+    q: '急性缺血性中風病患若要用 tPA,血壓應控制在多少以下?',
+    options: [
+      { text: '220/120 mmHg', correct: false },
+      { text: '185/110 mmHg', correct: true },
+      { text: '170/95 mmHg', correct: false },
+      { text: '140/90 mmHg', correct: false }
+    ],
+    ans: 'B',
+    exp: 'tPA 病人 BP < 185/110 才可用。一般缺血性中風 BP < 220/120。'
+  },
+  {
+    id: 203, cat: 'cva',
+    q: '76 歲男倒臥客廳,EMT 用辛辛那提評估發現左側無力說話不清臉部下垂疑中風,何者處置正確?',
+    options: [
+      { text: '建議用中風嚴重指數判斷有無大血管栓塞', correct: false },
+      { text: '送至最近可施打 tPA 的醫院', correct: false },
+      { text: '到院後直接送 CT 室可縮短時間,增加 tPA 與機械取栓機會', correct: false },
+      { text: '以上皆是', correct: true }
+    ],
+    ans: 'D',
+    exp: '上述均為建議的處置,能縮短中風病人處置時間。'
+  },
+  {
+    id: 204, cat: 'cva',
+    q: '中風患者施打 tPA,下列何者正確?',
+    options: [
+      { text: '血壓目標應控制在 185-110 到 220/120 mmHg 區間', correct: false },
+      { text: '不符合 tPA 條件的中風患者也不能考慮顱內血栓移除術', correct: false },
+      { text: '若中風時間符合且無禁忌,病患可先 tPA 治療後再執行 CTA 並考慮機械取栓', correct: true },
+      { text: '若服用口服抗凝劑且 INR 1.5 可考慮 tPA', correct: false }
+    ],
+    ans: 'C',
+    exp: 'BP 必須 < 185/110 才可 tPA。不適合 tPA 的缺血性中風,在符合條件下 24 hr 內仍可考慮機械取栓。INR > 1.3 不可施打 tPA。'
+  },
+  {
+    id: 205, cat: 'cva',
+    q: '70 歲女腦中風症狀 > 3 hr,依 ACLS 中風處理準則,下列何者錯誤?',
+    options: [
+      { text: '若不符合 tPA 條件,中風 > 24 hr 也可考慮機械取栓', correct: true },
+      { text: '若符合條件,中風 3-4.5 hr 仍可用 tPA 並有健保給付', correct: false },
+      { text: '若不用 tPA 仍需服用抗血小板,並住進中風中心或神經 ICU', correct: false },
+      { text: '開始 tPA 後 BP 控制在 < 185/110', correct: false }
+    ],
+    ans: 'A',
+    exp: '2023.11.1 起健保給付前後循環 24 hr 內符合特定條件可健保機械取栓。3-4.5 hr tPA 也已健保給付。'
+  },
+  {
+    id: 206, cat: 'cva',
+    q: '辛辛那提到院前中風計分法包含三項指標,下列何者為非?',
+    options: [
+      { text: '請患者露出牙齒或微笑時單側臉部下垂', correct: false },
+      { text: '兩手臂抬起伸直 > 10 秒,單側手臂下移', correct: false },
+      { text: '請患者念較難唸的話,有口吃或無法說話', correct: false },
+      { text: '請患者站起時向單側偏移或步態不穩', correct: true }
+    ],
+    ans: 'D',
+    exp: 'CPSS 三項:臉部下垂、手臂下移、語言異常。任 1 項異常 → 中風可能性 72%。'
+  }
+]
+];
+
+const QBANK_KEY = 'acls2025_qbank_stats';
+
+// ===== qbank state =====
+let qbankState = {
+  mode: null,        // 'category' | 'random' | 'wrong'
+  currentCat: null,
+  questions: [],
+  index: 0,
+  selected: null,
+  showAns: false,
+  score: 0,
+  startTime: null,
+  isTest: false
+};
+
+function loadQbankStats() {
+  try {
+    const s = JSON.parse(localStorage.getItem(QBANK_KEY) || '{}');
+    return {
+      wrongIds: s.wrongIds || [],
+      answeredCount: s.answeredCount || 0,
+      correctCount: s.correctCount || 0
+    };
+  } catch (e) {
+    return { wrongIds: [], answeredCount: 0, correctCount: 0 };
+  }
+}
+
+function saveQbankStats(stats) {
+  try { localStorage.setItem(QBANK_KEY, JSON.stringify(stats)); } catch (e) {}
+}
+
+function recordQbankAnswer(qId, correct) {
+  const stats = loadQbankStats();
+  stats.answeredCount += 1;
+  if (correct) {
+    stats.correctCount += 1;
+    // 答對則從錯題清單移除
+    stats.wrongIds = stats.wrongIds.filter(id => id !== qId);
+  } else {
+    if (!stats.wrongIds.includes(qId)) stats.wrongIds.push(qId);
+  }
+  saveQbankStats(stats);
+}
+
+function qbankResetStats() {
+  if (!confirm('確定清除所有題庫紀錄(包含錯題清單)嗎?')) return;
+  saveQbankStats({ wrongIds: [], answeredCount: 0, correctCount: 0 });
+  renderQbank();
+}
+
+function shuffleArr(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ===== 主渲染:模式選擇 =====
+function renderQbank() {
+  const wrap = document.getElementById('tab-qbank');
+  if (!wrap) return;
+  qbankState = {
+    mode: null, currentCat: null, questions: [], index: 0,
+    selected: null, showAns: false, score: 0, startTime: null, isTest: false
+  };
+  renderQbankMenu();
+}
+
+function renderQbankMenu() {
+  const wrap = document.getElementById('tab-qbank');
+  const stats = loadQbankStats();
+  const accuracy = stats.answeredCount > 0
+    ? Math.round(stats.correctCount / stats.answeredCount * 100) : 0;
+
+  wrap.innerHTML = `
+    <h2 class="section-title">官方題庫練習</h2>
+    <p class="section-sub">中華急救教育推廣協會 ACLS 練習題(2026.01.01 版,共 ${QBANK_DATA.length} 題)</p>
+
+    <div class="qbank-stats-bar">
+      <div class="qbank-stat"><span class="qbank-stat-label">已答題</span><span class="qbank-stat-val">${stats.answeredCount}</span></div>
+      <div class="qbank-stat"><span class="qbank-stat-label">正確率</span><span class="qbank-stat-val">${accuracy}%</span></div>
+      <div class="qbank-stat"><span class="qbank-stat-label">錯題數</span><span class="qbank-stat-val ${stats.wrongIds.length > 0 ? 'qbank-warn' : ''}">${stats.wrongIds.length}</span></div>
+      <button class="btn ghost btn-sm" onclick="qbankResetStats()" style="margin-left:auto;">清除紀錄</button>
+    </div>
+
+    <h3 class="qbank-mode-h3">選擇練習模式</h3>
+    <div class="qbank-mode-cards">
+      <div class="qbank-mode-card" onclick="qbankStartCategory()">
+        <div class="qbank-mode-icon" style="background:#3b82f6;">📚</div>
+        <div class="qbank-mode-title">分類複習</div>
+        <div class="qbank-mode-desc">依協會 10 大類別逐一練習,適合準備考試</div>
+      </div>
+      <div class="qbank-mode-card" onclick="qbankStartRandom()">
+        <div class="qbank-mode-icon" style="background:#10b981;">🎲</div>
+        <div class="qbank-mode-title">隨機抽題</div>
+        <div class="qbank-mode-desc">10 / 20 / 50 / 100 題模擬考試</div>
+      </div>
+      <div class="qbank-mode-card ${stats.wrongIds.length === 0 ? 'qbank-disabled' : ''}" onclick="${stats.wrongIds.length > 0 ? 'qbankStartWrong()' : 'alert(\'目前沒有錯題\')'}">
+        <div class="qbank-mode-icon" style="background:#ef4444;">🔁</div>
+        <div class="qbank-mode-title">錯題複習 ${stats.wrongIds.length > 0 ? '<span class=\'badge danger\'>' + stats.wrongIds.length + '</span>' : ''}</div>
+        <div class="qbank-mode-desc">${stats.wrongIds.length > 0 ? '針對之前答錯的題目重新練習' : '答錯題目會自動進入此清單'}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ===== 模式 1: 分類複習 — 列出類別 =====
+function qbankStartCategory() {
+  const wrap = document.getElementById('tab-qbank');
+  // 計算各類別題數
+  const counts = {};
+  QBANK_DATA.forEach(q => counts[q.cat] = (counts[q.cat] || 0) + 1);
+
+  const cards = QBANK_CATEGORIES.map(c => `
+    <div class="qbank-cat-card" onclick="qbankSelectCategory('${c.id}')" style="border-left:4px solid ${c.color};">
+      <div class="qbank-cat-name">${c.name}</div>
+      <div class="qbank-cat-count">${counts[c.id] || 0} 題</div>
+    </div>
+  `).join('');
+
+  wrap.innerHTML = `
+    <button class="btn ghost btn-sm" onclick="renderQbankMenu()">← 返回主選單</button>
+    <h2 class="section-title" style="margin-top:1em;">分類複習</h2>
+    <p class="section-sub">點選類別開始逐題練習</p>
+    <div class="qbank-cat-grid">${cards}</div>
+  `;
+}
+
+function qbankSelectCategory(catId) {
+  const cat = QBANK_CATEGORIES.find(c => c.id === catId);
+  const questions = QBANK_DATA.filter(q => q.cat === catId);
+  qbankState = {
+    mode: 'category', currentCat: cat,
+    questions: questions, index: 0,
+    selected: null, showAns: false, score: 0,
+    startTime: Date.now(), isTest: false
+  };
+  renderQbankQuestion();
+}
+
+// ===== 模式 2: 隨機抽題 — 選題數 =====
+function qbankStartRandom() {
+  const wrap = document.getElementById('tab-qbank');
+  wrap.innerHTML = `
+    <button class="btn ghost btn-sm" onclick="renderQbankMenu()">← 返回主選單</button>
+    <h2 class="section-title" style="margin-top:1em;">隨機抽題模擬考</h2>
+    <p class="section-sub">隨機從全部 ${QBANK_DATA.length} 題中抽出指定數量</p>
+    <div class="qbank-mode-cards">
+      <div class="qbank-mode-card" onclick="qbankBeginRandom(10)">
+        <div class="qbank-mode-icon" style="background:#10b981;">10</div>
+        <div class="qbank-mode-title">10 題快測</div>
+        <div class="qbank-mode-desc">約 5 分鐘</div>
+      </div>
+      <div class="qbank-mode-card" onclick="qbankBeginRandom(20)">
+        <div class="qbank-mode-icon" style="background:#3b82f6;">20</div>
+        <div class="qbank-mode-title">20 題短考</div>
+        <div class="qbank-mode-desc">約 10 分鐘</div>
+      </div>
+      <div class="qbank-mode-card" onclick="qbankBeginRandom(50)">
+        <div class="qbank-mode-icon" style="background:#f59e0b;">50</div>
+        <div class="qbank-mode-title">50 題模擬</div>
+        <div class="qbank-mode-desc">約 25 分鐘</div>
+      </div>
+      <div class="qbank-mode-card" onclick="qbankBeginRandom(100)">
+        <div class="qbank-mode-icon" style="background:#ef4444;">100</div>
+        <div class="qbank-mode-title">100 題全考</div>
+        <div class="qbank-mode-desc">約 50 分鐘</div>
+      </div>
+    </div>
+  `;
+}
+
+function qbankBeginRandom(n) {
+  const all = shuffleArr(QBANK_DATA);
+  qbankState = {
+    mode: 'random', currentCat: null,
+    questions: all.slice(0, Math.min(n, all.length)),
+    index: 0, selected: null, showAns: false,
+    score: 0, startTime: Date.now(), isTest: true
+  };
+  renderQbankQuestion();
+}
+
+// ===== 模式 3: 錯題複習 =====
+function qbankStartWrong() {
+  const stats = loadQbankStats();
+  if (stats.wrongIds.length === 0) {
+    alert('目前沒有錯題!');
+    return;
+  }
+  const questions = QBANK_DATA.filter(q => stats.wrongIds.includes(q.id));
+  qbankState = {
+    mode: 'wrong', currentCat: null,
+    questions: shuffleArr(questions),
+    index: 0, selected: null, showAns: false,
+    score: 0, startTime: Date.now(), isTest: false
+  };
+  renderQbankQuestion();
+}
+
+// ===== 渲染題目 =====
+function renderQbankQuestion() {
+  const wrap = document.getElementById('tab-qbank');
+  const s = qbankState;
+  if (s.index >= s.questions.length) {
+    renderQbankResult();
+    return;
+  }
+  const q = s.questions[s.index];
+  const cat = QBANK_CATEGORIES.find(c => c.id === q.cat);
+  const total = s.questions.length;
+
+  let modeLabel = '';
+  if (s.mode === 'category') modeLabel = `分類複習 — ${s.currentCat.name}`;
+  else if (s.mode === 'random') modeLabel = `隨機抽題 (${total} 題模擬)`;
+  else if (s.mode === 'wrong') modeLabel = `錯題複習`;
+
+  const optsHtml = q.options.map((opt, i) => {
+    const letter = ['A','B','C','D','E'][i];
+    let cls = 'qbank-opt';
+    if (s.showAns) {
+      if (opt.correct) cls += ' qbank-opt-correct';
+      else if (i === s.selected) cls += ' qbank-opt-wrong';
+    } else if (i === s.selected) {
+      cls += ' qbank-opt-selected';
+    }
+    return `
+      <div class="${cls}" onclick="${s.showAns ? '' : `qbankSelect(${i})`}">
+        <span class="qbank-opt-letter">${letter}</span>
+        <span class="qbank-opt-text">${opt.text}</span>
+      </div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="qbank-progress-bar-wrap">
+      <button class="btn ghost btn-sm" onclick="if(confirm('確定離開練習?')) renderQbank()">← 中斷</button>
+      <span class="qbank-progress-text">${modeLabel} · 第 <strong>${s.index + 1} / ${total}</strong> 題</span>
+      <span class="qbank-score-pill">已答對 ${s.score}</span>
+    </div>
+    <div class="qbank-progress-bar"><div class="qbank-progress-fill" style="width:${((s.index)/total*100).toFixed(1)}%;"></div></div>
+
+    <div class="qbank-question-card">
+      <div class="qbank-q-meta">
+        <span class="qbank-cat-badge" style="background:${cat.color};">${cat.name}</span>
+        <span class="qbank-q-id">#${q.id}</span>
+      </div>
+      <div class="qbank-q-text">${q.q}</div>
+      <div class="qbank-options">${optsHtml}</div>
+
+      ${s.showAns ? `
+        <div class="qbank-explain">
+          <div class="qbank-ans-label">正解:${q.ans}</div>
+          <div class="qbank-exp">${q.exp}</div>
+        </div>
+      ` : ''}
+
+      <div class="qbank-q-actions">
+        ${!s.showAns ? `
+          <button class="btn primary" onclick="qbankSubmit()" ${s.selected === null ? 'disabled' : ''}>送出答案</button>
+        ` : `
+          <button class="btn primary" onclick="qbankNext()">${s.index + 1 < total ? '下一題 →' : '查看結果'}</button>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+function qbankSelect(i) {
+  qbankState.selected = i;
+  renderQbankQuestion();
+}
+
+function qbankSubmit() {
+  const s = qbankState;
+  if (s.selected === null) return;
+  const q = s.questions[s.index];
+  const correct = q.options[s.selected].correct === true;
+  if (correct) s.score += 1;
+  recordQbankAnswer(q.id, correct);
+  s.showAns = true;
+  renderQbankQuestion();
+}
+
+function qbankNext() {
+  qbankState.index += 1;
+  qbankState.selected = null;
+  qbankState.showAns = false;
+  renderQbankQuestion();
+}
+
+// ===== 結算頁 =====
+function renderQbankResult() {
+  const wrap = document.getElementById('tab-qbank');
+  const s = qbankState;
+  const total = s.questions.length;
+  const accuracy = total > 0 ? Math.round(s.score / total * 100) : 0;
+  const elapsed = s.startTime ? Math.round((Date.now() - s.startTime) / 1000) : 0;
+  const min = Math.floor(elapsed / 60);
+  const sec = elapsed % 60;
+
+  let comment = '';
+  let emoji = '';
+  if (accuracy >= 90) { emoji = '🏆'; comment = '優秀!掌握度極佳,可以上場了。'; }
+  else if (accuracy >= 80) { emoji = '🎯'; comment = '通過!ACLS 考試門檻 84%,再加把勁就穩了。'; }
+  else if (accuracy >= 70) { emoji = '👍'; comment = '基礎不錯,但離考試門檻還差一點,建議再加強錯題類別。'; }
+  else if (accuracy >= 50) { emoji = '💪'; comment = '需要更多練習,可從錯題複習開始。'; }
+  else { emoji = '📖'; comment = '建議先回去看 ACLS 基礎和決策樹,再來練習。'; }
+
+  wrap.innerHTML = `
+    <div class="qbank-result-card">
+      <div class="qbank-result-emoji">${emoji}</div>
+      <div class="qbank-result-title">練習完成!</div>
+      <div class="qbank-result-score">
+        <span class="qbank-result-num">${s.score}</span> / ${total}
+      </div>
+      <div class="qbank-result-pct">${accuracy}% 正確率</div>
+      <div class="qbank-result-time">⏱ 耗時 ${min} 分 ${sec} 秒</div>
+      <div class="qbank-result-comment">${comment}</div>
+      <div class="qbank-result-actions">
+        <button class="btn primary" onclick="renderQbank()">回主選單</button>
+        ${s.mode === 'random' ? '<button class="btn" onclick="qbankBeginRandom(' + total + ')">再來一次</button>' : ''}
+      </div>
+    </div>
+  `;
+}
+
+
 const MEGACODE_SCENARIOS = [
   {
     id: 'mc1',
@@ -2233,7 +5230,255 @@ const MEGACODE_SCENARIOS = [
       { text: 'Adenosine 6mg 看反應', correct: false }
     ],
     explain: '3° AVB(完全房室阻斷)+ 不穩定 → 直接 TCP 為主。Atropine 對 AV node 下方阻斷無效,但仍可試。寬 QRS 病人 Atropine 通常無效。最終需 transvenous pacing 或植入永久節律器。'
+  },
+{
+    id: 'mc13',
+    scenario: '張老太太 75 歲,糖尿病、高血壓、心臟病史。兒子回家發現病人沒反應、打 119 後 CPR。EMT 在病人倒下後 8 分鐘抵達現場。',
+    ekg: null,
+    question: 'EMT 第一件事該做什麼?',
+    options: [
+      { text: '建立進階呼吸道', correct: false },
+      { text: '先做 5 個循環胸部按壓再接 AED', correct: false },
+      { text: '趕快移上救護車送醫院', correct: false },
+      { text: '最短時間內接 AED 看是否可去顫', correct: true }
+    ],
+    explain: 'OHCA + 已 CPR 中,救護員到場第一件事是儘快接 AED 判讀心律 — 看是否可去顫。心搏停止 4-6 分鐘腦損傷已開始,延誤電擊每分鐘救活率降 7-10%。'
+  },
+  {
+    id: 'mc14',
+    scenario: '67 歲男在雜貨店昏倒,EMT 6 分鐘後抵達,病患無意識無呼吸無心跳開始 CPR。另一位 EMT 接 AED 顯示為可電擊心律。',
+    ekg: 'vf',
+    question: '下一步處置何者較適當?',
+    options: [
+      { text: '停 CPR、待 AED 電擊後再馬上 CPR', correct: true },
+      { text: '停 CPR、AED 電擊後再等 AED 確定是否仍可電擊', correct: false },
+      { text: '建立進階呼吸道後再電擊', correct: false },
+      { text: '時間超過 5 分鐘所以持續 CPR 送醫,現場不電擊', correct: false }
+    ],
+    explain: 'AED 分析為可電擊就立刻電擊一次後馬上恢復 CPR,2 分鐘後 AED 才會再分析。任何時候都不該因「時間到了」而放棄電擊。'
+  },
+  {
+    id: 'mc15',
+    scenario: '承上題,病患到急診後仍 VF,CPR + Epinephrine 1mg 已給 2 次,EKG 仍 VF,且已電擊 3 次。',
+    ekg: 'vf',
+    question: '此時藥物選擇何者正確?',
+    options: [
+      { text: 'Amiodarone 300mg IV bolus', correct: true },
+      { text: 'Amiodarone 150mg IV drip', correct: false },
+      { text: 'Lidocaine 0.5-0.75 mg/kg IV', correct: false },
+      { text: 'Adenosine 6mg fast IV', correct: false }
+    ],
+    explain: 'Refractory VF/pVT(電擊 ≥ 3 次仍無效)+ 已給 Epi → Amiodarone 300mg IV bolus(死人劑量),可再追 150mg。150mg drip 是「活人 VT」用法。Adenosine 不用於無脈搏。'
+  },
+  {
+    id: 'mc16',
+    scenario: '承上題,Epi + Amiodarone 後 ROSC,EKG 恢復 sinus rhythm。',
+    ekg: 'sinus',
+    question: 'ROSC 後處置何者最適當?',
+    options: [
+      { text: 'Lidocaine 1-1.5 mg/kg', correct: false },
+      { text: '已恢復心跳,持續監測待心律不整復發再用藥', correct: false },
+      { text: 'Epinephrine 2-10 mcg/min 增加腦心血流', correct: false },
+      { text: '繼續 Amiodarone 維持劑量:前 6 hr 1 mg/min,後 18 hr 0.5 mg/min', correct: true }
+    ],
+    explain: 'ROSC 後若 VF 是被 Amio 救回的,要繼續 maintenance:1 mg/min × 6 hr → 0.5 mg/min × 18 hr,預防復發。'
+  },
+  {
+    id: 'mc17',
+    scenario: '62 歲女性,3 週前剛接受主動脈瓣及二尖瓣置換手術,服用抗凝血劑。在家不省人事送急診,CPR + 插管確認位置 + 100% 氧氣。EKG 窄 QRS 80 bpm 但摸不到脈搏,UCG 顯示無心包填塞。',
+    ekg: 'pea',
+    question: '此 PEA 病人最適合的治療?',
+    options: [
+      { text: 'Atropine 1 mg q3-5min + Vasopressin 40 U IV', correct: false },
+      { text: 'Sodium bicarbonate 1 mEq/kg q3-5min 治療高血鉀', correct: false },
+      { text: 'Epinephrine 1 mg + 輸液推注並尋找可治療原因', correct: true },
+      { text: '會診原本手術之醫師', correct: false }
+    ],
+    explain: 'PEA = CPR + Epi + 找原因。剛開刀 + 抗凝劑 → 想 Hypovolemia(出血)。Atropine 不用於 PEA(已 2010 起淘汰),NaHCO3 在原因未明前不常規給。'
+  },
+  {
+    id: 'mc18',
+    scenario: '寒冬夜晚,中年男倒在陸橋下,全身酒味。送到急診時無自主呼吸無脈搏,monitor 顯示 Asystole。',
+    ekg: 'asystole',
+    question: '以下處置何者錯誤?',
+    options: [
+      { text: '應儘速矯正可能的低體溫', correct: false },
+      { text: '可考慮使用 Epinephrine', correct: false },
+      { text: '儘速電擊比 CPR 更有效', correct: true },
+      { text: '低血鉀、藥物中毒需列入鑑別診斷', correct: false }
+    ],
+    explain: 'Asystole 不可電擊!電擊會使副交感神經放電,減少恢復機會。唯一治療:CPR + Epi + 找 5H5T(此例:低體溫、低鉀、中毒、酒精)。'
+  },
+  {
+    id: 'mc19',
+    scenario: '35 歲男上班暈倒,1 分鐘自醒。送到急診時生命徵象正常,忽然發生抽搐。EKG 顯示寬 QRS 規則 tachycardia,確認有脈搏。',
+    ekg: 'vt',
+    question: '何者處置較正確?',
+    options: [
+      { text: '若無脈搏先雙相同步電擊 100J', correct: false },
+      { text: '有脈搏,先雙相同步電擊 100J', correct: true },
+      { text: '有脈搏,先雙相不同步電擊 200J', correct: false },
+      { text: '有脈搏,先 Amiodarone 150 mg IV 10 min', correct: false }
+    ],
+    explain: '有脈搏 + 不穩定(意識喪失/抽搐)+ 規則寬 QRS(VT)→ 同步整流。同步從 100J 開始(雙相)→ 200/300/360。注意「有脈搏不去顫」。'
+  },
+  {
+    id: 'mc20',
+    scenario: 'COPD 男咳嗽多日剛到急診,忽變很喘,幾分鐘後倒地不省人事。目擊無呼吸無脈搏,EKG 為 PEA。',
+    ekg: 'pea',
+    question: '以下何者為非?',
+    options: [
+      { text: 'CPR 壓胸 100-120/分', correct: false },
+      { text: '每 3-5 分鐘 IV Epinephrine 1mg', correct: false },
+      { text: '不應浪費時間找原因,只繼續壓胸給藥最好', correct: true },
+      { text: '此狀況不應電擊,要繼續 CPR', correct: false }
+    ],
+    explain: 'PEA 必須儘快找 5H5T。COPD 急喘倒地高度懷疑 Tension pneumothorax → 立刻針減壓(別等 CXR)。「找原因」是 PEA 治療的核心。'
+  },
+  {
+    id: 'mc21',
+    scenario: '65 歲男 75 公斤主訴呼吸喘到急診。BP 80/60,HR 45,EKG 為 1° AVB(PR 延長但每個 P 後都有 QRS),意識清但臉色蒼白。',
+    ekg: 'av1',
+    question: '下列藥物何者優先?',
+    options: [
+      { text: 'Atropine 1 mg IV', correct: true },
+      { text: 'Isoproterenol 2-10 mcg/min IV drip', correct: false },
+      { text: 'Lidocaine 75 mg IV push', correct: false },
+      { text: 'Dopamine 2 mcg/min/kg IV drip', correct: false }
+    ],
+    explain: '不穩定徐脈(BP 80/60)+ 1° AVB → 第一線 Atropine 1mg q3-5min,max 3mg。Isoproterenol/Dopamine 是 Atropine 無效後的二線。'
+  },
+  {
+    id: 'mc22',
+    scenario: '住院病人主訴頭暈、四肢冰冷潮濕。理學檢查 capillary refill 變長,脈搏規則但 45 bpm,BP 80/60。EKG 為 3° AVB 合併新的寬 QRS 波。',
+    ekg: 'av3',
+    question: '下列處置何者最適當?',
+    options: [
+      { text: 'Adenosine 6 mg IV push', correct: false },
+      { text: 'Dopamine drip 5-20 mcg/kg/min', correct: true },
+      { text: 'Isoproterenol 2-10 mcg/kg/min drip', correct: false },
+      { text: 'Epinephrine 1 mg IV push', correct: false }
+    ],
+    explain: '3° AVB 合併寬 QRS = Atropine 無效(阻斷在 AV node 下方)。應立即 TCP 或二線藥物 Dopamine/Epi drip。Epi 1mg push 是心停劑量,不用在徐脈。'
+  },
+  {
+    id: 'mc23',
+    scenario: '78 歲女主訴胸悶冒冷汗到急診,意識清,BP 80/40,EKG 為 3° AVB。',
+    ekg: 'av3',
+    question: '下列何者錯誤?',
+    options: [
+      { text: '此心律為 Third degree AV block', correct: false },
+      { text: '首選藥物 Atropine,因此心律對 Atropine 反應良好', correct: true },
+      { text: '若 Atropine 無效可考慮 Dopamine 或 Epinephrine', correct: false },
+      { text: '可使用 TCP', correct: false }
+    ],
+    explain: '3° AVB(尤其合併寬 QRS)Atropine 反應差。Mobitz II 和 3° AVB 應直接準備 TCP,不要浪費時間試 Atropine。'
+  },
+  {
+    id: 'mc24',
+    scenario: '23 歲年輕人主訴心悸,HR 160,BP 110/80。EKG 顯示窄 QRS 規則 tachycardia,無明顯 P 波。',
+    ekg: 'psvt',
+    question: '下列治療何者正確?',
+    options: [
+      { text: 'Adenosine 靜脈緩慢注射', correct: false },
+      { text: 'Lidocaine 靜脈注射', correct: false },
+      { text: 'Verapamil 靜脈快速推注', correct: false },
+      { text: '頸動脈竇按摩(Vagal maneuver)', correct: true }
+    ],
+    explain: '穩定 PSVT 首選迷走神經刺激(改良 Valsalva 成功率 43%、頸動脈竇按摩 25%)。Adenosine 應快推不慢推。Lidocaine 不用於 SVT。'
+  },
+  {
+    id: 'mc25',
+    scenario: '50 歲男 70 公斤心絞痛糖尿病高血壓病史。胸痛盜冷汗心悸到急診,EKG 為單型 VT,HR 160,BP 85/60,RR 26。',
+    ekg: 'vt',
+    question: '優先處置為何?',
+    options: [
+      { text: 'Lidocaine 100 mg IV push', correct: false },
+      { text: 'Amiodarone 150 mg IV push', correct: false },
+      { text: '立刻 200J 去顫電擊', correct: false },
+      { text: '鎮靜病人後 100J 同步電擊', correct: true }
+    ],
+    explain: '有脈搏 VT + 不穩定(BP 85/60、胸痛)→ 同步電擊。電前可先止痛鎮靜(但不要延誤)。VT 同步從 100J 開始。「有脈搏不去顫」。'
+  },
+  {
+    id: 'mc26',
+    scenario: '60 歲男心肌梗塞病史,因心悸頭暈持續胸痛來急診。BP 70/40,EKG 規則寬 QRS tachycardia 約 180/min。',
+    ekg: 'vt',
+    question: '下列處理何者較適當?',
+    options: [
+      { text: 'Amiodarone 150 mg IV drip 10 分鐘', correct: false },
+      { text: '立即同步整流不需鎮靜止痛', correct: false },
+      { text: '雙相 200J 去顫電擊', correct: false },
+      { text: '單相 100J 同步整流(意識允許下先鎮靜)', correct: true }
+    ],
+    explain: '不穩定(持續胸痛、低血壓)規則 VT → 同步整流。VT 起始能量 100J(雙相或單相)。Amiodarone IV drip 是穩定 VT 的選擇。'
+  },
+  {
+    id: 'mc27',
+    scenario: '50 歲女性逛賣場時胸痛,被太太發現倒地。119 一路 CPR 至急診時意識昏迷,monitor 顯示 VF。',
+    ekg: 'vf',
+    question: '以下處置何者不合適?',
+    options: [
+      { text: '立即雙相 200J 電擊', correct: false },
+      { text: '電擊後立即壓胸,5 循環/2 分鐘後再確認心律', correct: false },
+      { text: '再次 VF 時除電擊外可給 Epinephrine', correct: false },
+      { text: '若 IV 未建立可經氣管內管給 Amiodarone', correct: true }
+    ],
+    explain: 'Amiodarone 不能經 ETT 給藥!ETT 給藥只限 LANE — Lidocaine、Atropine、Naloxone、Epinephrine。其他藥物經 ETT 吸收差或無效。'
+  },
+  {
+    id: 'mc28',
+    scenario: '65 歲男抽煙史。服用威而剛後與妻子行房時忽然胸痛,到急診時意識清,BP 114/75,12 lead 顯示 V2-V5 ST 段抬高 4mm 呈墓碑狀。',
+    ekg: 'stemi',
+    question: '下列治療何者為非?',
+    options: [
+      { text: 'Morphine 3 mg IV', correct: false },
+      { text: '儘快安排心導管', correct: false },
+      { text: '舌下給予 NTG', correct: true },
+      { text: '口服 Aspirin 嚼碎', correct: false }
+    ],
+    explain: '24 hr 內用過 PDE5 抑制劑(威而鋼 / Cialis / Levitra)→ NTG 絕對禁忌!會造成致命性低血壓。其他 STEMI 處置(Aspirin、Morphine、PCI)正常進行。'
+  },
+  {
+    id: 'mc29',
+    scenario: '70 歲男 STEMI 主訴胸悶冒冷汗,呈現端坐式呼吸。SpO2 90%(NRM 下),BP 80/60,EKG sinus tachy 140/min,JVD,兩肺明顯囉音。準備心導管但病人因急性肺水腫無法躺平。',
+    ekg: 'stemi',
+    question: '此時應先給予何種處置?',
+    options: [
+      { text: 'Morphine 3 mg IV', correct: false },
+      { text: '舌下 NTG 一顆', correct: false },
+      { text: 'Verapamil 2.5-5 mg IV slow push 減慢心率', correct: false },
+      { text: '插管維持呼吸道及呼吸', correct: true }
+    ],
+    explain: 'STEMI + 急性肺水腫 + 呼吸窘迫 → 先穩定 ABC,早期插管。BP 80/60 不適合 NTG / Morphine(會更低)。Verapamil 在心衰是禁忌。穩定後再 PCI。'
+  },
+  {
+    id: 'mc30',
+    scenario: '70 歲住院男 1 hr 前突然右側無力。BP 200/100,SpO2 90%,血糖 40 mg/dL,CT 無腦出血,神內評估 NIHSS 3 分。',
+    ekg: null,
+    question: '以下處置何者較不適當?',
+    options: [
+      { text: '驗血糖 40 立即給 50% glucose', correct: false },
+      { text: 'SpO2 90% 給氧治療', correct: false },
+      { text: '立即 Labetalol 10 mg IV 降血壓以免中風惡化', correct: true },
+      { text: '神內評估 NIHSS 3 分太輕,不給 t-PA', correct: false }
+    ],
+    explain: '一般缺血性中風 BP 控制 < 220/120 即可,貿然降壓會減腦灌流使缺血更糟。要打 t-PA 才需 BP < 185/110。低血糖會類似中風表現必驗血糖!'
+  },
+  {
+    id: 'mc31',
+    scenario: '馬先生 58 歲高血壓 10 年,疑急性缺血性中風送急診。腦 CT 無顱內出血,症狀 2 hr 前開始,無 rtPA 禁忌。但目前 BP 200/120。',
+    ekg: null,
+    question: '此時可選擇下列何種藥物?',
+    options: [
+      { text: 'Labetalol 10-20 mg IV,可重複 1-2 次', correct: true },
+      { text: 'Nitroprusside 20 mg IV', correct: false },
+      { text: 'Sublingual Nifedipine', correct: false },
+      { text: 'Apresoline 50 mg PO', correct: false }
+    ],
+    explain: 'tPA 候選者 SBP 180-230 或 DBP 105-120 → Labetalol 10mg IV over 1-2min,可 q10-20min 重複或加倍 max 300mg。Nitroprusside 用於 DBP > 140。SL Nifedipine 已不建議(降太快)。'
   }
+
 ];
 
 let megaIndex = 0;
@@ -3507,8 +6752,8 @@ function renderDrugCard(d, favs) {
     <div class="drug-card" onclick="showDrugDetail('${d.id}')" style="--cat-color:${cat.color};--cat-bg:${cat.bg};">
       <button class="star-btn ${starred}" onclick="event.stopPropagation(); handleDrugStar('${d.id}', this)">★</button>
       <div class="drug-card-header">
-        <div class="drug-name-zh">${d.nameZh}</div>
         <div class="drug-name-en">${d.name}</div>
+        <div class="drug-name-zh">${d.nameZh}</div>
       </div>
       ${updateBadge}
       <div class="drug-indication">${d.indication}</div>
@@ -3532,9 +6777,9 @@ function showDrugDetail(id) {
   const cat = DRUG_CATEGORIES.find(c => c.id === d.category);
 
   document.getElementById('modalContent').innerHTML = `
-    <h2 style="color:${cat.color};">${d.nameZh}</h2>
+    <h2 style="color:${cat.color};">${d.name}</h2>
     <div class="modal-tag">
-      ${d.name} | <span class="drug-cat-tag" style="background:${cat.bg};color:${cat.color};">${cat.name}</span>
+      <strong style="color:var(--text);">${d.nameZh}</strong> | <span class="drug-cat-tag" style="background:${cat.bg};color:${cat.color};">${cat.name}</span>
       ${d.update2025 ? '<span class="drug-badge-2025" style="margin-left:8px;">★ 2025 更新</span>' : ''}
     </div>
 
@@ -3619,6 +6864,398 @@ function filterDrugsBySearch() {
     `;
   }
 }
+
+
+
+// ============================================================
+// ACLS 基礎(整合原筆記基礎觀念)
+// ============================================================
+
+const BASICS_SECTIONS = [
+  {
+    id: 'jiaojiaoC',
+    icon: '👋',
+    title: '初級評估「叫叫 C」+ BLS 流程',
+    summary: 'BLS 不考 AB,做做樣子摸完頸動脈就可以 CPR',
+    content: `
+      <h4>三步驟</h4>
+      <ol>
+        <li><strong>叫病人</strong>:輕拍肩膀「先生/小姐你還好嗎?」確認意識</li>
+        <li><strong>叫路人</strong>:Call 119 或院內 9999 + 拿 AED / 急救車</li>
+        <li><strong>C(Circulation)</strong>:摸頸動脈 5-10 秒,沒脈搏直接 CPR</li>
+      </ol>
+
+      <h4>BLS 與 ACLS 差別(很多人搞錯)</h4>
+      <ul>
+        <li>BLS 不考 ABC 中的 A 和 B,只看脈搏</li>
+        <li>確認沒脈搏 = 立刻 CPR + 連 AED</li>
+        <li>不要先做「open airway」「look listen feel」— 那是過時的 BLS</li>
+      </ul>
+
+      <h4>例外:單一施救者時先 CPR 兩分鐘再求救</h4>
+      <p>嬰兒、溺水、創傷、藥物中毒病人,如果只有你一個人在現場,先 CPR 2 分鐘再去叫人 / 拿 AED(因為這些族群多數是缺氧導致心跳停止,先恢復氧合比快點電擊重要)。</p>
+
+      <h4>2025 變動</h4>
+      <p class="tip-warn">★ 鴉片類藥物中毒:BLS 流程明確標示給 Naloxone 的時機,但「不可延誤 CPR 與 Epi」。社區用鼻噴 Naloxone 4mg 推廣中。</p>
+    `
+  },
+  {
+    id: 'cpr-quality',
+    icon: '🫀',
+    title: 'CPR 標準動作',
+    summary: '100-120/分,深 5-6cm,胸骨下 1/2,完全回彈',
+    content: `
+      <h4>壓胸五要素</h4>
+      <table class="basics-table">
+        <tr><td><strong>位置</strong></td><td>胸骨下半部(乳頭連線正中央)</td></tr>
+        <tr><td><strong>頻率</strong></td><td>100-120 下/分鐘(Stayin' Alive 節奏)</td></tr>
+        <tr><td><strong>深度</strong></td><td>成人 5-6 cm | 兒童 1/3 胸廓 | 嬰兒 4 cm</td></tr>
+        <tr><td><strong>回彈</strong></td><td>每次完全回彈,手不要靠在胸壁(降低靜脈回流)</td></tr>
+        <tr><td><strong>中斷</strong></td><td>< 10 秒(換手 / 電擊 / 插管時)</td></tr>
+      </table>
+
+      <h4>壓胸:bagging 比例</h4>
+      <ul>
+        <li><strong>插管前</strong>:30:2(壓 30 下換 2 口氣)</li>
+        <li><strong>插管後</strong>:壓胸不停,每 6 秒 bagging 一次(10 次/分鐘)</li>
+      </ul>
+
+      <h4>換手原則</h4>
+      <p>每 2 分鐘換一次,換手時間 < 10 秒。同時利用換手時機評估節律 + 摸脈搏 + 給藥。</p>
+
+      <h4>EtCO2 監測(品質指標)</h4>
+      <ul>
+        <li><strong>EtCO2 < 10 mmHg</strong>:CPR 品質差,壓胸要更深/更快</li>
+        <li><strong>EtCO2 突然 > 40 mmHg</strong>:可能 ROSC,先別停壓胸,再評估</li>
+        <li><strong>EtCO2 持續 < 10 mmHg 達 20 分鐘</strong>:預後極差</li>
+      </ul>
+
+      <h4>2025 重點</h4>
+      <p class="tip-info">★ EtCO2 突然上升納入 ROSC 偵測指標,可在不中斷 CPR 的情況下評估。</p>
+    `
+  },
+  {
+    id: 'cabde',
+    icon: '🔍',
+    title: 'CABDE 初評 → ABCDE 次評',
+    summary: '急救順序:先 CABDE,穩定後 ABCDE',
+    content: `
+      <h4>CABDE 初評(急救當下)</h4>
+      <p>有意識下降 / 呼吸窘迫 / 心跳停止時用,順序是:</p>
+      <table class="basics-table">
+        <tr><td><strong>C - Circulation</strong></td><td>摸脈搏,沒脈搏立刻壓胸</td></tr>
+        <tr><td><strong>A - Airway</strong></td><td>暢通(抬下巴 / 推下顎)</td></tr>
+        <tr><td><strong>B - Breathing</strong></td><td>給氧 / bagging</td></tr>
+        <tr><td><strong>D - Disability</strong></td><td>意識(GCS / AVPU)、瞳孔、血糖</td></tr>
+        <tr><td><strong>E - Exposure</strong></td><td>脫光看全身,找出血、外傷、藥物貼片</td></tr>
+      </table>
+      <p class="tip-info">急救優先序:沒脈搏先壓胸,別卡在 airway。但這跟 ATLS(創傷)的 ABCDE 順序不同,要區分清楚。</p>
+
+      <h4>ABCDE 次評(穩定後)</h4>
+      <p>病人穩定後系統性評估,確認沒漏掉問題:</p>
+      <table class="basics-table">
+        <tr><td><strong>A - Airway</strong></td><td>暢通評估(EET 位置、氣道阻塞)</td></tr>
+        <tr><td><strong>B - Breathing</strong></td><td>聽診兩肺、呼吸音、SpO2、CO2</td></tr>
+        <tr><td><strong>C - Circulation</strong></td><td>BP、HR、灌流、上 12 導程 EKG</td></tr>
+        <tr><td><strong>D - Disability</strong></td><td>GCS、瞳孔、肢體活動、血糖</td></tr>
+        <tr><td><strong>E - Exposure</strong></td><td>脫光看全身,保暖避免低體溫</td></tr>
+      </table>
+
+      <h4>口訣:活人第一句</h4>
+      <p class="tip-warn">穩定的活人到院第一句永遠是:<strong>O2、IV、Monitor、量 BP</strong>。有空再加抽血三管 + GAS、12 導程 EKG。</p>
+    `
+  },
+  {
+    id: 'chain',
+    icon: '🔗',
+    title: '生命之鍊(2025 統一版)',
+    summary: '院內、院外、成人、小兒,2025 統一為一條鏈',
+    content: `
+      <h4>2025 統一生命之鍊(六環)</h4>
+      <ol>
+        <li><strong>立即辨識心跳停止 + 啟動緊急救援系統</strong></li>
+        <li><strong>立即高品質 CPR</strong>(壓胸是核心)</li>
+        <li><strong>快速電擊</strong>(對 VF/pVT)</li>
+        <li><strong>進階心臟救命術</strong>(ACLS)</li>
+        <li><strong>Post-arrest care</strong>(溫控、CAG、ICU)</li>
+        <li><strong>Recovery</strong>(復健、心理支持、家屬照護)</li>
+      </ol>
+
+      <h4>2020 vs 2025 變動</h4>
+      <p>2020 版分為四條鏈(院內成人/院外成人/院內小兒/院外小兒),2025 簡化為一條共通的鏈。</p>
+
+      <h4>各環的「黃金時間」</h4>
+      <ul>
+        <li>BLS / CPR:倒下 4 分鐘內</li>
+        <li>除顫:倒下 5 分鐘內(每延遲 1 分鐘救活率降 7-10%)</li>
+        <li>進階救命術:倒下 8 分鐘內</li>
+        <li>Post-arrest care:ROSC 後立即啟動</li>
+      </ul>
+
+      <h4>Recovery 是新加的環(2020 之後)</h4>
+      <p>強調 ROSC 出院後不是結束 — 病人仍需要心理諮商、神經學復健、家屬支持。台灣較少有正式 Recovery 流程,但這是國際趨勢。</p>
+    `
+  },
+  {
+    id: 'unstable',
+    icon: '⚠️',
+    title: '「不穩定」的定義(活人決策核心)',
+    summary: '昏 + 痛 + 喘 + 休克 + 低血壓',
+    content: `
+      <h4>五大不穩定徵象(任一即算不穩)</h4>
+      <table class="basics-table">
+        <tr><td><strong>昏</strong></td><td>意識改變(GCS 下降、混亂)</td></tr>
+        <tr><td><strong>痛</strong></td><td>胸痛(疑 ACS)</td></tr>
+        <tr><td><strong>喘</strong></td><td>急性心衰竭、肺水腫表現</td></tr>
+        <tr><td><strong>休克</strong></td><td>末梢冷濕、皮膚花斑、尿量減少</td></tr>
+        <tr><td><strong>低血壓</strong></td><td>SBP ≤ 80(部分指引用 90)</td></tr>
+      </table>
+
+      <h4>口訣:不穩定電快不電慢</h4>
+      <ul>
+        <li><strong>不穩定 + 心跳快</strong> → 同步電擊(寬不規 TdP 用去顫)</li>
+        <li><strong>不穩定 + 心跳慢</strong> → Atropine → TCP(經皮節律器)</li>
+      </ul>
+
+      <h4>例外:這些「無症狀」也當不穩定</h4>
+      <p class="tip-warn">看到 <strong>2°-2 AVB / 3° AVB</strong> 即使無症狀也直接當不穩定處理 — 隨時可能掉成心搏停止。</p>
+
+      <h4>常見誤判</h4>
+      <ul>
+        <li>胸痛但 BP 正常、無心衰、神智清 → <strong>穩定</strong>(先給藥)</li>
+        <li>頭暈但意識清、BP 正常 → <strong>穩定</strong>(別衝動電擊)</li>
+        <li>SBP 78 + 神智清 + 無胸痛 → <strong>不穩定</strong>(BP 已達標)</li>
+      </ul>
+    `
+  },
+  {
+    id: 'shock',
+    icon: '⚡',
+    title: '電擊能量速查',
+    summary: '死人 200J 不同步;活人四象限不同',
+    content: `
+      <h4>死人(無脈搏)— 不同步電擊(去顫)</h4>
+      <ul>
+        <li><strong>VF / pVT:200J 不同步去顫</strong></li>
+        <li>PEA / Asystole:不可電擊!</li>
+      </ul>
+
+      <h4>活人(有脈搏)— 四象限電擊能量</h4>
+      <table class="basics-table">
+        <tr><td></td><td><strong>規則</strong></td><td><strong>不規則</strong></td></tr>
+        <tr><td><strong>窄</strong></td><td>PSVT → <strong>50J 同步</strong></td><td>AF → <strong>120J 同步</strong></td></tr>
+        <tr><td><strong>寬</strong></td><td>VT → <strong>100J 同步</strong></td><td>TdP → <strong>200J 去顫</strong></td></tr>
+      </table>
+
+      <h4>同步 vs 不同步</h4>
+      <ul>
+        <li><strong>同步電擊(Synchronized Cardioversion)</strong>:對準 R 波放電,避免 R-on-T 誘發 VF。用於有脈搏的病人。</li>
+        <li><strong>不同步電擊(去顫,Defibrillation)</strong>:任意時間放電。用於沒脈搏的 VF/pVT。Torsades 例外:雖有脈但無法穩定同步,直接去顫。</li>
+      </ul>
+
+      <h4>步驟</h4>
+      <ol>
+        <li>壓胸繼續(別停)</li>
+        <li>確認節律 + 充電(200J)</li>
+        <li>「我清、你清、大家清」(Clear)</li>
+        <li>放電</li>
+        <li>立刻恢復 CPR 2 分鐘(別摸脈)</li>
+        <li>2 分鐘後重評</li>
+      </ol>
+
+      <h4>單相 vs 雙相機型</h4>
+      <p>現今醫院多用雙相(biphasic),200J 即足夠。單相舊機需要 360J,但目前已少見。</p>
+    `
+  },
+  {
+    id: 'h-t',
+    icon: '🔎',
+    title: '5H5T 完整版(可逆原因)',
+    summary: 'PEA / Asystole 必想的可逆原因',
+    content: `
+      <h4>5H</h4>
+      <table class="basics-table">
+        <tr><td><strong>Hypovolemia 低血容</strong></td><td>14 號粗 line + N/S/LR 給爆</td></tr>
+        <tr><td><strong>Hypoxia 低血氧</strong></td><td>給氧、確認 EET 位置正確</td></tr>
+        <tr><td><strong>H+ 酸中毒</strong></td><td>NaHCO3(僅嚴重情境)</td></tr>
+        <tr><td><strong>Hyper/Hypo-K</strong></td><td>高鉀:CaCl2 + insulin/glucose + β2-agonist + NaHCO3<br>低鉀:KCl 慢推</td></tr>
+        <tr><td><strong>Hypothermia 低體溫</strong></td><td>體內外加溫(IV 加熱液、毯子、體腔灌洗)</td></tr>
+      </table>
+
+      <h4>5T</h4>
+      <table class="basics-table">
+        <tr><td><strong>Tension pneumothorax 張力性氣胸</strong></td><td>16 號針鎖骨中線第二肋間減壓</td></tr>
+        <tr><td><strong>Tamponade 心包膜填塞</strong></td><td>緊急心包膜穿刺(劍突下)</td></tr>
+        <tr><td><strong>Toxin 毒物</strong></td><td>對應解毒劑(見急救用藥分頁)</td></tr>
+        <tr><td><strong>Thrombosis-肺(PE)</strong></td><td>血栓溶解劑(tPA / Tenecteplase)</td></tr>
+        <tr><td><strong>Thrombosis-心(AMI)</strong></td><td>MONA + PCI</td></tr>
+      </table>
+
+      <h4>口訣:看到病人就想「5H5T」</h4>
+      <p class="tip-info">PEA 多半是 5H 中的 <strong>低血容</strong> 或 <strong>低血氧</strong>。透析病人 PEA 第一個想 <strong>高鉀</strong>。年輕女性 PEA 想 <strong>肺栓塞</strong>。胸痛後 PEA 想 <strong>張力氣胸</strong> 或 <strong>心包填塞</strong>。</p>
+
+      <h4>2025 提醒</h4>
+      <p class="tip-warn">★ Calcium 在常規 CPR 列為 Class 3 No Benefit,但「高鉀 + ECG 變化」(寬 QRS、高 T 波)仍是明確適應症。</p>
+    `
+  },
+  {
+    id: 'tcp',
+    icon: '🔌',
+    title: 'TCP 設定步驟(經皮節律器)',
+    summary: '徐脈第二線 — Atropine 無效就 TCP',
+    content: `
+      <h4>適應症</h4>
+      <ul>
+        <li>不穩定徐脈,Atropine 無效</li>
+        <li>2°-2 AVB / 3° AVB(直接用,Atropine 多無效)</li>
+        <li>寬 QRS 徐脈</li>
+      </ul>
+
+      <h4>禁忌</h4>
+      <ul>
+        <li><strong>低體溫</strong>(會誘發 VF)</li>
+      </ul>
+
+      <h4>設定步驟</h4>
+      <ol>
+        <li>放電擊片:前胸 + 背部(三明治 sandwich)</li>
+        <li>機器選 PACE 模式</li>
+        <li>選 <strong>Demand mode</strong>(避免 R-on-T)</li>
+        <li>設定 Rate <strong>60</strong> bpm</li>
+        <li>從 <strong>30 mA</strong> 開始,每 5-10 mA 往上調</li>
+        <li>調至 <strong>capture</strong>(每個刺激後都跟著 QRS,且摸到脈搏)</li>
+        <li>找到 capture 閾值後,維持 capture 閾值 + 10 mA</li>
+      </ol>
+
+      <h4>三種狀態</h4>
+      <table class="basics-table">
+        <tr><td><strong>Electrical capture</strong></td><td>螢幕看到 paced QRS</td></tr>
+        <tr><td><strong>Mechanical capture</strong></td><td>摸到脈搏(才是真的有效!)</td></tr>
+        <tr><td><strong>False capture</strong></td><td>看似有 QRS 但摸不到脈搏 → 加大 mA</td></tr>
+      </table>
+
+      <h4>注意事項</h4>
+      <ul>
+        <li>病人會痛 / 不適 → 給鎮靜止痛(Midazolam / Morphine / Fentanyl)</li>
+        <li>TCP 是過渡,最終解決:transvenous pacing 或永久節律器</li>
+      </ul>
+    `
+  },
+  {
+    id: 'difficult-airway',
+    icon: '🫁',
+    title: 'Difficult intubation:LEMON / MOANS / SHORT',
+    summary: '插管前評估 + 困難 bagging 預測 + 困難氣道處置',
+    content: `
+      <h4>LEMON — 預測困難插管</h4>
+      <table class="basics-table">
+        <tr><td><strong>L - Look</strong></td><td>外觀(短頸、肥胖、創傷、鬍子、暴牙)</td></tr>
+        <tr><td><strong>E - Evaluate 3-3-2</strong></td><td>嘴張開 3 指、下顎到舌骨 3 指、舌骨到甲狀軟骨 2 指</td></tr>
+        <tr><td><strong>M - Mallampati</strong></td><td>I (看到全部) → IV (只看到硬顎),III/IV 困難</td></tr>
+        <tr><td><strong>O - Obstruction</strong></td><td>會厭炎、口咽腫瘤、出血、外傷</td></tr>
+        <tr><td><strong>N - Neck mobility</strong></td><td>頸僵、頸椎固定、創傷無法仰頭</td></tr>
+      </table>
+
+      <h4>MOANS — 預測困難 Bagging</h4>
+      <table class="basics-table">
+        <tr><td><strong>M - Mask seal</strong></td><td>鬍子、面部創傷、無齒</td></tr>
+        <tr><td><strong>O - Obese / Obstruction</strong></td><td>肥胖、孕婦、上氣道阻塞</td></tr>
+        <tr><td><strong>A - Age</strong></td><td>> 55 歲(肌肉鬆、Compliance 差)</td></tr>
+        <tr><td><strong>N - No teeth</strong></td><td>無齒、面部凹陷</td></tr>
+        <tr><td><strong>S - Stiff lungs</strong></td><td>氣喘、COPD、ARDS、肺水腫</td></tr>
+      </table>
+
+      <h4>SHORT — 預測困難環甲膜切開</h4>
+      <table class="basics-table">
+        <tr><td><strong>S - Surgery</strong></td><td>頸部手術史</td></tr>
+        <tr><td><strong>H - Hematoma</strong></td><td>頸部血腫、感染</td></tr>
+        <tr><td><strong>O - Obesity</strong></td><td>肥胖、頸短</td></tr>
+        <tr><td><strong>R - Radiation</strong></td><td>頸部放療史</td></tr>
+        <tr><td><strong>T - Tumor</strong></td><td>頸部腫瘤</td></tr>
+      </table>
+
+      <h4>口訣記憶</h4>
+      <p class="tip-info">L→插管 / M→bag / S→開氣道。三組都過再插管,有問題的 anticipate difficult airway,call 麻醉、備好 video laryngoscope、LMA、cric kit。</p>
+    `
+  },
+  {
+    id: 'rsi-7p',
+    icon: '💉',
+    title: 'RSI 7P + DOPE',
+    summary: 'Rapid Sequence Intubation 七步驟 + 插管後惡化檢查',
+    content: `
+      <h4>RSI 7P(七步驟)</h4>
+      <table class="basics-table">
+        <tr><td><strong>P1 - Preparation</strong></td><td>器材準備(SOAP-ME):Suction、Oxygen、Airway、Pharmacology、Monitor、EET、確認 IV</td></tr>
+        <tr><td><strong>P2 - Preoxygenation</strong></td><td>BVM 或 NRB 100% O2 至少 3 分鐘 / 8 大口</td></tr>
+        <tr><td><strong>P3 - Pretreatment</strong></td><td>Lidocaine(顱壓高)/ Fentanyl(壓抑反射)— 多數情境可省</td></tr>
+        <tr><td><strong>P4 - Paralysis with induction</strong></td><td>誘導劑(Etomidate / Ketamine / Propofol)+ 肌鬆(Sux / Roc)</td></tr>
+        <tr><td><strong>P5 - Positioning</strong></td><td>嗅花姿勢(sniffing position):頸前彎 + 頭後仰</td></tr>
+        <tr><td><strong>P6 - Placement + Proof</strong></td><td>放管 + 確認位置(EtCO2 波形 + 兩側呼吸音 + 胸 X 光)</td></tr>
+        <tr><td><strong>P7 - Postintubation management</strong></td><td>固定管路、設定呼吸器、持續鎮靜、確認 ABG</td></tr>
+      </table>
+
+      <h4>DOPE — 插管後突然惡化(SpO2 掉、躁動)</h4>
+      <table class="basics-table">
+        <tr><td><strong>D - Displaced</strong></td><td>管路移位(右主支氣管 / 拔出)→ 重新確認位置</td></tr>
+        <tr><td><strong>O - Obstruction</strong></td><td>痰塞、咬管 → 抽痰、放咬合塊</td></tr>
+        <tr><td><strong>P - Pneumothorax</strong></td><td>張力氣胸 → 立刻針減壓</td></tr>
+        <tr><td><strong>E - Equipment</strong></td><td>呼吸器故障 / 接管脫落 / O2 沒接 → 改 BVM 手壓</td></tr>
+      </table>
+
+      <h4>EET 大小選擇(成人)</h4>
+      <ul>
+        <li><strong>男性:7.5-8.0 mm</strong></li>
+        <li><strong>女性:7.0-7.5 mm</strong></li>
+        <li>緊急時帶 7.0 應該都進得去,先確保通氣最重要</li>
+      </ul>
+
+      <h4>EET 深度(成人,從牙齒測量)</h4>
+      <ul>
+        <li>男性:22-24 cm</li>
+        <li>女性:20-22 cm</li>
+        <li>確認:聽兩側呼吸音對稱、EtCO2 有波形、胸 X 光 EET tip 在 carina 上 2-3 cm</li>
+      </ul>
+
+      <h4>2025 提醒</h4>
+      <p class="tip-info">★ EtCO2 波形是確認 EET 在氣管內的金標準(比聽診更可靠)。直接視覺看到管子穿過聲帶 + EtCO2 波形 = 雙重確認。</p>
+    `
+  }
+];
+
+// ========== 渲染基礎分頁 ==========
+function renderBasics() {
+  const html = `
+    <h2 class="section-title">ACLS 基礎</h2>
+    <p class="section-sub">點任一標題展開內容。建議先讀完這頁,再去看其他分頁。</p>
+
+    <div class="basics-list">
+      ${BASICS_SECTIONS.map(s => `
+        <details class="basics-item">
+          <summary class="basics-summary">
+            <span class="basics-icon">${s.icon}</span>
+            <div class="basics-summary-text">
+              <div class="basics-title">${s.title}</div>
+              <div class="basics-summary-sub">${s.summary}</div>
+            </div>
+            <span class="basics-toggle">+</span>
+          </summary>
+          <div class="basics-content">${s.content}</div>
+        </details>
+      `).join('')}
+    </div>
+
+    <div class="note-box info" style="margin-top:20px;">
+      <strong>讀法建議</strong>:不熟 ACLS 的同仁從這頁第一項依序讀完,大致掌握基礎觀念後,再去「心電圖圖鑑」配合波形練習,接著「死人活人決策樹」整合急救情境,最後用「Megacode」測試自己。
+    </div>
+  `;
+  document.getElementById('tab-basics').innerHTML = html;
+}
+
+
+// 初始化:渲染預設 basics 分頁
+renderBasics();
+window._basicsRendered = true;
 
 </script>
 </body>
