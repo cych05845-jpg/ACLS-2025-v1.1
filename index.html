@@ -994,6 +994,218 @@ body {
 .badge.danger { background:#ef4444; color:#fff; padding:.1em .5em; border-radius:10px; font-size:.7em; margin-left:.3em; }
 .btn-sm { padding:.3em .8em; font-size:.85em; }
 
+
+/* ===== 意見回饋 (feedback) ===== */
+.fb-tabs { display:flex; gap:.4em; border-bottom:1px solid #e2e8f0; margin-bottom:1em; flex-wrap:wrap; }
+.fb-tab-btn { background:none; border:none; padding:.6em 1em; cursor:pointer; color:#64748b; font-size:.95em; border-bottom:3px solid transparent; transition:all .15s; }
+.fb-tab-btn:hover { color:#1e293b; }
+.fb-tab-btn.active { color:#3b82f6; border-bottom-color:#3b82f6; font-weight:600; }
+.fb-form { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:1.2em; }
+.fb-row { margin-bottom:1em; }
+.fb-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:.8em; }
+@media (max-width:520px) { .fb-row-2 { grid-template-columns:1fr; } }
+.fb-label { display:block; font-weight:600; color:#475569; margin-bottom:.4em; font-size:.9em; }
+.fb-required { color:#ef4444; }
+.fb-input, .fb-textarea { width:100%; padding:.6em .8em; border:1px solid #cbd5e1; border-radius:6px; font-size:.95em; font-family:inherit; box-sizing:border-box; }
+.fb-input:focus, .fb-textarea:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.1); }
+.fb-textarea { resize:vertical; min-height:120px; line-height:1.6; }
+.fb-char-count { text-align:right; font-size:.8em; color:#94a3b8; margin-top:.2em; }
+.fb-cat-grid { display:flex; flex-wrap:wrap; gap:.4em; }
+.fb-cat-radio { display:inline-flex; cursor:pointer; }
+.fb-cat-radio input { display:none; }
+.fb-cat-pill { display:inline-block; padding:.35em .8em; border:2px solid #e2e8f0; border-radius:20px; font-size:.85em; transition:all .15s; --c:#64748b; }
+.fb-cat-radio input:checked + .fb-cat-pill { background:var(--c); color:#fff; border-color:var(--c); }
+.fb-actions { display:flex; align-items:center; gap:1em; flex-wrap:wrap; }
+.fb-status { font-size:.9em; color:#64748b; }
+.fb-status-ok { color:#10b981; font-weight:600; }
+.fb-status-err { color:#ef4444; font-weight:600; }
+.fb-hint { margin-top:1em; padding:.7em .9em; background:#f0f9ff; border-left:3px solid #3b82f6; border-radius:4px; font-size:.85em; color:#475569; line-height:1.6; }
+.fb-loading, .fb-empty { text-align:center; padding:2em; color:#64748b; background:#f8fafc; border-radius:8px; }
+.fb-list { display:flex; flex-direction:column; gap:.5em; }
+.fb-faq-card, .fb-replied-card { background:#fff; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; }
+.fb-faq-card.fb-pinned { border-color:#f59e0b; background:#fffbeb; }
+.fb-faq-head, .fb-replied-head { display:flex; align-items:center; gap:.5em; padding:.8em 1em; cursor:pointer; transition:background .12s; }
+.fb-faq-head:hover, .fb-replied-head:hover { background:#f8fafc; }
+.fb-pin { font-size:1em; }
+.fb-faq-cat { background:#dbeafe; color:#1e40af; padding:.2em .6em; border-radius:4px; font-size:.78em; font-weight:600; flex-shrink:0; }
+.fb-faq-q { flex:1; color:#1e293b; font-weight:500; line-height:1.5; }
+.fb-replied-q { flex:1; color:#475569; font-size:.92em; line-height:1.5; }
+.fb-faq-arrow { color:#94a3b8; transition:transform .2s; flex-shrink:0; }
+.fb-faq-arrow.open { transform:rotate(180deg); color:#3b82f6; }
+.fb-faq-body, .fb-replied-body { padding:0 1em 1em; border-top:1px solid #f1f5f9; }
+.fb-faq-ans { color:#1e293b; line-height:1.7; padding-top:.8em; }
+.fb-faq-date { font-size:.78em; color:#94a3b8; margin-top:.6em; }
+.fb-replied-block { padding:.8em; background:#f8fafc; border-radius:6px; margin-top:.8em; }
+.fb-replied-block.fb-replied-reply { background:#f0fdf4; border-left:3px solid #10b981; }
+.fb-replied-label { font-size:.78em; color:#64748b; font-weight:600; margin-bottom:.3em; }
+.fb-replied-text { color:#1e293b; line-height:1.6; }
+.fb-view { animation:fadeIn .2s; }
+
+
+/* ===== 考前衝刺 (cram) ===== */
+.cram-nav { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:.5em; margin-bottom:1.2em; }
+.cram-nav-btn { background:#fff; border:2px solid #e2e8f0; border-radius:10px; padding:.7em .8em; cursor:pointer; transition:all .15s; display:flex; flex-direction:column; align-items:center; gap:.3em; --c:#3b82f6; }
+.cram-nav-btn:hover { border-color:var(--c); transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.08); }
+.cram-nav-btn.active { background:var(--c); border-color:var(--c); color:#fff; }
+.cram-nav-btn.active .cram-nav-title { color:#fff; }
+.cram-nav-icon { font-size:1.6em; }
+.cram-nav-title { font-size:.85em; font-weight:600; color:#1e293b; text-align:center; line-height:1.3; }
+.cram-section-head { display:flex; gap:.8em; align-items:center; padding:1em 1.2em; background:#fff; border-left:5px solid var(--c); border-radius:8px; margin-bottom:1em; box-shadow:0 1px 3px rgba(0,0,0,.05); --c:#3b82f6; }
+.cram-section-icon { font-size:2em; }
+.cram-section-title { font-size:1.2em; font-weight:700; color:#1e293b; }
+.cram-section-sub { font-size:.85em; color:#64748b; margin-top:.15em; }
+.cram-block { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:1em 1.1em; margin-bottom:.7em; border-top:3px solid var(--bc); --bc:#3b82f6; }
+.cram-block-h { font-weight:700; color:#1e293b; font-size:1.02em; margin-bottom:.7em; line-height:1.5; }
+.cram-block-c { color:#334155; line-height:1.7; font-size:.95em; }
+.cram-block-c strong { color:#dc2626; font-weight:700; }
+.cram-list { list-style:none; padding-left:0; margin:.4em 0; }
+.cram-list li { padding:.25em 0 .25em 1.4em; position:relative; line-height:1.6; }
+.cram-list li::before { content:'•'; position:absolute; left:.4em; color:#64748b; font-weight:700; }
+.cram-list-num { counter-reset:n; }
+.cram-list-num li::before { content:counter(n) '.'; counter-increment:n; left:0; color:#3b82f6; min-width:1.2em; }
+.cram-big { font-size:1.3em; font-weight:800; color:#dc2626; text-align:center; padding:.5em; background:#fef2f2; border-radius:6px; margin:.5em 0; letter-spacing:.05em; }
+.cram-tip { background:#eff6ff; border-left:3px solid #3b82f6; padding:.5em .8em; margin:.5em 0; border-radius:4px; font-size:.92em; color:#1e3a8a; line-height:1.6; }
+.cram-warn { background:#fef3c7; border-left:3px solid #f59e0b; padding:.5em .8em; margin:.5em 0; border-radius:4px; font-size:.92em; color:#78350f; line-height:1.6; }
+.cram-warn-inline { background:#fef3c7; color:#78350f; padding:.1em .5em; border-radius:4px; font-size:.78em; margin-left:.3em; font-weight:600; }
+.cram-q { font-weight:600; color:#0c4a6e; background:#f0f9ff; padding:.5em .7em; border-radius:5px; margin:.7em 0 .3em; line-height:1.5; }
+.cram-q.cram-trap { color:#7c2d12; background:#fff7ed; }
+.cram-q.cram-trap::before { content:'🪤 '; }
+.cram-q::before { content:'❓ '; }
+.cram-mnemonic-row { display:grid; grid-template-columns:60px 1fr; gap:.6em; padding:.4em 0; border-bottom:1px dashed #e2e8f0; align-items:start; }
+.cram-mnemonic-row:last-child { border-bottom:none; }
+.cram-table { width:100%; border-collapse:collapse; margin:.5em 0; font-size:.9em; }
+.cram-table th { background:#f1f5f9; color:#1e293b; font-weight:700; text-align:left; padding:.5em .7em; border:1px solid #e2e8f0; }
+.cram-table td { padding:.5em .7em; border:1px solid #e2e8f0; vertical-align:top; line-height:1.5; }
+.cram-table tr:nth-child(even) td { background:#fafafa; }
+.cram-table-poison td { font-size:.88em; }
+.cram-warn-cell { background:#fef2f2 !important; color:#991b1b; font-weight:600; }
+sup { font-size:.7em; vertical-align:super; }
+
+
+/* ============================================================ */
+/* ★ 字體整體放大 (v1.6 — 由小字版改為大字版,適合教學投影 + 手機閱讀) */
+/* ============================================================ */
+
+/* 基底放大 15px → 17px */
+body { font-size: 17px !important; line-height: 1.7 !important; }
+
+/* Header */
+.title { font-size: 22px !important; }
+.subtitle { font-size: 15px !important; }
+
+/* Tab nav */
+.tab-btn { font-size: 16px !important; padding: .8em 1.1em !important; }
+
+/* 章節標題 */
+.section-title { font-size: 24px !important; margin-top: .5em !important; }
+.section-sub { font-size: 16px !important; line-height: 1.7 !important; }
+
+/* 內文 / 段落 */
+p { font-size: 17px !important; line-height: 1.8 !important; }
+li { font-size: 17px !important; line-height: 1.8 !important; }
+h2 { font-size: 22px !important; }
+h3 { font-size: 19px !important; line-height: 1.5 !important; margin-top: 1em !important; }
+h4 { font-size: 17px !important; }
+
+/* 按鈕 */
+.btn { font-size: 16px !important; padding: .7em 1.2em !important; }
+.btn-sm { font-size: 14px !important; padding: .4em .9em !important; }
+
+/* 表格 */
+table { font-size: 16px !important; }
+th, td { padding: .6em .8em !important; line-height: 1.6 !important; }
+
+/* ===== 考前衝刺 cram 拉大 ===== */
+.cram-nav-title { font-size: 14px !important; }
+.cram-nav-icon { font-size: 28px !important; }
+.cram-section-title { font-size: 22px !important; }
+.cram-section-sub { font-size: 15px !important; }
+.cram-section-icon { font-size: 36px !important; }
+.cram-block-h { font-size: 18px !important; line-height: 1.6 !important; }
+.cram-block-c { font-size: 16px !important; line-height: 1.85 !important; }
+.cram-list li { font-size: 16px !important; padding: .35em 0 .35em 1.5em !important; }
+.cram-big { font-size: 24px !important; padding: .7em !important; }
+.cram-tip, .cram-warn { font-size: 16px !important; padding: .7em 1em !important; line-height: 1.75 !important; }
+.cram-q { font-size: 17px !important; padding: .65em .9em !important; line-height: 1.6 !important; }
+.cram-table { font-size: 15px !important; }
+.cram-table th { font-size: 15px !important; padding: .65em .85em !important; }
+.cram-table td { padding: .65em .85em !important; line-height: 1.65 !important; }
+
+/* ===== 題庫 qbank 拉大 ===== */
+.qbank-stat-label { font-size: 14px !important; }
+.qbank-stat-val { font-size: 26px !important; }
+.qbank-mode-title { font-size: 18px !important; }
+.qbank-mode-desc { font-size: 14px !important; }
+.qbank-mode-icon { width: 56px !important; height: 56px !important; font-size: 24px !important; }
+.qbank-cat-name { font-size: 17px !important; }
+.qbank-cat-count { font-size: 14px !important; }
+.qbank-q-text { font-size: 18px !important; line-height: 1.75 !important; }
+.qbank-opt-text { font-size: 16px !important; line-height: 1.65 !important; }
+.qbank-opt-letter { font-size: 17px !important; min-width: 1.5em !important; }
+.qbank-ans-label { font-size: 16px !important; }
+.qbank-exp { font-size: 16px !important; line-height: 1.75 !important; }
+.qbank-progress-text { font-size: 16px !important; }
+.qbank-cat-badge { font-size: 13px !important; padding: .25em .8em !important; }
+.qbank-result-num { font-size: 56px !important; }
+.qbank-result-pct { font-size: 22px !important; }
+.qbank-result-comment { font-size: 16px !important; line-height: 1.75 !important; }
+
+/* ===== Megacode 拉大 ===== */
+.scenario-text { font-size: 17px !important; line-height: 1.8 !important; }
+.mc-question { font-size: 18px !important; line-height: 1.65 !important; }
+.mc-option { font-size: 16px !important; line-height: 1.65 !important; }
+.mc-explain { font-size: 16px !important; line-height: 1.75 !important; }
+
+/* ===== 急救用藥 拉大 ===== */
+.drug-name-en { font-size: 19px !important; }
+.drug-name-zh { font-size: 14px !important; }
+.drug-cat-tag { font-size: 13px !important; }
+.drug-section-title { font-size: 16px !important; }
+.drug-info { font-size: 16px !important; line-height: 1.75 !important; }
+.dose-row { font-size: 16px !important; }
+
+/* ===== EKG 圖鑑 拉大 ===== */
+.ekg-name { font-size: 17px !important; }
+.ekg-meta { font-size: 14px !important; }
+.ekg-desc { font-size: 16px !important; line-height: 1.7 !important; }
+
+/* ===== 意見回饋 拉大 ===== */
+.fb-tab-btn { font-size: 16px !important; padding: .75em 1.2em !important; }
+.fb-label { font-size: 15px !important; }
+.fb-input, .fb-textarea { font-size: 16px !important; padding: .7em .9em !important; }
+.fb-cat-pill { font-size: 14px !important; padding: .4em .9em !important; }
+.fb-hint { font-size: 15px !important; line-height: 1.75 !important; }
+.fb-faq-q { font-size: 16px !important; }
+.fb-faq-ans { font-size: 16px !important; line-height: 1.8 !important; }
+
+/* ===== 自我測驗 拉大 ===== */
+.quiz-q { font-size: 18px !important; line-height: 1.7 !important; }
+.quiz-opt { font-size: 16px !important; line-height: 1.65 !important; }
+.quiz-stats { font-size: 16px !important; }
+
+/* doses 區塊(死人活人決策樹用)*/
+.doses { font-size: 15px !important; line-height: 1.8 !important; padding: .8em 1em !important; }
+
+/* 折疊區塊 */
+details summary { font-size: 17px !important; padding: .8em 1em !important; }
+details > div, details > p { font-size: 16px !important; line-height: 1.8 !important; }
+
+/* ===== 手機適配 — 平衡可讀性與寬度 ===== */
+@media (max-width: 520px) {
+  body { font-size: 16px !important; }
+  p, li { font-size: 16px !important; }
+  .section-title { font-size: 21px !important; }
+  .tab-btn { font-size: 15px !important; padding: .7em .9em !important; }
+  .cram-section-title { font-size: 20px !important; }
+  .cram-block-h { font-size: 17px !important; }
+  .cram-block-c { font-size: 15.5px !important; }
+  .cram-big { font-size: 21px !important; }
+  .qbank-q-text { font-size: 17px !important; }
+  .qbank-opt-text { font-size: 15.5px !important; }
+  .mc-question { font-size: 17px !important; }
+  .mc-option { font-size: 15.5px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -1022,9 +1234,13 @@ body {
     <button class="tab-btn" onclick="switchTab('stemi', this)">12 導程 STEMI</button>
     <button class="tab-btn" onclick="switchTab('drug', this)">急救用藥</button>
     <button class="tab-btn" onclick="switchTab('diff', this)">2020 vs 2025</button>
+    <button class="tab-btn" onclick="switchTab('cram', this)">🎯 考前衝刺</button>
+    
     <button class="tab-btn" onclick="switchTab('qbank', this)">📚 題庫</button>
     <button class="tab-btn" onclick="switchTab('mega', this)">Megacode</button>
     <button class="tab-btn" onclick="switchTab('quiz', this)">自我測驗</button>
+    <button class="tab-btn" onclick="switchTab('feedback', this)">💬 意見回饋</button>
+    
   </div>
 </nav>
 
@@ -1055,9 +1271,13 @@ body {
 <section id="tab-stemi" class="tab-panel"></section>
 <section id="tab-drug" class="tab-panel"></section>
 <section id="tab-diff" class="tab-panel"></section>
+<section id="tab-cram" class="tab-panel"></section>
+
 <section id="tab-qbank" class="tab-panel"></section>
 <section id="tab-mega" class="tab-panel"></section>
 <section id="tab-quiz" class="tab-panel"></section>
+<section id="tab-feedback" class="tab-panel"></section>
+
 
 </main>
 
@@ -1215,7 +1435,7 @@ const EKG_DATA = [
     tag: '規則、窄 QRS、>150bpm、無 P 波',
     keywords: ['psvt', 'svt', '上心室', 'adenosine', '窄'],
     svg: 'M 0 30 L 16 30 L 18 16 L 20 44 L 22 30 L 38 30 L 40 16 L 42 44 L 44 30 L 60 30 L 62 16 L 64 44 L 66 30 L 82 30 L 84 16 L 86 44 L 88 30 L 104 30 L 106 16 L 108 44 L 110 30 L 126 30 L 128 16 L 130 44 L 132 30 L 148 30 L 150 16 L 152 44 L 154 30 L 170 30 L 172 16 L 174 44 L 176 30 L 192 30 L 194 16 L 196 44 L 198 30 L 214 30 L 216 16 L 218 44 L 220 30 L 236 30 L 238 16 L 240 44 L 242 30 L 258 30 L 260 16 L 262 44 L 264 30 L 280 30',
-    action: '→ Adenosine 6→12→12mg;不穩 50J 同步',
+    action: '→ Adenosine 6→12→12mg;不穩 100J 同步',
     detail: {
       identify: [
         '快速規則、窄 QRS(< 0.12 秒)',
@@ -1226,7 +1446,7 @@ const EKG_DATA = [
         '穩定:迷走神經刺激(Valsalva)→ Adenosine 6mg 快速推注',
         'Adenosine 第二劑 12mg → 第三劑 12mg',
         '無效:Amiodarone、BB、CCB(Diltiazem、Verapamil)',
-        '不穩定:50J 同步電擊 → Amiodarone 150mg → 重複電擊'
+        '不穩定:100J 同步電擊 → Amiodarone 150mg → 重複電擊'
       ],
       doses: 'Adenosine 6mg → 12mg → 12mg(IV push,3-way + flush)| 同步 50J',
       pitfall: 'Adenosine 必須「快推 + 立即 flush」,從周邊大靜脈。給完病人會有短暫 asystole 感(會嚇到),先告知。',
@@ -1241,7 +1461,7 @@ const EKG_DATA = [
     tag: '不規則、窄 QRS、無 P 波、基線抖',
     keywords: ['af', 'afib', '心房顫動', '不規則', 'rvr'],
     svg: 'M 0 30 L 4 32 L 8 28 L 12 31 L 14 18 L 16 42 L 18 30 L 22 32 L 26 28 L 30 31 L 34 30 L 38 32 L 42 28 L 46 31 L 50 30 L 54 32 L 58 18 L 60 42 L 62 30 L 66 28 L 70 31 L 74 32 L 78 28 L 82 31 L 86 30 L 90 32 L 94 28 L 96 18 L 98 42 L 100 30 L 104 32 L 108 28 L 112 31 L 116 30 L 120 32 L 124 28 L 128 31 L 132 30 L 136 32 L 138 18 L 140 42 L 142 30 L 146 28 L 150 31 L 154 32 L 158 28 L 162 31 L 166 30 L 170 32 L 174 28 L 176 18 L 178 42 L 180 30 L 184 32 L 188 28 L 192 31 L 196 30 L 200 32 L 204 28 L 208 31 L 210 18 L 212 42 L 214 30 L 218 28 L 222 31 L 226 32 L 230 28 L 234 31 L 238 30 L 242 32 L 246 28 L 248 18 L 250 42 L 252 30 L 256 28 L 260 31 L 264 32 L 268 28 L 272 31 L 276 30 L 280 32',
-    action: '→ 穩 Amio;不穩 120J 同步',
+    action: '→ 穩 Amio;不穩 200J 同步(2025)',
     detail: {
       identify: [
         'R-R 間距完全不規則(irregularly irregular)',
@@ -1250,11 +1470,11 @@ const EKG_DATA = [
       ],
       treatment: [
         '穩定 AfibRVR:Amiodarone 150mg → Amiodarone pump',
-        '不穩定 AfibRVR:120J 同步電擊 → Amiodarone 150mg',
+        '不穩定 AfibRVR:雙相 200J 同步電擊起始(2025 新指引)→ Amiodarone 150mg',
         '注意:可電擊的不穩定 AF 限 48 小時內新發生(避免血栓脫落)',
         '其他選擇:Diltiazem、Verapamil、Digoxin(心衰)、BB'
       ],
-      doses: '同步電擊 120J | Amio 150mg → 900mg/24hr | Diltiazem 0.25 mg/kg',
+      doses: '同步電擊 200J 起(2025) | Amio 150mg → 900mg/24hr | Diltiazem 0.25 mg/kg',
       pitfall: 'AF > 48 小時或不確定發作時間 → 不建議直接電擊復律(血栓風險)。',
       update2025: '無變動。'
     }
@@ -1276,10 +1496,10 @@ const EKG_DATA = [
       ],
       treatment: [
         '穩定:Amiodarone、CCB、BB 控制心率',
-        '不穩定:同步電擊 50-100J(比 AF 容易復律)',
+        '不穩定:同步電擊 200J 起(2025);先給鎮靜止痛',
         '考慮抗凝(同 AF 的 stroke 風險)'
       ],
-      doses: '同步電擊 50-100J | Amio 150mg | Diltiazem 0.25 mg/kg',
+      doses: '同步電擊 200J 起 | Amio 150mg | Diltiazem 0.25 mg/kg',
       pitfall: '心率穩定在 150 + 規則 → 想 AFlutter 2:1。AF 從來不會「規則的 150」。',
       update2025: '無變動。'
     }
@@ -1623,6 +1843,8 @@ function switchTab(name, btn) {
   if (name === 'qbank' && !window._qbankRendered) { renderQbank(); window._qbankRendered = true; }
   if (name === 'mega' && !window._megaRendered) { renderMega(); window._megaRendered = true; }
   if (name === 'quiz' && !window._quizRendered) { renderQuiz(); window._quizRendered = true; }
+  if (name === 'cram' && !window._cramRendered) { renderCram(); window._cramRendered = true; }
+  if (name === 'feedback' && !window._fbRendered) { renderFeedback(); window._fbRendered = true; }
 }
 
 // 搜尋
@@ -1759,7 +1981,7 @@ function renderFlow() {
         <rect x="40" y="555" width="600" height="60" rx="6" fill="#F7F6F1" stroke="none"/>
         <text x="60" y="576" font-size="13" font-weight="600" fill="#2C2C2A">電擊能量速查表</text>
         <text x="60" y="594" font-size="12" fill="#5F5E5A">死人:VF/VT 200J 去顫(不同步)</text>
-        <text x="60" y="610" font-size="12" fill="#5F5E5A">活人同步:窄規 50J / 窄不規(AF) 120J / 寬規(VT) 100J / 寬不規(TdP) 200J 去顫</text>
+        <text x="60" y="610" font-size="12" fill="#5F5E5A">活人同步:PSVT 100J / Af/AFlutter 200J(2025) / VT 100J / TdP 不同步 200J 去顫</text>
       </svg>
     </div>
     <div class="note-box info">
@@ -1771,7 +1993,7 @@ function renderFlow() {
 
 const FLOW_DETAILS = {
   jiaojiaoC: {
-    title: '叫叫 C(初級評估)',
+    title: '叫叫 C(BLS Survey,基本救命術評估)',
     body: `
       <h3>三步驟</h3>
       <ul>
@@ -1809,7 +2031,7 @@ const FLOW_DETAILS = {
         <li><strong>不穩定定義</strong>:昏(意識改變)、痛(胸痛)、喘(心衰竭)、休克、低血壓(SBP ≤ 80)</li>
       </ul>
       <h3>第一句永遠是</h3>
-      <p>O2、IV、Monitor、量 BP(2 次級評估)</p>
+      <p>O2、IV、Monitor、量 BP(進入 <strong>ACLS Primary Survey ABCDE</strong>)</p>
       <p>有空再加:抽血三管 + GAS,12 導程 EKG 準備</p>
     `
   },
@@ -1864,7 +2086,7 @@ const FLOW_DETAILS = {
       <h3>四象限速查</h3>
       <table style="width:100%; border-collapse:collapse; font-size:13px; margin: 8px 0;">
         <tr style="background:#F7F6F1;"><td style="padding:6px;border:1px solid #ddd;"></td><td style="padding:6px;border:1px solid #ddd;font-weight:600;">規則</td><td style="padding:6px;border:1px solid #ddd;font-weight:600;">不規則</td></tr>
-        <tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">窄</td><td style="padding:6px;border:1px solid #ddd;">PSVT → Adeno → 50J 同步</td><td style="padding:6px;border:1px solid #ddd;">AF → Amio → 120J 同步</td></tr>
+        <tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">窄</td><td style="padding:6px;border:1px solid #ddd;">PSVT → Adeno → 100J 同步</td><td style="padding:6px;border:1px solid #ddd;">AF → Amio → 200J 同步</td></tr>
         <tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">寬</td><td style="padding:6px;border:1px solid #ddd;">VT → Amio → 100J 同步</td><td style="padding:6px;border:1px solid #ddd;">TdP → MgSO4 / 200J 去顫</td></tr>
       </table>
       <h3>穩定 vs 不穩定</h3>
@@ -3370,7 +3592,7 @@ const QBANK_DATA = [
       { text: '若有脈搏先 Amiodarone 150 mg IV 10 分鐘', correct: false }
     ],
     ans: 'B',
-    exp: '無脈 VT 唯一有效是去顫(雙相 120-200J)。有脈 monomorphic VT 同步從 100J 開始。'
+    exp: '無脈 VT 唯一有效是去顫(雙相 200J / 單相 360J)。有脈 monomorphic VT 同步從 100J 開始。'
   },
   {
     id: 92, cat: 'arrest',
@@ -3430,7 +3652,7 @@ const QBANK_DATA = [
       { text: '病患詐病不予理會', correct: false }
     ],
     ans: 'A',
-    exp: '無脈性 VT 立即 CPR + 雙相去顫 120-200J。'
+    exp: '無脈性 VT 立即 CPR + 雙相去顫 200J(雙相)/ 360J(單相)。'
   },
   {
     id: 97, cat: 'arrest',
@@ -4145,7 +4367,7 @@ const QBANK_DATA = [
       { text: '規則 AFlutter - 同步 200J', correct: false }
     ],
     ans: 'A',
-    exp: 'Af(窄不規則):同步整流 200J。AFlutter 規則:同步 50-100J 即可。窄規則 PSVT:50-100J。寬規則 VT:100J。寬不規則:去顫劑量。'
+    exp: '2025 AHA:Af 同步起始至少 200J(新證據成功率 >90%);AFlutter 同步 200J 起;PSVT 100J;規則寬 QRS VT 100J;polymorphic VT 不同步高能量去顫。'
   },
   {
     id: 157, cat: 'tachy',
@@ -5073,6 +5295,1136 @@ function renderQbankResult() {
 }
 
 
+// ============================================================
+// 意見回饋 + FAQ 公告 — 前端
+// ============================================================
+
+// ⚠️ 部署 Apps Script Web App 後,把 URL 貼在這裡
+const FEEDBACK_API = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec';
+
+const FEEDBACK_CATEGORIES = [
+  { id: 'bug',     name: '🐞 問題回報',  color: '#ef4444' },
+  { id: 'content', name: '📚 內容錯誤',  color: '#f59e0b' },
+  { id: 'feature', name: '💡 新增功能',  color: '#3b82f6' },
+  { id: 'praise',  name: '👍 喜歡的點',  color: '#10b981' },
+  { id: 'other',   name: '💬 其他',      color: '#64748b' }
+];
+
+let feedbackState = {
+  faq: [],
+  replied: [],
+  loaded: false,
+  loading: false,
+  expandedFaq: new Set(),
+  expandedReplied: new Set()
+};
+
+// ===== 主渲染 =====
+function renderFeedback() {
+  const wrap = document.getElementById('tab-feedback');
+  if (!wrap) return;
+
+  wrap.innerHTML = `
+    <h2 class="section-title">意見回饋 & 公告</h2>
+    <p class="section-sub">有 bug、內容錯誤、想要的功能、或是想說一句話 — 都歡迎留言。匿名也 OK。</p>
+
+    <div class="fb-tabs">
+      <button class="fb-tab-btn active" onclick="fbSwitchView('submit', this)">✏️ 我要留言</button>
+      <button class="fb-tab-btn" onclick="fbSwitchView('faq', this)">📌 常見問題 / 公告</button>
+      <button class="fb-tab-btn" onclick="fbSwitchView('replied', this)">💬 同仁問答</button>
+    </div>
+
+    <div id="fb-view-submit" class="fb-view"></div>
+    <div id="fb-view-faq" class="fb-view" style="display:none;"></div>
+    <div id="fb-view-replied" class="fb-view" style="display:none;"></div>
+  `;
+
+  renderFbSubmit();
+  // 預載 FAQ + replied(背景)
+  loadFbData();
+}
+
+function fbSwitchView(view, btn) {
+  document.querySelectorAll('.fb-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['submit', 'faq', 'replied'].forEach(v => {
+    document.getElementById('fb-view-' + v).style.display = v === view ? 'block' : 'none';
+  });
+  if (view === 'faq') renderFbFaq();
+  if (view === 'replied') renderFbReplied();
+}
+
+// ===== 留言表單 =====
+function renderFbSubmit() {
+  const wrap = document.getElementById('fb-view-submit');
+  const cats = FEEDBACK_CATEGORIES.map(c => `
+    <label class="fb-cat-radio">
+      <input type="radio" name="fb-cat" value="${c.id}" ${c.id === 'bug' ? 'checked' : ''}>
+      <span class="fb-cat-pill" style="--c:${c.color};">${c.name}</span>
+    </label>
+  `).join('');
+
+  wrap.innerHTML = `
+    <div class="fb-form">
+      <div class="fb-row">
+        <label class="fb-label">類別</label>
+        <div class="fb-cat-grid">${cats}</div>
+      </div>
+
+      <div class="fb-row fb-row-2">
+        <div>
+          <label class="fb-label">姓名(選填)</label>
+          <input type="text" id="fb-name" class="fb-input" placeholder="留空 = 匿名" maxlength="50">
+        </div>
+        <div>
+          <label class="fb-label">單位(選填)</label>
+          <input type="text" id="fb-unit" class="fb-input" placeholder="例:急診 / ICU / 病房" maxlength="50">
+        </div>
+      </div>
+
+      <div class="fb-row">
+        <label class="fb-label">訊息 <span class="fb-required">*</span></label>
+        <textarea id="fb-message" class="fb-textarea" placeholder="請描述您發現的問題、建議,或任何想說的話..." maxlength="2000" rows="6"></textarea>
+        <div class="fb-char-count"><span id="fb-char">0</span> / 2000</div>
+      </div>
+
+      <div class="fb-actions">
+        <button class="btn primary" onclick="submitFeedback()">送出留言</button>
+        <span id="fb-status" class="fb-status"></span>
+      </div>
+
+      <div class="fb-hint">
+        💡 您的意見會直接傳給急診護理長 翁秀霞。常見問題會整理在「常見問題 / 公告」頁,讓所有同仁都能看到。
+      </div>
+    </div>
+  `;
+
+  // 字數計算
+  const textarea = document.getElementById('fb-message');
+  const charSpan = document.getElementById('fb-char');
+  textarea.addEventListener('input', () => {
+    charSpan.textContent = textarea.value.length;
+  });
+}
+
+// ===== 送出 =====
+async function submitFeedback() {
+  const cat = document.querySelector('input[name="fb-cat"]:checked');
+  const name = document.getElementById('fb-name').value.trim();
+  const unit = document.getElementById('fb-unit').value.trim();
+  const message = document.getElementById('fb-message').value.trim();
+  const status = document.getElementById('fb-status');
+  const button = document.querySelector('#fb-view-submit .btn.primary');
+
+  if (!message) {
+    status.textContent = '⚠️ 請填寫訊息內容';
+    status.className = 'fb-status fb-status-err';
+    return;
+  }
+
+  status.textContent = '送出中...';
+  status.className = 'fb-status';
+  button.disabled = true;
+
+  try {
+    // 用 text/plain 避免 CORS preflight(同 ECPR 系統做法)
+    const res = await fetch(FEEDBACK_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'submitFeedback',
+        category: cat ? cat.value : 'other',
+        name, unit, message
+      })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      status.textContent = '✅ 感謝您的留言!已送達。';
+      status.className = 'fb-status fb-status-ok';
+      document.getElementById('fb-message').value = '';
+      document.getElementById('fb-char').textContent = '0';
+      document.getElementById('fb-name').value = '';
+      document.getElementById('fb-unit').value = '';
+    } else {
+      status.textContent = '❌ ' + (data.error || '送出失敗');
+      status.className = 'fb-status fb-status-err';
+    }
+  } catch (err) {
+    status.textContent = '❌ 網路錯誤,請稍後再試';
+    status.className = 'fb-status fb-status-err';
+  } finally {
+    button.disabled = false;
+  }
+}
+
+// ===== 讀取資料 =====
+async function loadFbData() {
+  if (feedbackState.loading) return;
+  feedbackState.loading = true;
+  try {
+    const [faqRes, repliedRes] = await Promise.all([
+      fetch(FEEDBACK_API + '?action=getFaq').then(r => r.json()),
+      fetch(FEEDBACK_API + '?action=getRepliedFeedback').then(r => r.json())
+    ]);
+    if (faqRes.ok) feedbackState.faq = faqRes.items || [];
+    if (repliedRes.ok) feedbackState.replied = repliedRes.items || [];
+    feedbackState.loaded = true;
+  } catch (err) {
+    console.error('Load feedback data failed', err);
+  } finally {
+    feedbackState.loading = false;
+  }
+}
+
+// ===== FAQ 渲染 =====
+async function renderFbFaq() {
+  const wrap = document.getElementById('fb-view-faq');
+  if (!feedbackState.loaded) {
+    wrap.innerHTML = '<div class="fb-loading">📡 載入中...</div>';
+    await loadFbData();
+  }
+
+  if (feedbackState.faq.length === 0) {
+    wrap.innerHTML = '<div class="fb-empty">目前還沒有 FAQ,等護理長新增中...</div>';
+    return;
+  }
+
+  const items = feedbackState.faq.map((item, i) => {
+    const expanded = feedbackState.expandedFaq.has(i);
+    return `
+      <div class="fb-faq-card ${item.pinned ? 'fb-pinned' : ''}">
+        <div class="fb-faq-head" onclick="fbToggleFaq(${i})">
+          ${item.pinned ? '<span class="fb-pin">📌</span>' : ''}
+          <span class="fb-faq-cat">${item.category}</span>
+          <span class="fb-faq-q">${item.question}</span>
+          <span class="fb-faq-arrow ${expanded ? 'open' : ''}">▼</span>
+        </div>
+        ${expanded ? `
+          <div class="fb-faq-body">
+            <div class="fb-faq-ans">${item.answer.replace(/\n/g, '<br>')}</div>
+            ${item.updated ? `<div class="fb-faq-date">更新:${item.updated}</div>` : ''}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="fb-list">${items}</div>
+    <button class="btn ghost btn-sm" onclick="fbReload()" style="margin-top:1em;">🔄 重新整理</button>
+  `;
+}
+
+function fbToggleFaq(i) {
+  if (feedbackState.expandedFaq.has(i)) feedbackState.expandedFaq.delete(i);
+  else feedbackState.expandedFaq.add(i);
+  renderFbFaq();
+}
+
+// ===== 同仁問答(已公開的回覆)=====
+async function renderFbReplied() {
+  const wrap = document.getElementById('fb-view-replied');
+  if (!feedbackState.loaded) {
+    wrap.innerHTML = '<div class="fb-loading">📡 載入中...</div>';
+    await loadFbData();
+  }
+
+  if (feedbackState.replied.length === 0) {
+    wrap.innerHTML = '<div class="fb-empty">尚無公開的問答記錄</div>';
+    return;
+  }
+
+  const cats = {};
+  FEEDBACK_CATEGORIES.forEach(c => cats[c.id] = c);
+
+  const items = feedbackState.replied.map((item, i) => {
+    const expanded = feedbackState.expandedReplied.has(i);
+    const cat = cats[item.category] || cats.other;
+    return `
+      <div class="fb-replied-card">
+        <div class="fb-replied-head" onclick="fbToggleReplied(${i})">
+          <span class="fb-cat-pill" style="--c:${cat.color};">${cat.name}</span>
+          <span class="fb-replied-q">${item.message.length > 60 ? item.message.slice(0, 60) + '...' : item.message}</span>
+          <span class="fb-faq-arrow ${expanded ? 'open' : ''}">▼</span>
+        </div>
+        ${expanded ? `
+          <div class="fb-replied-body">
+            <div class="fb-replied-block">
+              <div class="fb-replied-label">${item.name} 提問 · ${item.timestamp}</div>
+              <div class="fb-replied-text">${item.message.replace(/\n/g, '<br>')}</div>
+            </div>
+            <div class="fb-replied-block fb-replied-reply">
+              <div class="fb-replied-label">護理長回覆</div>
+              <div class="fb-replied-text">${item.reply.replace(/\n/g, '<br>')}</div>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="fb-list">${items}</div>
+    <button class="btn ghost btn-sm" onclick="fbReload()" style="margin-top:1em;">🔄 重新整理</button>
+  `;
+}
+
+function fbToggleReplied(i) {
+  if (feedbackState.expandedReplied.has(i)) feedbackState.expandedReplied.delete(i);
+  else feedbackState.expandedReplied.add(i);
+  renderFbReplied();
+}
+
+async function fbReload() {
+  feedbackState.loaded = false;
+  feedbackState.faq = [];
+  feedbackState.replied = [];
+  await loadFbData();
+  // 重新渲染當前可見 view
+  if (document.getElementById('fb-view-faq').style.display !== 'none') renderFbFaq();
+  else if (document.getElementById('fb-view-replied').style.display !== 'none') renderFbReplied();
+}
+
+
+// ============================================================
+// 考前衝刺 (cram) — 指導員猜題 + 速記口訣
+// ============================================================
+
+const CRAM_SECTIONS = [
+  // ========== Primary + Secondary Survey(早上第一節必考)==========
+  {
+    id: 'survey',
+    icon: '📋',
+    title: 'Primary + Secondary Survey',
+    subtitle: '早上第一節賴韋安醫師會教,必考',
+    color: '#0891b2',
+    blocks: [
+      {
+        h: '三層評估別搞混',
+        c: `<table class="cram-table">
+          <tr><th>評估</th><th>內容</th><th>場景</th></tr>
+          <tr><td><strong>BLS Survey</strong></td><td>叫叫 CAB(意識、呼救、CPR)</td><td>第一線、無設備</td></tr>
+          <tr><td><strong>ACLS Primary Survey</strong></td><td><strong>ABCDE</strong></td><td>有設備團隊到場</td></tr>
+          <tr><td><strong>ACLS Secondary Survey</strong></td><td><strong>AMPLE + PE + 鑑別診斷</strong></td><td>穩定後找原因</td></tr>
+        </table>
+        <div class="cram-warn">⚠️ 指導員愛問:「你說的 Primary 是 BLS 還是 ACLS?」— 兩個不同!</div>`
+      },
+      {
+        h: 'ACLS Primary Survey = ABCDE',
+        c: `<table class="cram-table">
+          <tr><th></th><th>評估</th><th>動作</th></tr>
+          <tr><td><strong>A</strong>irway</td><td>呼吸道是否通暢?</td><td>BVM / OPA / NPA / ETT / SGA</td></tr>
+          <tr><td><strong>B</strong>reathing</td><td>通氣 / 氧合是否足夠?</td><td>SpO₂ 監測、<strong>EtCO₂(波形)</strong>、聽診</td></tr>
+          <tr><td><strong>C</strong>irculation</td><td>CPR 品質?電擊?</td><td>monitor、<strong>IV/IO</strong>、Defib、藥物</td></tr>
+          <tr><td><strong>D</strong>isability</td><td>神經學狀態</td><td><strong>GCS、瞳孔、AVPU、血糖</strong></td></tr>
+          <tr><td><strong>E</strong>xposure</td><td>全身視診找線索</td><td>外傷、藥物 patch、出血、皮疹、四肢、體溫</td></tr>
+        </table>
+        <div class="cram-tip">D 項常被忘 — 指導員愛問「血糖呢?」尤其疑似中風或意識改變時</div>
+        <div class="cram-tip">E 項找線索:Fentanyl patch、糖尿病手環、針孔(毒癮)、皮膚瘀斑(出血/凝血)</div>`
+      },
+      {
+        h: 'ACLS Secondary Survey = AMPLE + PE + 鑑別',
+        c: `<table class="cram-table">
+          <tr><th></th><th>內容</th><th>關鍵問題</th></tr>
+          <tr><td><strong>A</strong>llergies</td><td>過敏史</td><td>藥物?食物?顯影劑?</td></tr>
+          <tr><td><strong>M</strong>edications</td><td>用藥</td><td>抗凝劑、降壓、降血糖、毒品、PDE5(威而鋼!)</td></tr>
+          <tr><td><strong>P</strong>ast history</td><td>過去病史</td><td>CAD、糖尿病、洗腎、CHF、中風史</td></tr>
+          <tr><td><strong>L</strong>ast meal/event</td><td>最後進食/事件</td><td>插管考量、最後正常時間(中風 tPA)</td></tr>
+          <tr><td><strong>E</strong>vents</td><td>發生經過</td><td>怎麼倒下?多久?有人 CPR?是否目擊?</td></tr>
+        </table>
+        <div class="cram-tip">+ 完整 <strong>focused physical exam</strong>:頸(JVD、氣管)、胸(呼吸音、心音)、腹(壓痛、腸音)、四肢(脈搏、水腫、皮膚)</div>
+        <div class="cram-tip">+ 鑑別診斷 → 找 <strong>5H5T</strong> → 對因治療</div>`
+      },
+      {
+        h: '何時做 Primary?何時做 Secondary?',
+        c: `<div class="cram-q">「病人來了同時要做 Primary 和 Secondary 嗎?」</div>
+        <ul class="cram-list">
+          <li><strong>Primary 永遠優先</strong> — 救命的事先做(ABC)</li>
+          <li>Primary 過程中發現問題就立刻處理(發現 VF → 電擊,不要等做完 ABCDE)</li>
+          <li>病人穩定後才進 Secondary</li>
+          <li>CPR 中可由其他成員<strong>同步</strong>問病史(AMPLE)</li>
+        </ul>
+        <div class="cram-warn">⚠️ 指導員陷阱:「你做完 Primary 才開始問病史對嗎?」<br>答:CPR/插管同時問家屬病史最有效率,但 ABC 沒穩定前不能停下來只為問病史</div>`
+      },
+      {
+        h: 'Primary Survey 在不同情境的重點',
+        c: `<table class="cram-table">
+          <tr><th>情境</th><th>Primary 額外重點</th></tr>
+          <tr><td>心停 (CPR 中)</td><td>C 是最重要 — 高品質 CPR + 電擊;A/B 用 BVM</td></tr>
+          <tr><td>胸痛(疑 ACS)</td><td>C → 立刻 monitor + IV + <strong>12 lead EKG ≤ 10min</strong></td></tr>
+          <tr><td>中風</td><td>D 是重點 — <strong>NIHSS、血糖、最後正常時間</strong>;BP 不急著降</td></tr>
+          <tr><td>外傷</td><td>遵循 <strong>ATLS</strong> — A 同時保護頸椎(C-spine)</td></tr>
+          <tr><td>呼吸窘迫</td><td>A/B 是重點 — 提早決定插管 vs NIV</td></tr>
+          <tr><td>意識改變</td><td>D + E — <strong>血糖、GCS、瞳孔、AEIOU-TIPS 鑑別</strong></td></tr>
+        </table>`
+      },
+      {
+        h: '指導員陷阱題',
+        c: `<div class="cram-q cram-trap">「Primary 跟 Secondary 順序是?」</div>
+        <div>Primary → 處理 → 穩定後 → Secondary。但<strong>不是線性</strong>,Primary 過程中發現可立刻處理</div>
+
+        <div class="cram-q cram-trap">「你會在 CPR 中問病史嗎?」</div>
+        <div>會!CPR 持續進行,Team Leader 或 recorder 同時問家屬 AMPLE — 找 5H5T 就靠這個</div>
+
+        <div class="cram-q cram-trap">「ABCDE 的 D 是什麼?」</div>
+        <div><strong>Disability(神經學)</strong>,不是 Defibrillation!Defib 屬於 C(Circulation)</div>
+
+        <div class="cram-q cram-trap">「ABCDE 的 E 不就是 Exposure 看身體嗎,有什麼好做的?」</div>
+        <div>看 Fentanyl patch(毒物原因)、瘀斑(凝血/出血)、針孔、糖尿病手環、植入式裝置(ICD/pacemaker)— 線索就在這</div>
+
+        <div class="cram-q cram-trap">「AMPLE 的 L 是什麼?」</div>
+        <div><strong>Last meal / event</strong>:最後一餐(插管禁食考量)+ 最後正常時間(中風 tPA 黃金時間)</div>
+
+        <div class="cram-q cram-trap">「中風病人 AMPLE 哪一項最關鍵?」</div>
+        <div><strong>L 和 M</strong> — 最後正常時間決定 tPA 條件,用藥史(抗凝劑)決定能否打 tPA</div>`
+      }
+    ]
+  },
+
+  // ========== 速記口訣總覽 ==========
+  {
+    id: 'mnemonics',
+    icon: '🧠',
+    title: '速記口訣大全',
+    subtitle: '考前 5 分鐘掃過去就好',
+    color: '#8b5cf6',
+    blocks: [
+      {
+        h: 'ABCDE — ACLS Primary Survey',
+        c: `<div class="cram-big">A · B · C · D · E</div>
+        <ul class="cram-list">
+          <li><strong>A</strong>irway 呼吸道</li>
+          <li><strong>B</strong>reathing 通氣 / 氧合(SpO₂、EtCO₂)</li>
+          <li><strong>C</strong>irculation 循環(CPR、電擊、IV、藥)</li>
+          <li><strong>D</strong>isability 神經(GCS、瞳孔、<strong>血糖</strong>)</li>
+          <li><strong>E</strong>xposure 暴露(全身視診找線索)</li>
+        </ul>
+        <div class="cram-warn">⚠️ D <strong>不是</strong> Defibrillation(那是 C)!</div>`
+      },
+      {
+        h: 'AMPLE — ACLS Secondary Survey 病史',
+        c: `<div class="cram-big">A · M · P · L · E</div>
+        <ul class="cram-list">
+          <li><strong>A</strong>llergies — 過敏史</li>
+          <li><strong>M</strong>edications — 用藥(抗凝、PDE5、毒品)</li>
+          <li><strong>P</strong>ast history — 過去病史</li>
+          <li><strong>L</strong>ast meal / event — 最後進食 / 最後正常時間</li>
+          <li><strong>E</strong>vents — 發生經過</li>
+        </ul>
+        <div class="cram-tip">+ focused PE + 鑑別診斷 → 對因處置</div>`
+      },
+      {
+        h: '5H5T(死人找原因)',
+        c: `<div class="cram-mnemonic-row">
+          <div><strong>5H</strong></div>
+          <div>Hypovolemia 低血容 / Hypoxia 低氧 / H<sup>+</sup> 酸中毒 / Hypo-Hyperkalemia 鉀異常 / Hypothermia 低體溫</div>
+        </div>
+        <div class="cram-mnemonic-row">
+          <div><strong>5T</strong></div>
+          <div>Tablets 毒藥物 / Tamponade 心包填塞 / Tension pneumothorax 張力性氣胸 / Thrombosis 心(MI)/ Thrombosis 肺(PE)</div>
+        </div>`
+      },
+      {
+        h: 'LANE — 氣管內管 (ETT) 可給的 4 種藥',
+        c: `<div class="cram-big">L · A · N · E</div>
+        <ul class="cram-list">
+          <li><strong>L</strong>idocaine</li>
+          <li><strong>A</strong>tropine</li>
+          <li><strong>N</strong>aloxone</li>
+          <li><strong>E</strong>pinephrine</li>
+        </ul>
+        <div class="cram-warn">⚠️ Amiodarone、NaHCO3、Calcium <strong>不能</strong>從 ETT 給!</div>`
+      },
+      {
+        h: 'DOPE — 插管後 SpO₂ / EtCO₂ 突然掉',
+        c: `<div class="cram-big">D · O · P · E</div>
+        <ul class="cram-list">
+          <li><strong>D</strong>isplacement — 管子<strong>滑出</strong> / <strong>進太深</strong>(右主支氣管)</li>
+          <li><strong>O</strong>bstruction — <strong>痰</strong> / <strong>異物</strong>阻塞</li>
+          <li><strong>P</strong>neumothorax — <strong>張力性氣胸</strong>(壓胸或正壓通氣可誘發)</li>
+          <li><strong>E</strong>quipment — <strong>接頭鬆 / 呼吸器設定錯 / 氧氣源沒接</strong></li>
+        </ul>
+        <div class="cram-tip">處理順序:<strong>聽呼吸音</strong>(雙側對稱?)→ <strong>抽吸</strong>看是否痰塞 → <strong>EtCO₂ 波形</strong>確認位置 → 必要時<strong>拔管重插</strong></div>
+        <div class="cram-warn">⚠️ Megacode 必考情境:插管後 SpO2 從 100 掉到 70 — 不是先換呼吸器,先想 DOPE!</div>`
+      },
+      {
+        h: 'MONA 真正順序 = A → N → O → M',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>Aspirin</strong> 162-325mg 嚼碎(優先!降低死亡率)</li>
+          <li><strong>NTG</strong> SL(若血壓允許)</li>
+          <li><strong>Oxygen</strong> — 只在 <strong>SpO₂ &lt; 90%</strong> 才給(2010 後改了)</li>
+          <li><strong>Morphine</strong> — NTG 無效才用</li>
+        </ol>
+        <div class="cram-warn">⚠️ MONA 不是順序而是項目;routine 給 O₂ 反而傷害(增加 reperfusion injury)</div>`
+      },
+      {
+        h: 'Prasugrel 三禁忌 = 「中老瘦」',
+        c: `<ul class="cram-list">
+          <li><strong>中</strong>風史</li>
+          <li><strong>老</strong>(&gt; 75 歲)</li>
+          <li><strong>瘦</strong>(&lt; 60 kg)</li>
+        </ul>
+        <div class="cram-tip">這三個任一條件 → 出血爆高 → 改 Ticagrelor 或 Clopidogrel</div>`
+      },
+      {
+        h: '高鉀治療三步驟 = 「穩 → 趕 → 排」',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>穩</strong>心肌:Calcium gluconate 1g IV(EKG 變化才給)</li>
+          <li><strong>趕</strong>進細胞:Insulin + 葡萄糖、NaHCO3、β2 agonist</li>
+          <li><strong>排</strong>出體外:Lasix、Kayexalate、洗腎</li>
+        </ol>
+        <div class="cram-tip">高鉀 EKG 順序:Peaked T → P 平 → PR 延長 → QRS 寬 → Sine wave → VF/Asystole</div>`
+      },
+      {
+        h: '不穩定心搏過速徵象 = 「昏痛喘休克低血壓」',
+        c: `<div class="cram-big">昏 · 痛 · 喘 · 休克 · 低血壓</div>
+        <ul class="cram-list">
+          <li><strong>昏</strong> — 意識改變</li>
+          <li><strong>痛</strong> — 缺血性胸痛</li>
+          <li><strong>喘</strong> — 急性心衰竭</li>
+          <li><strong>休克</strong>徵象(冷汗、末梢冰冷)</li>
+          <li><strong>低血壓</strong>(SBP ≤ 80)</li>
+        </ul>
+        <div class="cram-warn">出現任一 → 立刻同步整流</div>`
+      },
+      {
+        h: '電擊能量速記',
+        c: `<table class="cram-table">
+          <tr><th>節奏</th><th>能量</th><th>方式</th></tr>
+          <tr><td>窄規則 PSVT</td><td><strong>100J</strong></td><td>同步</td></tr>
+          <tr><td>AFlutter</td><td><strong>200J</strong> 起</td><td>同步</td></tr>
+          <tr><td>Af(不規則)</td><td><strong>200J</strong> 起 ⚡新</td><td>同步</td></tr>
+          <tr><td>寬規則 VT(有脈)</td><td><strong>100J</strong></td><td>同步</td></tr>
+          <tr><td>Polymorphic VT</td><td><strong>不同步高能量</strong></td><td>當 VF 去顫</td></tr>
+          <tr><td>VF / pVT</td><td><strong>200J</strong>(雙相)</td><td>去顫</td></tr>
+        </table>`
+      },
+      {
+        h: '⚡ 2025 電擊能量更新(必考)',
+        c: `<div class="cram-warn">⚡ <strong>2025 AHA 新規定</strong>:Af / AFlutter 同步整流起始能量提高至 <strong>≥ 200J</strong>(原 120-200J)</div>
+        <table class="cram-table">
+          <tr><th>心律</th><th>2025 標準</th><th>備註</th></tr>
+          <tr><td>VF / pVT</td><td><strong>200J</strong> 雙相 / 360J 單相</td><td>去顫(不同步)</td></tr>
+          <tr><td>Af</td><td><strong>200J</strong> 起 ⚡新</td><td>同步,失敗加量</td></tr>
+          <tr><td>AFlutter</td><td><strong>200J</strong> 起</td><td>同步,失敗加量</td></tr>
+          <tr><td>PSVT(窄規則)</td><td><strong>100J</strong></td><td>同步</td></tr>
+          <tr><td>VT 有脈(寬規則)</td><td><strong>100J</strong></td><td>同步</td></tr>
+          <tr><td>Polymorphic VT</td><td>不同步高能量</td><td>當 VF 處理(200J 去顫)</td></tr>
+        </table>
+        <div class="cram-tip">為什麼改?2025 多項 RCT + meta 顯示 200J 起始 Af 成功率 > 90%,且低能量單相反而易誘發 VF</div>
+        <div class="cram-q cram-trap">「指導員問:Af 不穩定電擊起始能量?」</div>
+        <div>新答案:<strong>200J 雙相</strong>(原 120J 已過時)</div>`
+      },
+      {
+        h: 'STEMI bundle 數字 = 10-30-90-30',
+        c: `<table class="cram-table">
+          <tr><td>D2E(Door-to-EKG)</td><td><strong>≤ 10 min</strong></td></tr>
+          <tr><td>D2N(Door-to-Needle 溶栓)</td><td><strong>≤ 30 min</strong></td></tr>
+          <tr><td>D2B(Door-to-Balloon PCI)</td><td><strong>≤ 90 min</strong></td></tr>
+          <tr><td>DIDO(轉院 Door-In-Door-Out)</td><td><strong>≤ 30 min</strong></td></tr>
+        </table>`
+      },
+      {
+        h: 'Atropine 無效 = 「移、寬、二快、三阻」',
+        c: `<ul class="cram-list">
+          <li><strong>移</strong>植後(無迷走神經)</li>
+          <li><strong>寬</strong> QRS 徐脈</li>
+          <li><strong>二</strong>度 AVB Mobitz II</li>
+          <li><strong>三</strong>度 AVB(尤其寬 QRS)</li>
+        </ul>
+        <div class="cram-tip">這些直接準備 TCP / Dopamine / Epi drip,別浪費時間</div>`
+      },
+      {
+        h: '下壁 STEMI 必做動作',
+        c: `<div class="cram-big">「下壁看 V4R」</div>
+        <ul class="cram-list">
+          <li>下壁(II/III/aVF)抬高 → <strong>必加做 V4R</strong></li>
+          <li>30-50% 合併 <strong>右室梗塞</strong></li>
+          <li>右室梗塞:NTG <strong>絕對禁忌</strong>(會崩血壓)</li>
+          <li>處置 = Fluid first(N/S bolus)</li>
+        </ul>`
+      },
+      {
+        h: 'NTG 5 大禁忌',
+        c: `<ol class="cram-list cram-list-num">
+          <li>SBP &lt; 90 或下降 ≥ 30</li>
+          <li>HR &lt; 50 或 &gt; 100(無症狀)</li>
+          <li><strong>24 hr 內用過 PDE5</strong>(威而鋼/Cialis 48h)</li>
+          <li>下壁 STEMI 合併右室梗塞</li>
+          <li>嚴重主動脈瓣狹窄</li>
+        </ol>`
+      },
+      {
+        h: 'tPA 中風 BP 控制',
+        c: `<ul class="cram-list">
+          <li>給 tPA <strong>前</strong>:&lt; <strong>185/110</strong></li>
+          <li>給 tPA <strong>後</strong> 24 hr:&lt; <strong>180/105</strong></li>
+          <li>一般缺血性中風(不打 tPA):&lt; <strong>220/120</strong> 才需降</li>
+          <li>降壓首選:<strong>Labetalol</strong> 10-20mg IV</li>
+        </ul>`
+      }
+    ]
+  },
+
+  // ========== 5H5T 完整版 ==========
+  {
+    id: '5h5t',
+    icon: '🔍',
+    title: '5H5T 完整指導員猜題',
+    subtitle: '含解毒劑大全',
+    color: '#dc2626',
+    blocks: [
+      {
+        h: 'Hypovolemia 低血容',
+        c: `<div class="cram-q">「你怎麼知道是低血容?」</div>
+        <ul class="cram-list">
+          <li>病史:出血 / 腹瀉 / 燒燙傷 / 利尿過度</li>
+          <li>JVD 塌陷、UCG 看 <strong>IVC collapse</strong></li>
+          <li>下肢被動抬高有反應</li>
+        </ul>
+        <div class="cram-q">「給多少?」</div>
+        <div>1-2 L crystalloid bolus(成人)</div>
+        <div class="cram-q cram-trap">陷阱:「老人家肺有囉音又懷疑低血容,還敢給水嗎?」</div>
+        <div>小量試 250mL + 重新評估,UCG 看 IVC,不要硬給</div>`
+      },
+      {
+        h: 'Hypoxia 低氧',
+        c: `<div class="cram-q">「插管後 SpO₂ 還是 80%,你怎麼想?」</div>
+        <div class="cram-big">DOPE</div>
+        <ul class="cram-list">
+          <li><strong>D</strong>isplacement — 管子滑出/進太深</li>
+          <li><strong>O</strong>bstruction — 痰/異物</li>
+          <li><strong>P</strong>neumothorax — 張力性氣胸</li>
+          <li><strong>E</strong>quipment — 接頭/呼吸器/氧氣源</li>
+        </ul>`
+      },
+      {
+        h: 'H⁺ 酸中毒',
+        c: `<div class="cram-q">「什麼情況才給 NaHCO3?」</div>
+        <div class="cram-tip"><strong>只有 3 個</strong>適應症:</div>
+        <ol class="cram-list cram-list-num">
+          <li>已知 <strong>高血鉀</strong></li>
+          <li><strong>TCA</strong>(三環抗鬱劑)中毒</li>
+          <li>長時間 CPR(&gt; 10 min)且確定酸中毒</li>
+        </ol>
+        <div class="cram-q cram-trap">「為什麼 routine 給 NaHCO3 不好?」</div>
+        <div>加重細胞內酸中毒、左移氧解離曲線、降鉀效果短暫</div>
+        <div>劑量:1 mEq/kg IV</div>`
+      },
+      {
+        h: 'Hypo / Hyperkalemia 鉀異常',
+        c: `<div class="cram-q">「高鉀 EKG 順序?」</div>
+        <div>Peaked T → P 平 → PR 延長 → QRS 寬 → <strong>Sine wave</strong> → VF/Asystole</div>
+
+        <div class="cram-q">「治療順序?」</div>
+        <div class="cram-big">穩 → 趕 → 排</div>
+        <ol class="cram-list cram-list-num">
+          <li><strong>穩心肌</strong>:Calcium gluconate 1g IV(EKG 變化才給)</li>
+          <li><strong>趕進細胞</strong>:Insulin 10U + D50W、NaHCO3、β2 agonist 吸入</li>
+          <li><strong>排出體外</strong>:Lasix、Kayexalate、洗腎</li>
+        </ol>
+
+        <div class="cram-q">「低鉀引起 Torsades 怎辦?」</div>
+        <div><strong>MgSO4 1-2 g IV</strong> + 補鉀</div>`
+      },
+      {
+        h: 'Hypothermia 低體溫',
+        c: `<div class="cram-q">「&lt; 30°C 跟 ≥ 30°C 處置差異?」</div>
+        <table class="cram-table">
+          <tr><th>體溫</th><th>處置</th></tr>
+          <tr><td><strong>&lt; 30°C</strong></td><td>只電擊 <strong>1 次</strong>;藥物先<strong>不</strong>給(代謝慢累積中毒);專注復溫</td></tr>
+          <tr><td>≥ 30°C</td><td>標準 ACLS 流程,但藥物間隔可拉長</td></tr>
+        </table>
+        <div class="cram-q cram-trap">「什麼時候才能宣告?」</div>
+        <div class="cram-big">"Not dead until <strong>warm</strong> and dead"</div>
+        <div>復溫到 32-35°C 仍無反應才能停 CPR</div>`
+      },
+      {
+        h: 'Tension Pneumothorax 張力性氣胸',
+        c: `<div class="cram-q">「臨床診斷靠什麼?」<span class="cram-warn-inline">不要等 CXR</span></div>
+        <ul class="cram-list">
+          <li>氣管偏移(向健側)</li>
+          <li>JVD 怒張</li>
+          <li>患側呼吸音消失</li>
+          <li>過度共鳴音(percussion)</li>
+          <li>BP 突然下降</li>
+        </ul>
+        <div class="cram-q">「針減壓位置?」</div>
+        <ul class="cram-list">
+          <li>傳統:<strong>第 2 肋間鎖骨中線</strong>(14G)</li>
+          <li>新版(成功率較高):<strong>第 5 肋間腋前線</strong></li>
+        </ul>`
+      },
+      {
+        h: 'Tamponade 心包填塞',
+        c: `<div class="cram-q">「Beck's triad?」</div>
+        <ol class="cram-list cram-list-num">
+          <li>低血壓</li>
+          <li>JVD 怒張</li>
+          <li>心音遠</li>
+        </ol>
+        <div class="cram-q">「處置?」</div>
+        <div><strong>Pericardiocentesis</strong>(劍突下穿刺)— UCG 引導最安全</div>`
+      },
+      {
+        h: 'Thrombosis(心 / 肺)',
+        c: `<div class="cram-q">「PEA 寬 QRS,你想什麼?」</div>
+        <ul class="cram-list">
+          <li><strong>高血鉀</strong></li>
+          <li>毒物中毒(TCA / Na blocker)</li>
+          <li><strong>Massive PE</strong></li>
+          <li>心衰末期</li>
+        </ul>
+        <div class="cram-q">「PE 在 CPR 中怎麼治?」</div>
+        <div><strong>tPA 50mg IV bolus</strong>(即使在 CPR 中仍可給,大不了延長 CPR 60-90 min)</div>`
+      },
+      {
+        h: '5H5T 整體陷阱題',
+        c: `<div class="cram-q cram-trap">「PEA 你第一個動作是?」</div>
+        <div>❌ 不是給藥!是 <strong>CPR + 找原因</strong>。先 IV、邊壓邊問病史、邊查理學檢查 + UCG</div>
+
+        <div class="cram-q cram-trap">「PEA 寬 QRS,你想到什麼最先?」</div>
+        <div><strong>高血鉀</strong>(尤其透析病人)— 立刻給 Calcium 試試,不等抽血報告</div>
+
+        <div class="cram-q cram-trap">「PEA 窄 QRS,可能是?」</div>
+        <div>機械性問題:<strong>低血容、心包填塞、張力性氣胸、massive PE</strong> — UCG 床邊一看就知道</div>
+
+        <div class="cram-q cram-trap">「TCA 中毒寬 QRS,要去顫?」</div>
+        <div>❌ 不是!給 <strong>NaHCO3 1-2 mEq/kg IV bolus</strong> 直到 QRS 變窄</div>
+
+        <div class="cram-q cram-trap">「Digoxin 中毒高血鉀,給 Calcium?」</div>
+        <div>❌ <strong>絕對禁忌</strong>!會引發「stone heart」。改 <strong>Digibind</strong> + 矯正鉀(用 Insulin/glucose、NaHCO3,不用 Calcium)</div>
+
+        <div class="cram-q cram-trap">「BB 中毒 BP 60/40,給 Atropine + Epi?」</div>
+        <div>沒效!給 <strong>Glucagon 3-10mg IV bolus</strong> 才是首選(BB 受體已被佔據,Glucagon 走另一條路徑)</div>
+
+        <div class="cram-q cram-trap">「冷凍狀態低體溫病人 CPR,死亡時間?」</div>
+        <div>"Not dead until <strong>warm</strong> and dead" — 復溫到 32-35°C 仍無反應才能停。&lt; 30°C 時藥物不給(代謝慢中毒)、電擊只 1 次</div>
+
+        <div class="cram-q cram-trap">「你怎麼確定是張力性氣胸?要做 CXR 嗎?」</div>
+        <div>❌ <strong>絕對不要等 CXR</strong>!臨床診斷 = 氣管偏移 + JVD + 患側無音 → 立刻針減壓</div>`
+      },
+      {
+        h: 'Tablets 毒物 — 解毒劑大全',
+        c: `<table class="cram-table cram-table-poison">
+          <tr><th>中毒物</th><th>解毒劑</th><th>備註</th></tr>
+          <tr><td>鴉片類(Heroin/Fentanyl)</td><td><strong>Naloxone</strong> 0.4-2mg</td><td>IV/IM/IN 都行</td></tr>
+          <tr><td>BB(β-blocker)</td><td><strong>Glucagon</strong> 3-10mg IV</td><td>+ Calcium、高劑量 Insulin</td></tr>
+          <tr><td>CCB</td><td><strong>Calcium</strong> + Glucagon + 高劑量 Insulin/glucose</td><td>HIET 療法</td></tr>
+          <tr><td>TCA(三環抗鬱劑)</td><td><strong>NaHCO3</strong> 1-2 mEq/kg</td><td>QRS &gt; 100ms 就給</td></tr>
+          <tr><td>Digitalis</td><td><strong>Digibind</strong> + 矯正高鉀</td><td class="cram-warn-cell">⚠️ 禁 Calcium!</td></tr>
+          <tr><td>BZD</td><td>Flumazenil</td><td>慎用 — 會誘發癲癇</td></tr>
+          <tr><td>Acetaminophen</td><td><strong>NAC</strong>(N-乙醯半胱胺酸)</td><td>4 hr 內最有效</td></tr>
+          <tr><td>一氧化碳</td><td><strong>100% O₂</strong> ± 高壓氧</td><td>嚴重者送 HBO</td></tr>
+          <tr><td>氰化物(Cyanide)</td><td><strong>Hydroxocobalamin</strong></td><td>火災煙霧吸入首選</td></tr>
+          <tr><td>局麻藥(Bupivacaine)</td><td><strong>Intralipid 20%</strong> 1.5 mL/kg</td><td>LAST 救命</td></tr>
+          <tr><td>有機磷</td><td><strong>Atropine + Pralidoxime</strong>(2-PAM)</td><td>大劑量 Atropine 至無分泌物</td></tr>
+        </table>`
+      }
+    ]
+  },
+
+  // ========== ACS 完整版 ==========
+  {
+    id: 'acs',
+    icon: '💔',
+    title: 'ACS 指導員必考',
+    subtitle: '林吉倡醫師那節 + 筆試重點',
+    color: '#ec4899',
+    blocks: [
+      {
+        h: 'STEMI 診斷 — EKG criteria',
+        c: `<ul class="cram-list">
+          <li>兩個相鄰導程 ST 抬高</li>
+          <li>男性 V2-V3 ≥ <strong>2mm</strong>,其他導程 ≥ 1mm</li>
+          <li>女性 V2-V3 ≥ <strong>1.5mm</strong></li>
+          <li><strong>新發 LBBB</strong> 視同 STEMI</li>
+        </ul>
+        <div class="cram-q cram-trap">「ST 抬高 = STEMI 嗎?」</div>
+        <div>不一定!鑑別:① 心包炎(廣泛抬高 + PR 壓低)② 早期復極化 ③ LBBB ④ Brugada ⑤ 電解質異常</div>`
+      },
+      {
+        h: 'Atypical 表現族群',
+        c: `<div class="cram-big">「老 女 糖」三族</div>
+        <ul class="cram-list">
+          <li><strong>老</strong>人</li>
+          <li><strong>女</strong>性</li>
+          <li><strong>糖</strong>尿病</li>
+        </ul>
+        <div>可能無胸痛,只有喘、噁心、上腹痛、暈厥、莫名虛弱</div>`
+      },
+      {
+        h: '前 10 分鐘要做什麼(D2E ≤ 10 min)',
+        c: `<ol class="cram-list cram-list-num">
+          <li>評估生命徵象</li>
+          <li>聚焦病史 + 身體檢查</li>
+          <li><strong>12 導程 EKG</strong>(必做!)</li>
+          <li>抽血:troponin、CBC、凝血</li>
+          <li>給 O₂(SpO₂ &lt; 90% 才給)</li>
+          <li>建 IV + monitor</li>
+          <li>Aspirin 162-325mg 嚼碎</li>
+        </ol>`
+      },
+      {
+        h: '抗血小板 — A 線(Aspirin 與替代)',
+        c: `<div class="cram-q">「Aspirin 過敏怎麼辦?」</div>
+        <ul class="cram-list">
+          <li>首選:<strong>Clopidogrel 600mg loading</strong> 替代</li>
+          <li>進階:Aspirin <strong>desensitization</strong>(5-7 hr 漸進給藥)</li>
+          <li>更新做法:<strong>Ticagrelor 單用</strong></li>
+        </ul>
+        <div class="cram-warn">⚠️ 不能因「過敏」就不給,死亡率差很多</div>`
+      },
+      {
+        h: '抗血小板 — P 線(P2Y12 大洗牌)',
+        c: `<div class="cram-tip"><strong>2025 指引現況:Plavix 已退居二線</strong></div>
+        <table class="cram-table">
+          <tr><th></th><th>Clopidogrel<br>(Plavix)</th><th>Ticagrelor<br>(Brilinta)</th><th>Prasugrel<br>(Effient)</th></tr>
+          <tr><td>Loading</td><td>300-600mg</td><td><strong>180mg</strong></td><td>60mg</td></tr>
+          <tr><td>Maintenance</td><td>75mg QD</td><td>90mg <strong>BID</strong></td><td>10mg QD</td></tr>
+          <tr><td>起效</td><td>慢(2-6h)</td><td><strong>快</strong></td><td>快</td></tr>
+          <tr><td>Prodrug</td><td>是(CYP2C19)</td><td><strong>否</strong></td><td>是(較少受基因影響)</td></tr>
+          <tr><td>出血風險</td><td>低</td><td>中</td><td><strong>高</strong></td></tr>
+          <tr><td>特殊副作用</td><td>—</td><td>喘 15%、徐脈</td><td>—</td></tr>
+          <tr><td>禁忌</td><td>活動性出血</td><td>嚴重肝衰</td><td><strong>「中老瘦」</strong></td></tr>
+        </table>
+        <div class="cram-q">「為什麼 Plavix 漸退?」</div>
+        <div>亞洲人 <strong>CYP2C19 慢代謝者 ~30%</strong>,Clopidogrel 活化不足 → stent thrombosis 風險</div>`
+      },
+      {
+        h: 'NTG 5 大禁忌(必背)',
+        c: `<ol class="cram-list cram-list-num">
+          <li>SBP &lt; 90 或下降 ≥ 30</li>
+          <li>HR &lt; 50 或 &gt; 100</li>
+          <li><strong>24 hr 內用過 PDE5</strong>(威而鋼)</li>
+          <li><strong>下壁 STEMI 合併右室梗塞</strong></li>
+          <li>嚴重主動脈瓣狹窄</li>
+        </ol>`
+      },
+      {
+        h: '溶栓絕對禁忌',
+        c: `<div class="cram-tip">記憶:「<strong>頭、夾、血</strong>」三大類</div>
+        <ul class="cram-list">
+          <li>頭:既往任何時間顱內出血、3 個月內缺血性中風、已知顱內 AVM/腫瘤、3 個月內嚴重頭部外傷</li>
+          <li>夾:疑似主動脈剝離</li>
+          <li>血:活動性出血(月經除外)、出血體質</li>
+        </ul>`
+      },
+      {
+        h: 'STEMI 部位 → 罪犯血管',
+        c: `<table class="cram-table">
+          <tr><th>部位</th><th>導程</th><th>血管</th><th>合併症</th></tr>
+          <tr><td>前壁</td><td>V1-V4</td><td><strong>LAD</strong></td><td>心衰、休克</td></tr>
+          <tr><td>側壁</td><td>I, aVL, V5-V6</td><td>LCx</td><td>—</td></tr>
+          <tr><td>下壁</td><td>II, III, aVF</td><td><strong>RCA</strong>(80%)</td><td><strong>RV梗塞、AVB、迷走</strong></td></tr>
+          <tr><td>後壁</td><td>V1-V3 ST 壓 + R 高</td><td>RCA/LCx</td><td>做 V7-V9</td></tr>
+          <tr><td>右室</td><td>V4R 抬</td><td>RCA proximal</td><td>NTG 禁忌!</td></tr>
+        </table>`
+      },
+      {
+        h: '經典陷阱題(指導員愛問)',
+        c: `<div class="cram-q cram-trap">「胸痛 + 撕裂痛 + 兩手血壓不對稱 → 給 Aspirin 嗎?」</div>
+        <div>❌ <strong>不給</strong>!想 aortic dissection,Aspirin 加重出血</div>
+
+        <div class="cram-q cram-trap">「下壁 STEMI 合併 3° AVB,先 TCP 嗎?」</div>
+        <div>❌ 多為迷走神經張力高造成的暫時性,Atropine 通常有效;PCI 通血管後會自己好</div>
+
+        <div class="cram-q cram-trap">「STEMI 後新的 systolic murmur?」</div>
+        <div>機械性併發症:乳突肌斷裂 / VSD / 自由壁破裂 → 緊急手術 + IABP/ECMO</div>
+
+        <div class="cram-q cram-trap">「PCI 中突然 VF?」</div>
+        <div>Reperfusion arrhythmia,正常現象,立刻去顫 1-2 次大多恢復</div>
+
+        <div class="cram-q cram-trap">「年輕女性胸痛、無危險因子 → 還要 work up 嗎?」</div>
+        <div>還是要,想 <strong>SCAD</strong>(自發性冠脈剝離)、<strong>Takotsubo</strong>(心碎症候群)、<strong>古柯鹼</strong></div>
+
+        <div class="cram-q cram-trap">「胸痛 + ST 抬高 + Troponin 正常 → 一定是 STEMI?」</div>
+        <div>❌ 不一定!鑑別:① 心包炎(廣泛抬高 + PR 壓低)② 早期復極化 ③ LBBB ④ Brugada ⑤ 電解質異常</div>
+
+        <div class="cram-q cram-trap">「V1-V3 ST 壓低 + R 高 + T 倒立 → ?」</div>
+        <div><strong>後壁 MI</strong>!做 V7-V9 確認,治療同 STEMI</div>
+
+        <div class="cram-q cram-trap">「STEMI 後突然 PEA?」</div>
+        <div>① <strong>心臟破裂</strong>(急性 tamponade,立刻 UCG)② Massive PE ③ 再梗塞 ④ 機械性併發症</div>
+
+        <div class="cram-q cram-trap">「STEMI 後一週發燒、胸痛、心包摩擦音?」</div>
+        <div><strong>Dressler syndrome</strong>(post-MI pericarditis)→ NSAIDs / aspirin 高劑量</div>
+
+        <div class="cram-q cram-trap">「Aspirin 過敏不能給,你都不給抗血小板?」</div>
+        <div>❌ 不能!三條路:① <strong>Clopidogrel 600mg loading</strong> 替代 ② Aspirin desensitization ③ Ticagrelor 單用</div>
+
+        <div class="cram-q cram-trap">「78 歲老婦人 + 中風史 + STEMI,P2Y12 怎選?」</div>
+        <div>❌ <strong>Prasugrel 禁忌</strong>(中老瘦三條件都中)→ 選 Ticagrelor 或減量 Clopidogrel</div>`
+      },
+      {
+        h: 'Killip 分級',
+        c: `<table class="cram-table">
+          <tr><th>Class</th><th>表現</th><th>死亡率</th></tr>
+          <tr><td>I</td><td>無心衰</td><td>6%</td></tr>
+          <tr><td>II</td><td>兩肺底囉音、S3</td><td>17%</td></tr>
+          <tr><td>III</td><td>肺水腫(全肺囉音)</td><td>38%</td></tr>
+          <tr><td>IV</td><td><strong>心因性休克</strong></td><td><strong>81%</strong></td></tr>
+        </table>
+        <div class="cram-tip">Class IV 處置:IABP/Impella + 早期 PCI + Norepinephrine(優於 Dopamine)+ 避免大量輸液</div>`
+      }
+    ]
+  },
+
+  // ========== 心律重點 ==========
+  {
+    id: 'rhythm',
+    icon: '💓',
+    title: '心律重點題',
+    subtitle: 'VF/VT/PEA/Asystole/Brady/Tachy',
+    color: '#3b82f6',
+    blocks: [
+      {
+        h: 'VF / pVT 流程口訣',
+        c: `<div class="cram-tip">電擊 → CPR 2 min → 看心律 → 仍 VF → 電擊 → CPR + <strong>Epi</strong> → 2 min → 仍 VF → 電擊 → CPR + <strong>Amio 300mg</strong> → ...</div>
+        <div class="cram-q">「Refractory VF 定義?」</div>
+        <div>3 次電擊 + Epi + Amio 仍無 ROSC → 考慮 Double Sequential Defib、ECPR、找原因</div>
+        <div class="cram-q">「Amio 從 ETT 給可以嗎?」</div>
+        <div>❌ <strong>不行</strong>!ETT 只限 <strong>LANE</strong></div>`
+      },
+      {
+        h: 'Asystole(送分題注意)',
+        c: `<div class="cram-q cram-trap">「電擊 Asystole 好不好?」</div>
+        <div>❌ 不好(副交感放電,降低恢復率)</div>
+        <div class="cram-q">「會不會其實是細 VF?」</div>
+        <div>換 lead 確認、把 gain 調大、看不同 lead</div>
+        <div class="cram-warn">Asystole 唯一治療:CPR + Epi q3-5min + 找 5H5T,<strong>不電擊</strong></div>`
+      },
+      {
+        h: 'PEA 鑑別策略',
+        c: `<div class="cram-q">「窄 QRS PEA vs 寬 QRS PEA?」</div>
+        <table class="cram-table">
+          <tr><th>窄 QRS</th><th>寬 QRS</th></tr>
+          <tr><td>機械性問題</td><td>代謝/中毒</td></tr>
+          <tr><td>低血容、心包填塞、氣胸、PE</td><td>高鉀、Na blocker、心衰末期</td></tr>
+        </table>
+        <div class="cram-q cram-trap">「PEA 給 Atropine 嗎?」</div>
+        <div>❌ 2010 年起已移除,不再給</div>`
+      },
+      {
+        h: 'Bradycardia',
+        c: `<div class="cram-q">「Atropine 何時無效?」</div>
+        <div class="cram-big">「移、寬、二快、三阻」</div>
+        <ul class="cram-list">
+          <li>心臟<strong>移</strong>植後</li>
+          <li><strong>寬</strong> QRS 徐脈</li>
+          <li>Mobitz <strong>II</strong></li>
+          <li><strong>3</strong>° AVB(尤其寬 QRS)</li>
+        </ul>
+        <div class="cram-q">「TCP 怎確認 capture?」</div>
+        <div>看到電氣 spike + QRS 跟著 + <strong>摸到對應脈搏</strong>(光看 monitor 不夠)</div>
+        <div class="cram-q">「TCP 後病人很痛?」</div>
+        <div>鎮靜止痛(Morphine / Midazolam)</div>`
+      },
+      {
+        h: 'Tachycardia 不穩定',
+        c: `<div class="cram-tip">不穩定 = 「<strong>昏痛喘休克低血壓</strong>」 → 立刻同步整流</div>
+        <table class="cram-table">
+          <tr><th>節奏</th><th>能量(雙相)</th></tr>
+          <tr><td>窄規則 PSVT</td><td>100J</td></tr>
+          <tr><td>AFlutter</td><td><strong>200J</strong> 起</td></tr>
+          <tr><td>Af(不規則)</td><td><strong>200J</strong> 起 ⚡2025 新</td></tr>
+          <tr><td>寬規則 VT(有脈)</td><td><strong>100J</strong></td></tr>
+          <tr><td>Polymorphic VT</td><td>不同步,當 VF 去顫</td></tr>
+        </table>
+        <div class="cram-q cram-trap">「Adenosine 用在 wide QRS?」</div>
+        <div>規則寬 QRS 可診斷兼治療 ✓<br>polymorphic 或不規則寬 QRS:❌ <strong>禁用</strong>(可能誘發 VF)</div>`
+      },
+      {
+        h: 'Torsades 紡錘狀',
+        c: `<div class="cram-q">「第一線治療?」</div>
+        <div class="cram-big"><strong>MgSO4 1-2g IV</strong></div>
+        <div class="cram-warn">⚠️ <strong>Amiodarone 禁用</strong>!會延長 QT 加重</div>
+        <div class="cram-q">「找原因?」</div>
+        <ul class="cram-list">
+          <li>QT 延長藥物(抗精神病、Macrolide、抗心律不整)</li>
+          <li>低鎂、低鉀</li>
+          <li>先天性 long QT</li>
+        </ul>`
+      },
+      {
+        h: '心律的指導員陷阱題',
+        c: `<div class="cram-q cram-trap">「VF 急救中,要不要先插管?」</div>
+        <div>❌ 不急!<strong>CPR + 電擊優先</strong>,插管會中斷壓胸。BVM 撐住到 ROSC 或之後再插</div>
+
+        <div class="cram-q cram-trap">「心搏過慢、BP 60/40,先 Atropine 還是先 N/S?」</div>
+        <div>看原因!徐脈+低血壓但<strong>容量足</strong> → Atropine。同時有<strong>休克/出血</strong> → 邊給 N/S 邊 Atropine。<strong>同時做</strong>不衝突</div>
+
+        <div class="cram-q cram-trap">「規則窄 QRS tachy 看不出 P 波,給 Adenosine 既能診斷又能治?」</div>
+        <div>✓ 對!<strong>Adenosine 6mg fast IV + 20mL flush</strong>,房室結傳導暫停可看清原本的心律</div>
+
+        <div class="cram-q cram-trap">「PSVT 用 Adenosine,病人會發生什麼?」</div>
+        <div>感覺<strong>胸悶、潮紅、要死掉的感覺幾秒</strong> — 要事先告知,半衰期 &lt; 10 秒會過去</div>
+
+        <div class="cram-q cram-trap">「Af RVR 可以用 Adenosine 嗎?」</div>
+        <div>❌ 不行!Af 不規則,Adenosine 對它無效。應用 BB 或 CCB(Diltiazem)控制速率</div>
+
+        <div class="cram-q cram-trap">「Asystole 我電一下試試看?」</div>
+        <div>❌ 絕對不行!副交感放電讓恢復率更低。換 lead 確認不是細 VF,然後 CPR + Epi + 找原因</div>
+
+        <div class="cram-q cram-trap">「PEA 病人 Atropine 給 1mg 試試?」</div>
+        <div>❌ 2010 年起 PEA/Asystole <strong>不再用 Atropine</strong>!給 Epi + 找 5H5T</div>
+
+        <div class="cram-q cram-trap">「TCP capture 了,monitor 看到 spike + QRS,可以放心了?」</div>
+        <div>❌ 還沒!必須<strong>摸到對應脈搏</strong>才算 capture(electrical capture ≠ mechanical capture)</div>
+
+        <div class="cram-q cram-trap">「Wide QRS regular tachy 給 Adenosine?」</div>
+        <div>規則 wide QRS:可診斷兼治療(可能是 SVT with aberrancy)<br>polymorphic / 不規則 wide QRS:<strong>絕對禁忌</strong>(可能誘發 VF)</div>
+
+        <div class="cram-q cram-trap">「VT 有脈搏,我給 Amiodarone 150mg 推一下?」</div>
+        <div>劑量對但<strong>方法錯</strong>!Amio 在活人 VT 是<strong>IV drip 10 分鐘</strong>(不是 push),太快會掉血壓</div>`
+      }
+    ]
+  },
+
+  // ========== Megacode 領導者重點 ==========
+  {
+    id: 'leader',
+    icon: '👑',
+    title: 'Megacode Team Leader',
+    subtitle: '指導員會看您怎麼領導',
+    color: '#f59e0b',
+    blocks: [
+      {
+        h: 'Closed-loop communication 範本',
+        c: `<div class="cram-q">「給 Epi 1mg IV」(指令)</div>
+        <div>↓</div>
+        <div>「<strong>Epi 1mg IV,我來給</strong>」(覆誦 + 指人)</div>
+        <div>↓</div>
+        <div>「<strong>Epi 1mg IV 已給</strong>」(完成回報)</div>
+        <div class="cram-tip">三段缺一不可,指導員會看您有沒有「閉環」</div>`
+      },
+      {
+        h: '角色分配(6 人團隊)',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>Team Leader</strong> — 站後面、看 big picture</li>
+          <li><strong>壓胸者</strong> — 每 2 分鐘換手</li>
+          <li><strong>Airway/Breathing</strong> — BVM → ETT</li>
+          <li><strong>IV/IO + 給藥</strong></li>
+          <li><strong>Recorder</strong> — 記錄時間、藥物、心律</li>
+          <li><strong>Defibrillator/Monitor</strong></li>
+        </ol>
+        <div class="cram-warn">Leader <strong>不要</strong>親自做技術操作!</div>`
+      },
+      {
+        h: 'Leader 該做的 5 件事',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>明確指令</strong>:指人 + 動作 + 確認(看著對方眼睛)</li>
+          <li><strong>計時</strong>:每 2 分鐘 check rhythm + 換手</li>
+          <li><strong>不斷找原因</strong>:5H5T 大聲講出來</li>
+          <li><strong>監控品質</strong>:壓胸深度、回彈、EtCO2</li>
+          <li><strong>適時 debrief</strong>:每 2 分鐘 sum up 一次</li>
+        </ol>`
+      },
+      {
+        h: 'ROSC 後優先順序',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>ABC 再評估</strong> — 確認呼吸道、通氣、循環</li>
+          <li><strong>12 lead EKG</strong> — 找 STEMI</li>
+          <li><strong>BP 維持</strong> — SBP &gt; 90,Norepinephrine 優先</li>
+          <li><strong>體溫管理</strong> — 32-37.5°C deliberate temp control(2025)</li>
+          <li><strong>找原因 + 對因處置</strong> — PCI?血管攝影?</li>
+          <li><strong>補電解質</strong> — K &gt; 4.0、Mg &gt; 2.0</li>
+        </ol>`
+      },
+      {
+        h: '成功 ROSC 的指標',
+        c: `<ul class="cram-list">
+          <li><strong>EtCO2 突然 ↑ ≥ 40 mmHg</strong>(最敏感)</li>
+          <li>動脈線 pulsation 出現</li>
+          <li>可摸到頸/股動脈搏</li>
+          <li>monitor 出現有效律</li>
+        </ul>
+        <div class="cram-tip">EtCO2 持續 &lt; 10 mmHg over 20 min → 預後極差</div>`
+      },
+      {
+        h: '特殊情境快速回應',
+        c: `<div class="cram-q">「孕婦 CPR 有什麼不同?」</div>
+        <ul class="cram-list">
+          <li>左側傾斜 30°(或徒手向左推子宮)</li>
+          <li>按壓位置略高(子宮抬高橫膈)</li>
+          <li>4 分鐘無 ROSC → 考慮 <strong>perimortem C-section</strong></li>
+        </ul>
+
+        <div class="cram-q">「ROSC 血壓 80/40,要降溫嗎?」</div>
+        <div>先穩血壓(SBP &gt; 90)再考慮 TTM 32-37.5°C</div>
+
+        <div class="cram-q">「壓胸時要不要中斷做 12 lead?」</div>
+        <div>❌ 不!先穩定心律,ROSC 後再做 12 lead</div>`
+      }
+    ]
+  }
+];
+
+// ============================================================
+// 渲染
+// ============================================================
+
+let cramOpenSection = 'mnemonics'; // 預設開啟速記口訣
+
+function renderCram() {
+  const wrap = document.getElementById('tab-cram');
+  if (!wrap) return;
+
+  // 章節導覽列
+  const navHtml = CRAM_SECTIONS.map(s => `
+    <button class="cram-nav-btn ${s.id === cramOpenSection ? 'active' : ''}"
+            onclick="cramSwitch('${s.id}')"
+            style="--c:${s.color};">
+      <span class="cram-nav-icon">${s.icon}</span>
+      <span class="cram-nav-title">${s.title}</span>
+    </button>
+  `).join('');
+
+  // 內容
+  const sec = CRAM_SECTIONS.find(s => s.id === cramOpenSection);
+  const contentHtml = sec ? renderCramSection(sec) : '';
+
+  wrap.innerHTML = `
+    <h2 class="section-title">🎯 考前衝刺</h2>
+    <p class="section-sub">指導員猜題 + 速記口訣 — 上課中場休息打開掃一遍</p>
+
+    <div class="cram-nav">${navHtml}</div>
+
+    <div class="cram-content">${contentHtml}</div>
+  `;
+}
+
+function renderCramSection(sec) {
+  const blocks = sec.blocks.map((b, i) => `
+    <div class="cram-block" style="--bc:${sec.color};">
+      <div class="cram-block-h">${b.h}</div>
+      <div class="cram-block-c">${b.c}</div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="cram-section-head" style="--c:${sec.color};">
+      <span class="cram-section-icon">${sec.icon}</span>
+      <div>
+        <div class="cram-section-title">${sec.title}</div>
+        <div class="cram-section-sub">${sec.subtitle}</div>
+      </div>
+    </div>
+    ${blocks}
+  `;
+}
+
+function cramSwitch(id) {
+  cramOpenSection = id;
+  renderCram();
+  // 滾到內容區
+  setTimeout(() => {
+    const el = document.querySelector('.cram-section-head');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+
 const MEGACODE_SCENARIOS = [
   {
     id: 'mc1',
@@ -5172,11 +6524,11 @@ const MEGACODE_SCENARIOS = [
     question: '第一線處置?',
     options: [
       { text: '迷走神經刺激(Valsalva)+ Adenosine 6mg 快推', correct: true },
-      { text: '直接 50J 同步電擊', correct: false },
+      { text: '直接 100J 同步電擊', correct: false },
       { text: 'Amiodarone 300mg IV', correct: false },
       { text: '觀察為主,通常會自己好', correct: false }
     ],
-    explain: '穩定 PSVT(意識清、無胸痛、BP 正常)→ 第一線 Valsalva + Adenosine 6mg → 12mg → 12mg。不穩定才電擊 50J 同步。Amiodarone 是二線。'
+    explain: '穩定 PSVT(意識清、無胸痛、BP 正常)→ 第一線 Valsalva + Adenosine 6mg → 12mg → 12mg。不穩定才電擊 100J 同步(2025)。Amiodarone 是二線。'
   },
   {
     id: 'mc9',
@@ -7043,7 +8395,7 @@ const BASICS_SECTIONS = [
       <h4>活人(有脈搏)— 四象限電擊能量</h4>
       <table class="basics-table">
         <tr><td></td><td><strong>規則</strong></td><td><strong>不規則</strong></td></tr>
-        <tr><td><strong>窄</strong></td><td>PSVT → <strong>50J 同步</strong></td><td>AF → <strong>120J 同步</strong></td></tr>
+        <tr><td><strong>窄</strong></td><td>PSVT → <strong>100J 同步</strong></td><td>AF → <strong>200J 同步</strong>(2025)</td></tr>
         <tr><td><strong>寬</strong></td><td>VT → <strong>100J 同步</strong></td><td>TdP → <strong>200J 去顫</strong></td></tr>
       </table>
 
