@@ -1245,6 +1245,63 @@ details > div, details > p { font-size: 16px !important; line-height: 1.8 !impor
 
 #mega-case-mode-toggle { display: flex; justify-content: flex-end; margin-bottom: 1em; }
 
+
+/* ============================================================ */
+/* ★ 題目專用放大(v1.8 — 只透大題目區塊 qbank/megacode/case) */
+/* ============================================================ */
+
+/* ===== 題庫 qbank 大放大 ===== */
+.qbank-q-text { font-size: 22px !important; line-height: 1.8 !important; }
+.qbank-opt-text { font-size: 20px !important; line-height: 1.7 !important; }
+.qbank-opt-letter { font-size: 21px !important; }
+.qbank-ans-label { font-size: 19px !important; }
+.qbank-exp { font-size: 19px !important; line-height: 1.85 !important; }
+.qbank-progress-text { font-size: 19px !important; }
+.qbank-cat-badge { font-size: 16px !important; padding: .35em 1em !important; }
+.qbank-mode-title { font-size: 22px !important; }
+.qbank-mode-desc { font-size: 17px !important; }
+.qbank-cat-name { font-size: 20px !important; }
+.qbank-cat-count { font-size: 16px !important; }
+.qbank-stat-val { font-size: 32px !important; }
+.qbank-stat-label { font-size: 17px !important; }
+.qbank-result-num { font-size: 64px !important; }
+.qbank-result-pct { font-size: 26px !important; }
+.qbank-result-comment { font-size: 19px !important; line-height: 1.85 !important; }
+
+/* ===== Megacode 單題大放大 ===== */
+.scenario-text { font-size: 21px !important; line-height: 1.85 !important; }
+.mc-question { font-size: 22px !important; line-height: 1.7 !important; }
+.mc-option { font-size: 20px !important; line-height: 1.7 !important; }
+.mc-explain { font-size: 19px !important; line-height: 1.85 !important; }
+
+/* ===== OHCA 一條龍 case 大放大 ===== */
+.case-scenario { font-size: 21px !important; line-height: 1.85 !important; padding: 1em !important; }
+.case-question { font-size: 22px !important; line-height: 1.7 !important; }
+.case-option { font-size: 20px !important; line-height: 1.7 !important; padding: 1em 1.1em !important; }
+.case-feedback-head { font-size: 20px !important; }
+.case-feedback-body { font-size: 19px !important; line-height: 1.85 !important; }
+.case-title { font-size: 21px !important; }
+.case-overview { font-size: 18px !important; line-height: 1.75 !important; }
+
+/* ===== 自我測驗也算「題目」也順便放大 ===== */
+.quiz-q { font-size: 22px !important; line-height: 1.8 !important; }
+.quiz-opt { font-size: 20px !important; line-height: 1.7 !important; }
+
+/* 手機適配:略縮但仍比之前大 */
+@media (max-width: 520px) {
+  .qbank-q-text { font-size: 20px !important; }
+  .qbank-opt-text { font-size: 18px !important; }
+  .qbank-exp { font-size: 17px !important; }
+  .mc-question { font-size: 20px !important; }
+  .mc-option { font-size: 18px !important; }
+  .scenario-text { font-size: 19px !important; }
+  .case-scenario { font-size: 19px !important; }
+  .case-question { font-size: 20px !important; }
+  .case-option { font-size: 18px !important; }
+  .quiz-q { font-size: 20px !important; }
+  .quiz-opt { font-size: 18px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -1748,7 +1805,106 @@ const EKG_DATA = [
       pitfall: 'NSTEMI/UA 不打 tPA;STEMI 第一時間做 PCI;tPA 禁忌:兩週內大手術、腦瘤、活動性內出血。',
       update2025: '中風新增 Tenecteplase 為新型溶栓劑(STEMI 無變動;tPA 仍是備用方案)。'
     }
+  }  ,
+  {
+    id: 'rbbb',
+    name: 'RBBB / 右束支阻滯',
+    nameEn: 'Right Bundle Branch Block',
+    severity: 'warn',
+    tag: 'V1 RSR\' (兔耳朵)、QRS ≥ 0.12s',
+    keywords: ['rbbb', '右束支', 'bundle branch', 'rsr', '兔耳朵', '寬qrs', 'v1'],
+    svg: 'M 0 30 L 14 30 L 18 28 Q 22 24 26 30 L 30 30 L 34 14 L 36 14 L 38 38 L 40 22 L 44 14 L 46 38 L 50 30 L 60 30 L 64 22 Q 68 18 72 22 L 76 30 L 100 30 L 114 30 L 118 28 Q 122 24 126 30 L 130 30 L 134 14 L 136 14 L 138 38 L 140 22 L 144 14 L 146 38 L 150 30 L 160 30 L 164 22 Q 168 18 172 22 L 176 30 L 200 30 L 214 30 L 218 28 Q 222 24 226 30 L 230 30 L 234 14 L 236 14 L 238 38 L 240 22 L 244 14 L 246 38 L 250 30 L 260 30 L 264 22 Q 268 18 272 22 L 276 30 L 280 30',
+    action: '→ 找原因(舊 vs 新);新發 RBBB + 胸痛 → 想 PE 或 AMI',
+    detail: {
+      identify: [
+        'QRS ≥ 0.12 秒(寬 QRS)',
+        'V1: RSR\' pattern(兔耳朵 / M 形,第二 R 較高)',
+        'I, V6: 寬 S 波',
+        'T 波倒置 V1-V3(secondary repolarization)',
+        '通常規則,P 波正常'
+      ],
+      treatment: [
+        '單純 RBBB 不需治療,但要確認:',
+        '① 是新發還是舊有(比對舊 EKG 最重要)',
+        '② 找誘因:急性 PE、AMI(LAD 近端)、心肌炎、Brugada',
+        '③ 新發 RBBB + 胸痛 → 強烈懷疑 PE 或前壁 MI',
+        '不會像 LBBB 那樣干擾 STEMI 判讀',
+        '可能合併 LAFB / LPFB → 雙束支阻滯,風險高'
+      ],
+      doses: '無特定藥物;治療誘因(PE → tPA / 抗凝;AMI → PCI)',
+      pitfall: '⚠️ 新發 RBBB 在年輕人 / 突發喘 → 想 Massive PE!不要當良性放掉;舊有 RBBB 在老人很常見、不需特別處置。',
+      update2025: '2025 強調 ROSC 後新發 RBBB + 血流動力不穩 → 立刻 POCUS 看 RV 找 PE。'
+    }
+  },
+  {
+    id: 'lbbb',
+    name: 'LBBB / 左束支阻滯',
+    nameEn: 'Left Bundle Branch Block',
+    severity: 'danger',
+    tag: 'V1 寬深 S、V6 寬 R、QRS ≥ 0.12s',
+    keywords: ['lbbb', '左束支', 'bundle branch', '寬qrs', 'sgarbossa', 'stemi 等同'],
+    svg: 'M 0 30 L 14 30 L 18 32 L 22 38 L 26 42 L 30 44 L 34 40 L 40 36 L 46 32 L 50 30 L 60 30 L 64 22 L 68 18 L 72 16 L 76 18 L 82 22 L 88 26 L 94 30 L 100 30 L 114 30 L 118 32 L 122 38 L 126 42 L 130 44 L 134 40 L 140 36 L 146 32 L 150 30 L 160 30 L 164 22 L 168 18 L 172 16 L 176 18 L 182 22 L 188 26 L 194 30 L 200 30 L 214 30 L 218 32 L 222 38 L 226 42 L 230 44 L 234 40 L 240 36 L 246 32 L 250 30 L 260 30 L 264 22 L 268 18 L 272 16 L 276 18 L 280 22',
+    action: '→ 新發 LBBB + 胸痛 = STEMI 同等對待!立刻 Cath',
+    detail: {
+      identify: [
+        'QRS ≥ 0.12 秒(寬 QRS)',
+        'V1: 寬深 S 波(QS pattern,沒有 R 或很小)',
+        'V6: 寬 R 波(M 形或頓鋸齒)',
+        'I, aVL, V5-V6: ST 段反向變化(discordance)',
+        '電軸通常左偏'
+      ],
+      treatment: [
+        '⚡ <strong>新發 LBBB + 胸痛 = 視同 STEMI!</strong>',
+        '立刻啟動 Cath lab(D2B ≤ 90 min)',
+        '同步 Aspirin + P2Y12(Ticagrelor 180mg loading)',
+        '② Heparin + 12 lead 監測動態',
+        '⚠️ LBBB 干擾 STEMI 判讀 → 用 <strong>Sgarbossa criteria</strong>:',
+        '  • Concordant ST 抬高 ≥ 1mm(導程同向)→ +5 分',
+        '  • V1-V3 ST 壓低 ≥ 1mm → +3 分',
+        '  • Discordant ST 抬高 ≥ 5mm → +2 分',
+        '  • 總分 ≥ 3 分 = 高度懷疑 STEMI',
+        '舊有 LBBB 不一定是 STEMI,但仍要小心評估'
+      ],
+      doses: 'Aspirin 162-325mg | Ticagrelor 180mg | Heparin 60U/kg',
+      pitfall: '⚠️ 不要因為「LBBB 看不出 ST」就放棄!Sgarbossa criteria 救命。新發 LBBB 死亡率 = STEMI。新發 LBBB + 心衰惡化 → 想 LAD 近端阻塞。',
+      update2025: '2025 維持「新發 LBBB 視同 STEMI」立場;ESC 強調用 modified Sgarbossa(Smith\'s)更敏感。'
+    }
+  },
+  {
+    id: 'pe_strain',
+    name: 'PE / RV strain pattern',
+    nameEn: 'Pulmonary Embolism — RV Strain',
+    severity: 'danger',
+    tag: 'S1Q3T3、新發 RBBB、V1-V4 T 倒立',
+    keywords: ['pe', '肺栓塞', 'rv strain', 's1q3t3', '右心室高壓', 'mcconnell', '肺血管阻塞'],
+    svg: 'M 0 30 L 8 30 L 12 26 Q 16 18 20 28 L 24 30 L 28 26 L 32 14 L 36 38 L 40 30 L 50 30 L 64 30 L 68 26 Q 72 22 76 28 L 80 30 L 84 26 L 88 16 L 92 36 L 96 30 L 100 30 L 114 30 L 118 24 Q 122 18 126 26 L 130 30 L 134 26 L 138 14 L 142 38 L 146 30 L 156 30 L 168 30 L 172 28 L 178 38 L 182 38 L 186 30 L 200 30 L 214 30 L 218 26 Q 222 18 226 28 L 230 30 L 234 24 L 238 14 L 242 38 L 246 30 L 256 30 L 270 30 L 274 36 Q 278 42 282 36',
+    action: '→ 立刻 POCUS 看 RV;Massive PE → tPA + ECPR',
+    detail: {
+      identify: [
+        '<strong>S1Q3T3</strong>(經典但不敏感,只 20%):I 有 S 波 + III 有 Q 波 + III T 倒立',
+        '<strong>新發 RBBB</strong>(34%)— 比 S1Q3T3 更常見!',
+        '<strong>V1-V4 T 波倒立</strong>(RV strain 最敏感徵象,68%)',
+        '竇性頻脈最常見(44%,但無特異性)',
+        '右軸偏移、P pulmonale(下壁高 P 波)',
+        '少數可見 ST 變化模仿 STEMI(尤其下壁)'
+      ],
+      treatment: [
+        'EKG 只是<strong>支持線索</strong>,確診靠 CTPA 或 POCUS',
+        '床邊 UCG 看:',
+        '  • RV 擴大(RV/LV > 1)',
+        '  • <strong>D-shape sign</strong>(IVS 推向左,LV 變 D 字)',
+        '  • <strong>McConnell sign</strong>(RV 自由壁不動,心尖正常)',
+        '  • TAPSE < 17 mm',
+        'Massive PE(休克 / 心停)→ <strong>tPA 50mg IV bolus</strong>',
+        'Submassive PE(RV strain + Tn↑ 但血壓尚可)→ Heparin + 個別評估',
+        'Refractory → ECPR bridge'
+      ],
+      doses: 'Heparin 60-80U/kg → 12-18U/kg/hr | tPA 50mg IV bolus(massive)| Enoxaparin 1mg/kg q12h',
+      pitfall: '⚠️ S1Q3T3 只有 20% 敏感,沒看到不能排除 PE!最常見其實是「竇性頻脈 + 看起來『沒事』」。<strong>胸痛 / 喘 + 新發 RBBB + V1-V4 T 倒立</strong> = 高度懷疑 PE,立刻 POCUS。⚠️ 別把 V1-V4 T 倒立當前壁缺血亂打 PCI!',
+      update2025: '2025 強調 PE 診斷靠多徵象組合(EKG + POCUS + D-dimer + clinical),單看 S1Q3T3 已過時。Massive PE 的 ECPR 是 Class 2a 適應症。'
+    }
   }
+
 ];
 
 // 收藏管理 (localStorage)
