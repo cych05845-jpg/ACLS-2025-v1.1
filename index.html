@@ -1206,6 +1206,45 @@ details > div, details > p { font-size: 16px !important; line-height: 1.8 !impor
   .mc-option { font-size: 15.5px !important; }
 }
 
+
+/* ===== OHCA 一條龍 Case 模式 ===== */
+.case-mode-header { padding: 1em; background: linear-gradient(135deg, #fef3c7, #fee2e2); border-radius: 10px; margin-bottom: 1.2em; }
+.case-grid { display: grid; gap: 1em; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .case-grid { grid-template-columns: 1fr 1fr; } }
+.case-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.2em; cursor: pointer; transition: all .2s; }
+.case-card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+.case-card-head { display: flex; gap: .8em; align-items: center; margin-bottom: .6em; }
+.case-icon { font-size: 2.2em; line-height: 1; }
+.case-title { font-weight: 700; font-size: 1.1em; color: #1e293b; }
+.case-theme { font-size: .9em; font-weight: 600; margin-top: .15em; }
+.case-overview { color: #475569; font-size: .92em; line-height: 1.65; margin-bottom: .7em; }
+.case-meta { color: #94a3b8; font-size: .85em; }
+
+.case-progress-bar { background: #fff; padding: 1em; border-radius: 10px; margin-bottom: 1em; border: 1px solid #e2e8f0; }
+.case-bar { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+.case-bar-fill { height: 100%; transition: width .4s; }
+
+.case-step-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.2em; }
+.case-scenario { font-size: 1.05em; line-height: 1.75; color: #1e293b; padding: .9em; background: #f8fafc; border-left: 4px solid #3b82f6; border-radius: 5px; margin-bottom: 1em; }
+.case-question { font-size: 1.1em; font-weight: 700; color: #1e293b; margin: .8em 0; }
+.case-options { display: flex; flex-direction: column; gap: .5em; }
+.case-option { background: #fff; border: 2px solid #e2e8f0; border-radius: 8px; padding: .8em 1em; text-align: left; cursor: pointer; transition: all .15s; font-size: 1em; line-height: 1.55; color: #1e293b; }
+.case-option:hover:not(:disabled) { background: #f0f9ff; border-color: #3b82f6; }
+.case-option:disabled { cursor: not-allowed; }
+.case-option.correct { background: #dcfce7 !important; border-color: #10b981 !important; font-weight: 600; }
+.case-option.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; }
+.case-option.disabled-other { opacity: .55; }
+
+.case-feedback { margin-top: 1em; padding: 1em; border-radius: 8px; line-height: 1.7; }
+.case-feedback.correct { background: #dcfce7; border-left: 4px solid #10b981; }
+.case-feedback.wrong { background: #fef2f2; border-left: 4px solid #ef4444; }
+.case-feedback-head { font-weight: 700; font-size: 1.05em; margin-bottom: .5em; color: #1e293b; }
+.case-feedback-body { color: #334155; }
+
+.case-debrief-card { background: #fff; padding: 2em 1.5em; border-radius: 12px; margin: 1em 0; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+
+#mega-case-mode-toggle { display: flex; justify-content: flex-end; margin-bottom: 1em; }
+
 </style>
 </head>
 <body>
@@ -5808,6 +5847,168 @@ const CRAM_SECTIONS = [
     ]
   },
 
+
+  // ========== ECPR / IHCA 啟動時機(嘉基本院強項)==========
+  {
+    id: 'ecpr_ihca',
+    icon: '🫀',
+    title: 'ECPR 啟動時機(IHCA / OHCA)',
+    subtitle: '嘉基本院強項,指導員可能會深問',
+    color: '#dc2626',
+    blocks: [
+      {
+        h: 'IHCA 與 OHCA 差異(重要觀念)',
+        c: `<table class="cram-table">
+          <tr><th></th><th>IHCA<br>(院內心停)</th><th>OHCA<br>(院外心停)</th></tr>
+          <tr><td>發生率</td><td>1/100 住院病人</td><td>378.7 / 10 萬人/年</td></tr>
+          <tr><td>到院前死亡率</td><td>—</td><td>~80%</td></tr>
+          <tr><td>存活出院率(2025 數據)</td><td><strong>23.6%</strong></td><td><strong>10.5%</strong></td></tr>
+          <tr><td>Low-flow 控制</td><td><strong>容易</strong>(已在院內)</td><td>困難(需轉送)</td></tr>
+          <tr><td>ECPR 適合度</td><td><strong>較適合</strong></td><td>挑戰大,需高度系統化</td></tr>
+          <tr><td>常見原因</td><td>可逆病因多(MI、電解質、PE)</td><td>致命性心律不整為主</td></tr>
+        </table>
+        <div class="cram-tip">2025 AHA 強調 IHCA 是 ECPR <strong>最適合的場景</strong> — 因為 low-flow 可被有效控制</div>`
+      },
+      {
+        h: 'ECPR 啟動的「Go criteria」(必背)',
+        c: `<div class="cram-big">年 · 目 · 5 · 60 · 律 · 因</div>
+        <table class="cram-table">
+          <tr><th>條件</th><th>標準</th></tr>
+          <tr><td><strong>年</strong>齡</td><td>&lt; 70 歲(部分中心放寬至 ≤ 75)</td></tr>
+          <tr><td><strong>目</strong>擊</td><td>必須是 witnessed cardiac arrest</td></tr>
+          <tr><td>No-flow &lt; <strong>5</strong></td><td>到 CPR 開始 &lt; 5 分鐘</td></tr>
+          <tr><td>Low-flow &lt; <strong>60</strong></td><td>到 ECMO flow 建立 &lt; 60 min(ELSO)</td></tr>
+          <tr><td>初始心<strong>律</strong></td><td>VF / pVT / PEA(<strong>Asystole 多列禁忌</strong>)</td></tr>
+          <tr><td>可逆病<strong>因</strong></td><td>MI、PE、毒物、低體溫、心律不整</td></tr>
+        </table>
+        <div class="cram-tip">輔助指標:CPR 中 EtCO₂ &gt; 10 mmHg、有 intermittent ROSC、有「signs of life」(抽動/瞳孔反應)</div>`
+      },
+      {
+        h: 'ECPR 禁忌條件(Stop criteria)',
+        c: `<ul class="cram-list">
+          <li><strong>初始心律 Asystole</strong>(預後極差)</li>
+          <li>Unwitnessed arrest</li>
+          <li>末期共病:末期心衰 / COPD 末期 / 肝衰 / 腎衰 / 惡性腫瘤末期</li>
+          <li>嚴重主動脈瓣逆流(&gt; mild)</li>
+          <li>病前 ADL 不獨立</li>
+          <li>嚴重外傷出血未控制</li>
+          <li>違反病人 advance directive(DNR)</li>
+        </ul>
+        <div class="cram-warn">⚠️ 注意:這些是「相對」禁忌,實務上會由 ECPR team 評估後決策</div>`
+      },
+      {
+        h: 'IHCA 啟動 ECPR 的時間目標',
+        c: `<table class="cram-table">
+          <tr><th>節點</th><th>目標時間</th></tr>
+          <tr><td>CPR 開始</td><td>立即(IHCA 一般 &lt; 1 min)</td></tr>
+          <tr><td>判斷符合 ECPR 條件</td><td><strong>10-15 min</strong> 內</td></tr>
+          <tr><td>啟動 ECPR team</td><td>判斷後立即</td></tr>
+          <tr><td>ECMO 建立 flow(從心停起算)</td><td><strong>&lt; 60 min</strong>(ELSO),<strong>&lt; 38 min 預後最好</strong></td></tr>
+        </table>
+        <div class="cram-tip">嘉基本院 ECPR 系統:從 46 min(改善前)→ <strong>20.1 min</strong>(改善後)setup time</div>
+        <div class="cram-tip">存活率:9% → <strong>33.33%</strong></div>`
+      },
+      {
+        h: '⚡「啟動」≠「Cannulation」— 時機分層(實務關鍵)',
+        c: `<div class="cram-warn">⚡ <strong>關鍵觀念</strong>:電擊 2 次仍 VF + IHCA 可以「啟動 team」但不一定 cannulate</div>
+        <table class="cram-table">
+          <tr><th>時間點</th><th>動作</th><th>原因</th></tr>
+          <tr><td><strong>第 1 次電擊</strong>無 ROSC</td><td>CPR + Epi 1mg + 重新評估心律</td><td>大部分仍可能 ROSC</td></tr>
+          <tr><td><strong>第 2 次電擊仍 VF</strong></td><td><strong>啟動 ECPR team 待命</strong> ⚡<br>評估 criteria + 通知家屬</td><td>setup 需時間,提前準備</td></tr>
+          <tr><td><strong>第 3 次電擊仍 VF</strong><br>(= Refractory VF)</td><td>給 Amio 300mg<br><strong>ECPR team 應已到位</strong><br>開始 cannulation 評估</td><td>3 次電擊 + Epi + Amio 是國際 refractory 標準</td></tr>
+          <tr><td>CPR <strong>10-15 min</strong> 仍無 ROSC</td><td><strong>開始 cannulation</strong></td><td>目標 ECMO flow 在 60 min 內建立</td></tr>
+        </table>
+        <div class="cram-tip"><strong>嘉基「早期啟動」策略</strong>:電擊 2 次就動員 team,但實際 cannulation 仍依 refractory 定義 + 病人狀態</div>`
+      },
+      {
+        h: 'Refractory VF / pVT 的國際定義',
+        c: `<div class="cram-big">≥ 3 次電擊 + Epi + Amio 仍無 ROSC</div>
+        <ul class="cram-list">
+          <li>歐洲復甦委員會 / AHA / ARREST trial 標準: <strong>≥ 3 次電擊</strong></li>
+          <li>有些中心放寬到 ≥ 2 次電擊就考慮(early activation)</li>
+          <li>處置:不要只重複同樣的事</li>
+        </ul>
+        <div class="cram-tip">Refractory VF 應同時想:</div>
+        <ol class="cram-list cram-list-num">
+          <li><strong>換貼片位置</strong>(Anterior-Posterior 改向量)</li>
+          <li>考慮 <strong>Double Sequential Defibrillation (DSED)</strong></li>
+          <li><strong>啟動 ECPR team</strong></li>
+          <li>找隱藏可逆原因(高鉀?MI?中毒?)</li>
+          <li>確認 CPR 品質(EtCO₂、深度、回彈)</li>
+        </ol>`
+      },
+      {
+        h: '什麼時候該想到 ECPR?(臨床觸發點)',
+        c: `<ul class="cram-list">
+          <li>CPR 進行 <strong>10-15 分鐘無 ROSC</strong> 且符合條件</li>
+          <li><strong>Refractory VF / pVT</strong> — 3 次以上電擊 + Epi + Amio 仍無效</li>
+          <li>Witnessed IHCA + 可逆原因(高度懷疑 PE / MI)</li>
+          <li>Massive PE 確診 + 給 tPA 仍無 ROSC</li>
+          <li>低體溫心停(復溫到 30°C 仍無 ROSC)</li>
+          <li>毒物中毒(如 BB / CCB / 局麻藥)CPR 仍無效</li>
+        </ul>
+        <div class="cram-warn">⚠️ 拖到 60 min 才想到 ECPR 通常已太遲 — 應在 CPR 10-15 min 就開始評估</div>`
+      },
+      {
+        h: 'IHCA 中常被忘的可逆原因(5H5T 應用)',
+        c: `<div class="cram-tip">IHCA 病人通常已有<strong>大量資訊</strong>(病歷、用藥、實驗值)— 應快速利用</div>
+        <table class="cram-table">
+          <tr><th>原因</th><th>IHCA 線索</th><th>處置</th></tr>
+          <tr><td>高血鉀</td><td>洗腎病人 / CKD / 用 K-sparing 利尿劑</td><td>Calcium → Insulin/glu → 洗腎</td></tr>
+          <tr><td>低血容</td><td>術後出血、消化道出血、敗血症</td><td>輸血 / 輸液</td></tr>
+          <tr><td>Massive PE</td><td>術後、長期臥床、有 DVT</td><td><strong>tPA 50mg</strong> + ECPR</td></tr>
+          <tr><td>張力性氣胸</td><td>插管後突然惡化、單側無音</td><td><strong>立即針減壓</strong></td></tr>
+          <tr><td>心包填塞</td><td>術後、抗凝血劑、UCG 易確認</td><td>劍突下穿刺</td></tr>
+          <tr><td>低體溫</td><td>手術中暴露、戶外久放</td><td>復溫,&lt; 30°C 不電擊</td></tr>
+          <tr><td>毒物</td><td>用藥史(BB / CCB / TCA / Digoxin)</td><td>對應解毒劑</td></tr>
+        </table>`
+      },
+      {
+        h: '指導員可能會問(嘉基本院強項題)',
+        c: `<div class="cram-q">「貴院 ECPR setup time 多久?」</div>
+        <div>嘉基:從 46 min → <strong>20.1 min</strong>(實施標準化流程後)</div>
+
+        <div class="cram-q">「ECPR 存活率改善多少?」</div>
+        <div>9% → <strong>33.33%</strong></div>
+
+        <div class="cram-q">「IHCA 跟 OHCA 哪個比較適合 ECPR?」</div>
+        <div><strong>IHCA</strong> — 因 low-flow 時間可有效控制,人力資源也在現場</div>
+
+        <div class="cram-q cram-trap">「Asystole 病人可以 ECPR 嗎?」</div>
+        <div>❌ 大部分中心列<strong>禁忌</strong>(預後極差),除非確定可逆原因(如急性高鉀、毒物、低體溫)</div>
+
+        <div class="cram-q cram-trap">「CPR 50 分鐘無 ROSC 才討論 ECPR 來得及嗎?」</div>
+        <div>太晚!應在 <strong>10-15 分鐘</strong>就開始評估;到 50 分鐘 setup ECPR,low-flow 已超過 60 min</div>
+
+        <div class="cram-q cram-trap">「CCPR 中如何判斷 ECPR 候選人?」</div>
+        <div>三個簡單關鍵:① <strong>EtCO₂ &gt; 10 mmHg</strong>(灌流還算 OK)② <strong>有 signs of life</strong>(抽動 / 瞳孔反應)③ 符合年齡與 Go criteria</div>`
+      },
+      {
+        h: 'ECPR 啟動後的注意事項',
+        c: `<ul class="cram-list">
+          <li><strong>不要中斷 CPR!</strong>插管 cannulation 同時持續高品質 CPR</li>
+          <li>抗凝劑(Heparin)在 cannulation 時給</li>
+          <li>ECPR 啟動後仍須<strong>找原因 + 對因處置</strong>(PCI、tPA、手術)</li>
+          <li>Post-ECPR 進入 <strong>ICU + 體溫管理</strong>(32-37.5°C)</li>
+          <li>持續神經學評估,但<strong>不要太早預後判定</strong>(至少 72 hr 後)</li>
+        </ul>`
+      },
+      {
+        h: '什麼是 「signs of life」?(CCPR 中觀察)',
+        c: `<div class="cram-tip">在 CPR 進行中,某些徵象提示腦/心仍有功能 → 預後較好,值得 ECPR</div>
+        <ul class="cram-list">
+          <li><strong>瞳孔對光反射</strong>仍存在</li>
+          <li><strong>抽動 / 自發肢體動作</strong></li>
+          <li><strong>呼吸樣動作</strong>(gasping)</li>
+          <li>EtCO₂ &gt; 10 mmHg(穩定)</li>
+          <li>動脈線出現 pulsation</li>
+          <li>間歇性 ROSC</li>
+        </ul>
+        <div class="cram-warn">這些有 → 預後較好 → 強烈考慮 ECPR;完全無 → 預後差 → 慎重評估</div>`
+      }
+    ]
+  },
+
   // ========== 速記口訣總覽 ==========
   {
     id: 'mnemonics',
@@ -6374,6 +6575,92 @@ const CRAM_SECTIONS = [
         </ul>`
       },
       {
+        h: '🔥 Refractory VF/VT — 五大武器(Leader 必懂)',
+        c: `<div class="cram-tip"><strong>定義</strong>:≥ 3 次去顫 + Epi + Amiodarone 仍持續 VF/VT,或反覆復發</div>
+        <div class="cram-big">向 · 雙 · 藥 · 因 · E</div>
+        <table class="cram-table">
+          <tr><th>武器</th><th>內容</th><th>2025 等級</th></tr>
+          <tr><td>1. <strong>向</strong>量改變</td><td>標準 AL 失敗 → 改 <strong>Anterior-Posterior</strong>(前後位)</td><td>Class 2b</td></tr>
+          <tr><td>2. <strong>雙</strong> DSED</td><td>兩台去顫器同步電,間隔 &lt; 1 秒</td><td>Class 2b</td></tr>
+          <tr><td>3. <strong>藥</strong>物階梯</td><td>Amio → Lidocaine → MgSO4(僅 Torsades/低鎂)</td><td>standard</td></tr>
+          <tr><td>4. 找<strong>因</strong></td><td>5H5T 升級找原因</td><td>必做</td></tr>
+          <tr><td>5. <strong>E</strong>CPR</td><td>第 2-3 次電擊就 call team</td><td>Class 2a</td></tr>
+        </table>`
+      },
+      {
+        h: '武器 1:Vector Change(改向量)',
+        c: `<div class="cram-q">「怎麼操作?」</div>
+        <ul class="cram-list">
+          <li>把 Apex 貼片從<strong>左乳下</strong>撕下 → 改貼到<strong>左後肩胛下</strong></li>
+          <li>Sternum 貼片不動(右上胸)</li>
+          <li>變成 <strong>Anterior-Posterior(前後位)</strong></li>
+          <li>不用換新貼片!省時間</li>
+        </ul>
+        <div class="cram-tip">為什麼有效?改變電流穿過心臟的<strong>方向</strong>,可能抓到原本 missed 的心肌部位</div>
+        <div class="cram-q cram-trap">「指導員問:Refractory VF 你還能怎做?」</div>
+        <div>除了藥和繼續電擊,可<strong>改向量</strong> — 這是 2025 新加註的 Class 2b 建議</div>`
+      },
+      {
+        h: '武器 2:Double Sequential Defibrillation (DSED)',
+        c: `<div class="cram-warn">⚡ 2022 DOSE-VF trial 重要證據:DSED 30 天存活率 13.3% → <strong>30.4%</strong></div>
+        <ul class="cram-list">
+          <li>用<strong>兩台去顫器</strong>(借隔壁床的)</li>
+          <li>一台 Anterior-Lateral、一台 Anterior-Posterior</li>
+          <li>兩位操作者同步按 shock(口令:「1, 2, 3, SHOCK!」)</li>
+          <li>等同 360J × 2 = <strong>720J 雙能量</strong></li>
+        </ul>
+        <div class="cram-warn">⚠️ 風險:可能損壞去顫器(機型不支援);實施前要讀 manual。臨床上沒設備就跳過,改其他武器</div>`
+      },
+      {
+        h: '武器 3:藥物階梯(別只會 Amio)',
+        c: `<table class="cram-table">
+          <tr><th>順序</th><th>藥</th><th>劑量</th><th>時機</th></tr>
+          <tr><td>1</td><td><strong>Amiodarone</strong></td><td>300mg bolus → 150mg</td><td>第 3 次電擊後</td></tr>
+          <tr><td>2</td><td><strong>Lidocaine</strong></td><td>1-1.5 mg/kg → 0.5-0.75 mg/kg</td><td>Amio 無效或不可用</td></tr>
+          <tr><td>3</td><td><strong>MgSO4</strong></td><td>1-2g IV</td><td><strong>僅 Torsades / 低鎂</strong></td></tr>
+          <tr><td>4</td><td>Esmolol(β-blocker)</td><td>0.5 mg/kg bolus → drip</td><td>2025: uncertain benefit</td></tr>
+        </table>
+        <div class="cram-warn">⚠️ <strong>2025 新觀念</strong>:Procainamide / Sotalol / Bretylium 在 Refractory VF 「<strong>of uncertain benefit</strong>」 — 不是首選</div>`
+      },
+      {
+        h: '武器 4:找隱藏的可逆原因(升級版 5H5T)',
+        c: `<table class="cram-table">
+          <tr><th>原因</th><th>線索</th><th>處置</th></tr>
+          <tr><td><strong>Acute MI</strong></td><td>病史、年齡、危險因子</td><td><strong>Cath lab activation</strong></td></tr>
+          <tr><td>電解質(K, Mg)</td><td>洗腎、利尿劑、嘔吐</td><td>Calcium、Mg、補 K</td></tr>
+          <tr><td>酸中毒</td><td>CPR 久、敗血症</td><td>NaHCO3(考慮)</td></tr>
+          <tr><td>缺氧</td><td>插管位置、痰塞</td><td><strong>DOPE 檢查</strong></td></tr>
+          <tr><td>低體溫</td><td>戶外、酒精</td><td>復溫</td></tr>
+          <tr><td>毒物</td><td>用藥史</td><td>對應解毒劑(Digibind / NAC / Intralipid)</td></tr>
+          <tr><td><strong>Long QT</strong></td><td>QTc 史、Macrolide、抗精神病藥</td><td>Mg + 升心率(避免 BB)</td></tr>
+        </table>
+        <div class="cram-tip">Refractory VF 通常背後有<strong>沒解決的根本原因</strong> — 不找原因,再電擊都是白費</div>`
+      },
+      {
+        h: '武器 5:ECPR Bridge(嘉基強項)',
+        c: `<div class="cram-big">第 2-3 次電擊就 call ECPR team</div>
+        <ul class="cram-list">
+          <li>Refractory VF/VT 是 ECPR <strong>最強適應症</strong></li>
+          <li>ARREST trial 數據:存活 <strong>43% vs 標準 ACLS 7%</strong></li>
+          <li>啟動 team ≠ 立即 cannulation;但 setup 需要 20+ 分鐘</li>
+          <li>嘉基經驗:setup time 20.1 min、存活率 33.33%</li>
+        </ul>
+        <div class="cram-warn">⚠️ 等到 CPR 30+ 分鐘才考慮 ECPR → low-flow 已超標,預後極差</div>`
+      },
+      {
+        h: '🧠 Leader 的「3 → 4 條軌道並行」',
+        c: `<div class="cram-tip">第 3 次電擊仍 VF 時,Leader 的 4 條<strong>同時</strong>進行的指令:</div>
+        <ol class="cram-list cram-list-num">
+          <li>🔌 <strong>改向量</strong> 或 <strong>準備 DSED</strong>(調整電擊策略)</li>
+          <li>💊 <strong>下一輪藥</strong>(Amio 150mg / Lido / Mg 視情況)</li>
+          <li>🩺 <strong>找原因</strong>(派人看病歷、抽 ABG / lactate / K、床邊 UCG)</li>
+          <li>📞 <strong>call CVS + ECPR team + 家屬</strong>(不能只 leader 自己打)</li>
+        </ol>
+        <div class="cram-warn">⚠️ Leader 最大的錯誤:「我先把 ACLS 流程做完再打電話」 — 浪費 20 分鐘 setup window</div>
+        <div class="cram-q cram-trap">「指導員問:Refractory VF 你下一步?」</div>
+        <div>不要只回答「再電擊 + Amio」!要說<strong>四條軌道並行</strong> — 才是 leader 思維</div>`
+      },
+      {
         h: '心律的指導員陷阱題',
         c: `<div class="cram-q cram-trap">「VF 急救中,要不要先插管?」</div>
         <div>❌ 不急!<strong>CPR + 電擊優先</strong>,插管會中斷壓胸。BVM 撐住到 ROSC 或之後再插</div>
@@ -6750,6 +7037,45 @@ const MEGACODE_SCENARIOS = [
     explain: 'Refractory VF/pVT(電擊 ≥ 3 次仍無效)+ 已給 Epi → Amiodarone 300mg IV bolus(死人劑量),可再追 150mg。150mg drip 是「活人 VT」用法。Adenosine 不用於無脈搏。'
   },
   {
+    id: 'mc15a',
+    scenario: '55 歲男性住院做骨盆手術後第 2 天,在病房被目擊倒地。立即 CPR + 接 monitor 為 VF。第 1 次 200J 電擊 + CPR 2 min + Epi 1mg → 仍 VF。第 2 次 200J 電擊 + CPR 2 min → monitor 仍 VF。病人 55 歲、術前 ADL 獨立、無末期共病、目擊心停 no-flow < 1 min。',
+    ekg: 'vf',
+    question: '此時(電擊 2 次仍 VF)最適當的下一步?',
+    options: [
+      { text: '第 3 次電擊 + Amiodarone 300mg + 同時通知 ECPR team 待命', correct: true },
+      { text: '等到 CPR 30 分鐘無 ROSC 才考慮通知 ECPR', correct: false },
+      { text: '立即 cannulation 進入 ECMO,不需再電擊', correct: false },
+      { text: '改用單相去顫器 360J 單次電擊', correct: false }
+    ],
+    explain: '「早期啟動」策略 — 電擊 2 次仍 VF,雖未達 refractory 嚴格定義(≥ 3 次),但 ECPR setup 需 20+ 分鐘,現在通知 team 待命可在第 3 次電擊仍 refractory 時立即 cannulation。等 30 分鐘才啟動 → low-flow 已超標,預後差。「啟動 team」≠「立即 cannulation」,兩者要分清楚。嘉基經驗:setup time 從 46 min → 20.1 min 就靠這策略。'
+  },
+  {
+    id: 'mc15b',
+    scenario: '承上情境變化版:55 歲男性 IHCA VF,CPR 已進行 35 分鐘,共電擊 6 次、Epi 1mg×8、Amio 300mg + 150mg,仍持續 VF。EtCO2 從原本 18 mmHg 掉到 8 mmHg。',
+    ekg: 'vf',
+    question: '此時要啟動 ECPR cannulation 嗎?',
+    options: [
+      { text: '不啟動 — low-flow 已 35 min,加上 setup 預計 ≥ 60 min,預後差;團隊應討論終止 CPR', correct: true },
+      { text: '立即啟動 cannulation,反正死馬當活馬醫', correct: false },
+      { text: '改 Lidocaine 試試看,等 ROSC', correct: false },
+      { text: '繼續同樣的循環直到 1 小時', correct: false }
+    ],
+    explain: 'Low-flow > 60 min 預後極差(ELSO 標準 < 60 min,最佳 < 38 min)。EtCO2 從 18 → 8 mmHg 提示灌流不足,signs of life 無 → 不適合 ECPR。應該誠實面對:這時候最該做的是團隊討論終止流程 + 通知家屬。⚠️ 錯誤觀念是「只要還有 VF 就繼續救」— 拖到 60 min 才考慮 ECPR 是太晚的典型例子。重點:「啟動 ECPR 的時機」應在 CPR 10-15 min 評估,而非 30+ min 才啟動。'
+  },
+  {
+    id: 'mc15c',
+    scenario: '【Team Leader 並行思維題】60 歲男性 IHCA VF,目擊倒地、CPR 立即開始。已電擊 3 次、Epi 1mg×2、Amiodarone 300mg,monitor 仍持續 VF。EtCO2 18 mmHg(穩定)。您是 Team Leader,壓胸、藥物、電擊都有人在做。',
+    ekg: 'vf',
+    question: '此時您「同時」應該做哪一件事最關鍵?(全部都該做,但選最不能漏掉的)',
+    options: [
+      { text: '改變電擊向量為 Anterior-Posterior + 通知 ECPR team + 派人找可逆原因(三軌並行)', correct: true },
+      { text: '繼續同樣的循環,等第 5 次電擊再說', correct: false },
+      { text: '只專注 CPR 品質,call 別人是浪費時間', correct: false },
+      { text: '立即停止 CPR 改用 Lidocaine 取代 Amio', correct: false }
+    ],
+    explain: 'Refractory VF 的 Leader 思維是「<strong>多軌並行</strong>」,不是單線執行。【正確思維】:🔌 改向量(把 Apex 貼片改貼後背 → AP 位)📞 call ECPR(setup 20+ min,提早通知才來得及)🩺 找原因(派人看病歷、抽 ABG/K/lactate、UCG)+ call CVS(可能 PCI)。【錯誤思維】❌ 「我先做完 ACLS 再 call 別人」會浪費 ECPR setup window;❌ 一直重複同樣循環 = 沒升級策略;❌ Lidocaine 取代 Amio 在 Refractory VF 證據不足。Refractory VF 五大武器:向(向量)、雙(DSED)、藥(藥階梯)、因(找原因)、E(CPR)。'
+  },
+  {
     id: 'mc16',
     scenario: '承上題,Epi + Amiodarone 後 ROSC,EKG 恢復 sinus rhythm。',
     ekg: 'sinus',
@@ -6789,6 +7115,19 @@ const MEGACODE_SCENARIOS = [
     explain: 'Asystole 不可電擊!電擊會使副交感神經放電,減少恢復機會。唯一治療:CPR + Epi + 找 5H5T(此例:低體溫、低鉀、中毒、酒精)。'
   },
   {
+    id: 'mc18a',
+    scenario: '承上題:寒冬陸橋下中年男 Asystole,CPR 持續 10 min,測肛溫 26°C(嚴重低體溫)。家屬到場,病人原本 ADL 獨立、無末期共病。',
+    ekg: 'asystole',
+    question: '此時是否該啟動 ECPR?',
+    options: [
+      { text: '應啟動 — 嚴重低體溫是 ECPR 適應症,可邊復溫邊支持循環', correct: true },
+      { text: '不應啟動 — Asystole 是 ECPR 絕對禁忌', correct: false },
+      { text: '等復溫到 32°C 仍 Asystole 才啟動', correct: false },
+      { text: '這年紀太大不適合 ECPR', correct: false }
+    ],
+    explain: '低體溫心停 = "Not dead until warm and dead"。嚴重低體溫(< 30°C)病人:① 復溫到 30°C 之前 CPR 效果有限 ② ECPR 是最快有效復溫方法(可同時提供循環與復溫)③ Asystole 在低體溫情境下不是禁忌!通則上 Asystole 是相對禁忌(預後差),但「可逆原因」如低體溫 / 高血鉀 / 毒物時,反而是 ECPR 的好適應症。年齡 55 歲符合 < 70 歲標準。指導員愛問這題 — 因為很多人會誤以為 Asystole 一律禁 ECPR。'
+  },
+  {
     id: 'mc19',
     scenario: '35 歲男上班暈倒,1 分鐘自醒。送到急診時生命徵象正常,忽然發生抽搐。EKG 顯示寬 QRS 規則 tachycardia,確認有脈搏。',
     ekg: 'vt',
@@ -6813,6 +7152,19 @@ const MEGACODE_SCENARIOS = [
       { text: '此狀況不應電擊,要繼續 CPR', correct: false }
     ],
     explain: 'PEA 必須儘快找 5H5T。COPD 急喘倒地高度懷疑 Tension pneumothorax → 立刻針減壓(別等 CXR)。「找原因」是 PEA 治療的核心。'
+  },
+  {
+    id: 'mc20a',
+    scenario: '48 歲女性術後第 5 天,長期臥床,突然主訴喘 + 胸痛,SpO2 跌到 75%。幾分鐘後倒地,monitor PEA 窄 QRS 110/min。床邊 UCG 看到右心室明顯擴大、IVC 飽滿。',
+    ekg: 'pea',
+    question: '此時最適合的處置組合?',
+    options: [
+      { text: 'CPR + Epi + 立刻 tPA 50mg IV bolus + 啟動 ECPR team', correct: true },
+      { text: 'CPR + Epi + 等 CT 確診才考慮 tPA', correct: false },
+      { text: 'CPR + 不能給 tPA(剛開刀禁忌),只能等', correct: false },
+      { text: 'CPR + 直接電擊 200J', correct: false }
+    ],
+    explain: 'Massive PE 引發 PEA 是 ECPR 的好適應症!線索:術後長期臥床(DVT 風險)+ 突然喘 + UCG 右心室擴大。處置:① CPR 不停 ② Epi ③ tPA 50mg bolus(CPR 中的 PE 是 tPA 適應症,出血禁忌相對權衡 — 救命優先)④ 啟動 ECPR 作 bridge,讓 tPA 有時間發揮 + 支持循環。⚠️ 注意:給完 tPA 後 CPR 要持續 60-90 min 等藥效。等 CT 確診常常太晚。電擊對 PEA 無效。'
   },
   {
     id: 'mc21',
@@ -6960,6 +7312,604 @@ const MEGACODE_SCENARIOS = [
 
 ];
 
+// ============================================================
+// 🎯 OHCA 一條龍 Megacode Cases — 5 個完整情境
+// 每個 case 從第一個動作 → 找原因 → 後續處置(Cath / ECPR / 後處置)
+// ============================================================
+
+const OHCA_CASES = [
+  // ============== CASE 1: VF + Hypoxia / LongQT ==============
+  {
+    id: 'case1',
+    title: 'Case 1:VF / 30 歲心悸倒地',
+    theme: 'Hypoxia + LongQT',
+    icon: '⚡',
+    color: '#dc2626',
+    overview: '30 歲女性在公司心悸後倒地,同事 CPR + 119 送急診。重點:Refractory VF → DSED → ROSC → Cath / EP study',
+    steps: [
+      {
+        scenario: '30 歲女性,公司同事目擊倒下,同事立即 CPR + 通報 119。EMT 8 分鐘抵達,接 AED 為「可電擊」心律。',
+        ekg: 'vf',
+        question: 'EMT 第一個關鍵動作?',
+        options: [
+          { text: '繼續 CPR 5 分鐘再評估', correct: false },
+          { text: 'AED 200J 電擊一次後立即恢復 CPR', correct: true },
+          { text: '先建立 IV 再電擊', correct: false },
+          { text: '先插管再電擊', correct: false }
+        ],
+        explain: 'OHCA 目擊心停 + 可電擊心律 = 立即電擊優先。AED 一次 200J 後立即 CPR 2 min,不要中斷追求其他流程。8 分鐘到場已有黃金時間壓力,不能再延誤。'
+      },
+      {
+        scenario: '電擊一次 + CPR 2 min。送到急診仍 VF,急診醫師接手。',
+        ekg: 'vf',
+        question: '急診下一輪處置?',
+        options: [
+          { text: '雙相 200J 第 2 次電擊 + 建立 IV/IO + 給 Epi 1mg', correct: true },
+          { text: 'Lidocaine 100mg push 後再電擊', correct: false },
+          { text: '直接 Amio 300mg 不需電擊', correct: false },
+          { text: '等家屬同意才電擊', correct: false }
+        ],
+        explain: '可電擊心律持續 = 電擊 + CPR + Epi。第 2 次電擊與建立 IV 同步進行(指派不同人)。Lidocaine 不是首選(已退居二線),Amio 在第 3 次電擊後才用。'
+      },
+      {
+        scenario: '第 2 次 200J 電擊 + Epi 1mg + CPR 2 min。Monitor 仍 VF。',
+        ekg: 'vf',
+        question: '此時您是 Team Leader,「同時」應該指派人手做哪些事?',
+        options: [
+          { text: '只專注 CPR,別的事等 ROSC 再說', correct: false },
+          { text: '第 3 次電擊 + Amio 300mg + 通知 ECPR team + call CVS + 派人找原因(看病史 / 抽 ABG / K)', correct: true },
+          { text: '改用 Lidocaine + 等家屬決定', correct: false },
+          { text: '宣告終止,沒救了', correct: false }
+        ],
+        explain: '第 3 次電擊就是 Refractory VF 邊緣。Leader 思維 = 多軌並行。① 電擊 + Amio ② call ECPR(setup 20+ min,提早通知)③ call CVS(可能要 PCI)④ 找原因(年輕女 + VF → 想 Long QT、藥物、電解質、心肌炎)。等到 ROSC 才 call 別人,ECPR window 已過。'
+      },
+      {
+        scenario: '第 3 次電擊 + Amio 300mg + CPR 2 min,仍 VF。已給 Epi 兩劑。EtCO2 穩定 18 mmHg。',
+        ekg: 'vf',
+        question: '此 Refractory VF 的下一步策略?',
+        options: [
+          { text: '繼續同樣循環,再電擊一次', correct: false },
+          { text: '改變電擊向量為 Anterior-Posterior 或考慮 DSED', correct: true },
+          { text: '停 CPR 改藥就好', correct: false },
+          { text: '降溫 32°C 治療', correct: false }
+        ],
+        explain: 'Refractory VF 五大武器:**向**(改向量)、**雙**(DSED)、**藥**(階梯)、**因**(找原因)、**E**(CPR)。重複同樣循環沒用,要升級策略。改 AP 向量(Apex 貼到後背肩胛下)或用兩台去顫器 DSED(DOSE-VF trial 存活從 13.3% → 30.4%)。降溫是 ROSC 後才考慮。'
+      },
+      {
+        scenario: '改 AP 向量第 4 次電擊 + Amio 第 2 劑 150mg → ROSC!Sinus rhythm 90/min,但 BP 70/40,病人插管中,瞳孔 2mm 對光反射緩慢。',
+        ekg: 'sinus',
+        question: 'ROSC 後立即優先處置?',
+        options: [
+          { text: '先做 12 lead EKG → 維持 MAP > 65 → 開始體溫管理 32-37.5°C → 找原因', correct: true },
+          { text: '立即拔管送 ICU', correct: false },
+          { text: '給冰水降溫到 32°C', correct: false },
+          { text: '等病人醒來再做 EKG', correct: false }
+        ],
+        explain: 'ROSC bundle 順序:① **ABCDE 再評估** ② **12 lead EKG**(找 STEMI)③ **BP 維持** MAP ≥ 65(Norepinephrine 升壓)④ **體溫管理** 32-37.5°C ⑤ **找原因 + 對因處置**。年輕女性 + Refractory VF + 無胸痛 → 高度懷疑 LongQT 或心肌炎,12 lead EKG 看 QTc。'
+      },
+      {
+        scenario: '12 lead EKG 顯示 QTc 540 ms(明顯延長)。家屬補充病史:近期感冒在吃抗生素 Levofloxacin + 之前看精神科開過 Haldol。',
+        ekg: null,
+        question: '此 Refractory VF 的可能原因 + 處置?',
+        options: [
+          { text: '藥物引起 LongQT → Torsades:停 Levo + Haldol、給 MgSO4 2g IV、補 K 至 > 4.0', correct: true },
+          { text: '繼續用原本藥物,只調 BP', correct: false },
+          { text: '只補 K 不用 Mg', correct: false },
+          { text: '直接送 EP study,不需處理藥物', correct: false }
+        ],
+        explain: 'Levofloxacin(Quinolone)+ Haldol 都是 QT 延長藥物!合併使用 → Drug-induced LongQT → Torsades → 退化成 VF。處置:①**立即停所有 QT 延長藥** ②**MgSO4 1-2g IV**(即使 Mg 正常也給) ③**補 K > 4.0** ④**避免 Amiodarone 維持**(會延長 QT 加重)。心律不整改用 Lidocaine。'
+      },
+      {
+        scenario: '處置後 BP 穩定、體溫管理進行中。Lab 出來:K 3.2、Mg 1.6、CK 800。Cath lab 詢問:「要送來嗎?」',
+        ekg: 'sinus',
+        question: '是否需要 Cath?',
+        options: [
+          { text: '不需立即 Cath — 此例 VF 是藥物引起 LongQT,不是缺血;先穩定 + EP 評估', correct: true },
+          { text: '所有 ROSC 病人都要 Cath', correct: false },
+          { text: '立即 Cath 以排除冠脈問題', correct: false },
+          { text: '等 24 小時再 Cath', correct: false }
+        ],
+        explain: '2025 AHA:ROSC + ST elevation 或可疑缺血 → Cath。此例 30 歲女性 + 無 ST 變化 + 已找到藥物原因 → 不需立即 Cath。應:① 補電解質 K > 4 / Mg > 2 ② 體溫管理 32-37.5°C × 36 hr ③ EP 諮詢評估是否需 ICD ④ 心臟超音波排除心肌病變。Cath 不是 routine。'
+      },
+      {
+        scenario: '【Debrief】48 小時後病人 GCS E4VtM6,神經狀況佳。回顧整個案例。',
+        ekg: null,
+        question: '這個 case 您學到的最關鍵 leader 思維是?',
+        options: [
+          { text: 'Leader 要會多軌並行(電擊 + 藥 + call ECPR + 找原因 同時做)', correct: true },
+          { text: 'Refractory VF 一定要做 ECPR', correct: false },
+          { text: '所有 VF 病人都要降溫到 32°C', correct: false },
+          { text: 'Cath 是 ROSC 的標準動作', correct: false }
+        ],
+        explain: '✅ 這個 case 的 5 個關鍵教訓:**①** Refractory VF 要升級策略(向量、DSED) **②** 通知 ECPR team 要早(電擊 2-3 次就 call) **③** 找原因比給藥重要(此例藥物 + LongQT) **④** ROSC 後 Cath 不是 routine,看臨床 **⑤** 多軌並行才是 Leader 核心能力。30 歲 + 抗生素 + Haldol = LongQT 經典組合,記下來。'
+      }
+    ]
+  },
+
+  // ============== CASE 2: SB → PEA + Hyperkalemia ==============
+  {
+    id: 'case2',
+    title: 'Case 2:洗腎徐脈進展為 PEA',
+    theme: 'Hyperkalemia(高血鉀)',
+    icon: '🩸',
+    color: '#7c2d12',
+    overview: '70 歲洗腎病人在血液透析中心忽然意識改變。主軸:SB → PEA → 找出高鉀 → 穩趕排 → ROSC → 緊急洗腎',
+    steps: [
+      {
+        scenario: '70 歲女性,在血液透析中心忽然訴心悸 + 軟弱無力。今天透析才剛開始 30 分鐘。BP 90/60,monitor 顯示 sinus bradycardia 38/min。',
+        ekg: 'sb',
+        question: '第一個動作?',
+        options: [
+          { text: '完成 ABCDE + 立刻接 12 lead + 抽急 K', correct: true },
+          { text: '立即給 Atropine 1mg', correct: false },
+          { text: '先做 TCP', correct: false },
+          { text: '繼續透析觀察', correct: false }
+        ],
+        explain: '洗腎病人 + 突發徐脈 = **高度懷疑高血鉀**!Atropine 反應差(不是迷走神經問題)。先 ABCDE + 12 lead 看有無 peaked T、QRS 變寬,並抽急 K。透析中心都有 K-meter,5 分鐘可知。'
+      },
+      {
+        scenario: '12 lead 顯示 V2-V5 peaked T waves,QRS 100 ms。Bedside K = 7.2 mmol/L。3 分鐘後病人意識喪失,monitor 顯示寬 QRS PEA 30/min。',
+        ekg: 'pea',
+        question: '此 PEA 第一個藥?',
+        options: [
+          { text: '立即 Calcium gluconate 1g IV(或 CaCl2 1g)— 穩心肌', correct: true },
+          { text: 'Epinephrine 1mg IV', correct: false },
+          { text: 'Atropine 1mg IV', correct: false },
+          { text: 'Sodium bicarbonate 1 amp', correct: false }
+        ],
+        explain: '高鉀引起 PEA = **「穩」優先**!Calcium gluconate 1g IV 立刻給(不等 Epi),穩心肌膜電位 → 防止退化成 VF/Asystole。CaCl2 也可(劑量 1g)但血管刺激大。Epi 是 PEA 標準藥但**找到可治療原因要先處理原因**。Atropine 對寬 QRS 高鉀無效。'
+      },
+      {
+        scenario: 'Calcium 給完 + CPR 進行中。下一步?',
+        ekg: 'pea',
+        question: '高鉀治療「穩 → 趕 → 排」中的「趕」該怎麼做?',
+        options: [
+          { text: 'Insulin 10U IV + D50W 50mL + NaHCO3 1 amp + β2 agonist 吸入', correct: true },
+          { text: '只給 Insulin 不用 glucose', correct: false },
+          { text: '只用 Lasix 排尿', correct: false },
+          { text: '等血液檢驗結果再決定', correct: false }
+        ],
+        explain: '「穩 → 趕 → 排」的「趕」:把 K 打回細胞內。**Insulin 10U + D50W 50mL**(避免低血糖)、**NaHCO3 1-2 mEq/kg**(代謝性酸中毒矯正)、**β2 agonist**(Albuterol 10-20mg neb,劑量比一般大)。Lasix 是「排」,但無尿病人沒用。等血液結果浪費時間,bedside K 已 7.2 就治療。'
+      },
+      {
+        scenario: 'CPR + 給藥後 8 分鐘,monitor 出現 sinus rhythm 70/min,可摸到頸動脈。BP 100/60,病人開始有自主呼吸。EtCO2 35 mmHg。',
+        ekg: 'sinus',
+        question: 'ROSC!下一步?',
+        options: [
+          { text: '12 lead EKG + 緊急洗腎(Stat HD)+ 持續監測 K + 找誘發原因', correct: true },
+          { text: '只繼續 Insulin/glucose,不洗腎', correct: false },
+          { text: '降溫 32°C', correct: false },
+          { text: '送一般病房', correct: false }
+        ],
+        explain: 'ROSC 後重點:① **12 lead** 確認 peaked T 是否消退 ② **緊急 HD** — Insulin/Calcium 都是暫時治療,K 唯一根除是透析 ③ **持續 K monitoring**(怕反彈) ④ **找誘發原因** — 是不是這次透析有問題?忘記吃 Kayexalate?吃了高 K 食物?ACE-I/Spironolactone?'
+      },
+      {
+        scenario: '緊急洗腎 4 小時後,K 降到 4.2,病人神智清楚,自主呼吸,GCS E4V5M6。家屬詢問:「為什麼會這樣?」',
+        ekg: null,
+        question: '回頭看,這個 case 的關鍵教訓?',
+        options: [
+          { text: '透析病人徐脈第一個想高血鉀,不是迷走神經', correct: true },
+          { text: '所有徐脈都先給 Atropine', correct: false },
+          { text: '高鉀只能等血液檢驗才能治療', correct: false },
+          { text: '高鉀不能造成 SB,只會 VF', correct: false }
+        ],
+        explain: '✅ 5 個教訓:**①** 洗腎病人徐脈 = 高鉀第一,Atropine 通常無效 **②** 高鉀 EKG 順序:peaked T → P 平 → QRS 寬 → sine wave → VF **③** 「穩 → 趕 → 排」三階段缺一不可 **④** Calcium 是穩心肌 first-line(EKG 變化就給) **⑤** Digoxin 中毒高鉀要禁 Calcium(stone heart!)— 這個 case 沒 Digoxin 才安全給。高鉀也會引起 SB / AV block / 寬 QRS PEA,不是只會 VF。'
+      },
+      {
+        scenario: '【追問】住院後第 3 天,病人主訴胸悶,12 lead 顯示 II/III/aVF ST elevation。Cath lab 已 stand by。',
+        ekg: 'stemi',
+        question: '此時下一步?',
+        options: [
+          { text: 'Aspirin 嚼碎 + Cath 啟動 + 做 V4R 排除右室梗塞', correct: true },
+          { text: '先做 NTG,不必 Cath', correct: false },
+          { text: '直接給 tPA,不必 Cath', correct: false },
+          { text: '等心肌酵素出來再決定', correct: false }
+        ],
+        explain: '下壁 STEMI(II/III/aVF)→ **必做 V4R**!約 30-50% 合併右室梗塞,RV 梗塞是 NTG 絕對禁忌(會崩 BP)。標準處置:**Aspirin 162-325mg 嚼碎** + **D2B ≤ 90 min** Cath。洗腎病人 + STEMI 是高危險群,但 Cath 仍是首選(顯影劑可調整劑量 + 後續 HD 排出)。tPA 是 Cath 不可及才考慮(此例已 stand by 不用)。'
+      }
+    ]
+  },
+
+  // ============== CASE 3: PEA + 術後 PE / 出血 ==============
+  {
+    id: 'case3',
+    title: 'Case 3:術後 PEA → Massive PE',
+    theme: 'Thrombosis(肺栓塞)+ tPA + ECPR',
+    icon: '🫁',
+    color: '#0891b2',
+    overview: '48 歲女術後第 5 天突然倒地。主軸:PEA → 床邊 UCG 發現 RV 擴大 → tPA + ECPR bridge → ROSC',
+    steps: [
+      {
+        scenario: '48 歲女性骨盆腔手術後第 5 天,長期臥床。早上下床時忽然主訴極度喘 + 胸痛,SpO2 跌至 75%。家屬呼救,3 分鐘後 ICU team 到場時病人已意識喪失,monitor 顯示窄 QRS 110/min PEA。',
+        ekg: 'pea',
+        question: 'PEA 第一個動作?',
+        options: [
+          { text: 'CPR + Epi 1mg + 思考可逆原因(術後 + 喘 → PE!)', correct: true },
+          { text: '電擊 200J', correct: false },
+          { text: 'Atropine 1mg', correct: false },
+          { text: '直接拔管插管再說', correct: false }
+        ],
+        explain: 'PEA = CPR + Epi + 找原因。**術後 + 長期臥床 + 突然喘 + PEA = Massive PE 警告**!立刻床邊 UCG 看右心室。電擊對 PEA 無效。Atropine 已從 PEA 流程移除(2010)。先 CPR + 找原因,別執著拔管。'
+      },
+      {
+        scenario: 'CPR 中,床邊 UCG:右心室明顯擴大、IVC 飽滿、左心室「D-shape」徵象。已建立 IV、給 Epi 一劑。',
+        ekg: 'pea',
+        question: '此確診為 Massive PE,下一步?',
+        options: [
+          { text: 'tPA 50mg IV bolus + 通知 ECPR team + 持續高品質 CPR', correct: true },
+          { text: '送 CT pulmonary angiogram 確診才給 tPA', correct: false },
+          { text: '剛開刀禁忌 tPA,只能等', correct: false },
+          { text: '電擊 200J', correct: false }
+        ],
+        explain: 'Massive PE + 心停 = **tPA 適應症**(出血禁忌相對權衡 — 救命優先)!**tPA 50mg IV bolus** 比 100mg 更安全且效果類似。剛開刀第 5 天 = **相對禁忌**,但心停下「絕對 vs 相對」不同算法 — 不給 tPA 病人會死。同時 call ECPR team — tPA 起效需要時間,ECPR bridge 撐住循環。等 CT 確診常常太晚。'
+      },
+      {
+        scenario: 'tPA 給完,CPR 持續。Leader 指示:「ECPR team 預計 15 分鐘到、Cardiology 已通知。」EtCO2 從 8 mmHg 升到 15 mmHg。',
+        ekg: 'pea',
+        question: 'EtCO2 上升代表什麼?下一步?',
+        options: [
+          { text: 'CPR 品質好或開始有反應,持續高品質 CPR + 等 ECPR', correct: true },
+          { text: 'EtCO2 不重要,看 BP 就好', correct: false },
+          { text: '立即停 CPR 試 ROSC', correct: false },
+          { text: '減慢 CPR 速率', correct: false }
+        ],
+        explain: 'EtCO2 是 CPR 品質與 ROSC 的最佳指標。**EtCO2 從 8 → 15 mmHg = 灌流改善**(可能是 tPA 開始溶解血栓 + CPR 品質好)。**EtCO2 持續 < 10 → CPR 品質差或快沒戲**。**EtCO2 突然 ↑ ≥ 40 → 可能 ROSC**。此時不要停 CPR 確認 ROSC(會浪費 5-10 秒灌流),持續 CPR 等 ECPR 或下次 rhythm check。'
+      },
+      {
+        scenario: 'CPR 持續 25 分鐘 + tPA 給完 + ECPR team 抵達準備 cannulation。突然 monitor 顯示 sinus tachy 110/min,EtCO2 升到 45 mmHg。',
+        ekg: 'sinus',
+        question: 'ROSC!下一步?',
+        options: [
+          { text: 'ABCDE 再評估 → BP 維持 → 12 lead → 暫停 ECPR cannulation 觀察 → 後續抗凝', correct: true },
+          { text: '繼續 ECPR cannulation,反正都來了', correct: false },
+          { text: '立即拔管', correct: false },
+          { text: '降溫 32°C', correct: false }
+        ],
+        explain: 'ROSC 後:① **暫停 ECPR cannulation**(觀察循環是否穩定)— 但保留 standby ② **ABCDE 再評估**:BP、SpO2、EtCO2、神經學 ③ **12 lead** 看有無心肌損傷 ④ **長期抗凝**(Heparin drip → 後續 DOAC) ⑤ **體溫管理** 32-37.5°C × 24-48hr。tPA 後 24 hr 內**避免有創操作**。'
+      },
+      {
+        scenario: '回頭分析這個 case。',
+        ekg: null,
+        question: '為什麼這個 case 結果還不錯?',
+        options: [
+          { text: '早期辨識 PE + 立即 tPA + 同步 call ECPR(不等死才呼救)', correct: true },
+          { text: '單純運氣好', correct: false },
+          { text: '主要是 CPR 做很久', correct: false },
+          { text: '不需要找原因,標準 ACLS 就夠', correct: false }
+        ],
+        explain: '✅ 5 個關鍵成功因素:**①** 床邊 UCG 快速確診 PE(不等 CT) **②** tPA 在 PEA 中也敢給(救命 vs 出血權衡) **③** ECPR team 提早通知(setup 20 min) **④** EtCO2 監測判斷 CPR 品質 **⑤** ROSC 後不貪心(暫停 ECPR + 抗凝)。記住:Massive PE 的 PEA 不會自己 ROSC,沒 tPA 或 ECPR 機會渺茫。「找原因」永遠比「重複給藥」重要。'
+      }
+    ]
+  },
+
+  // ============== CASE 4: Hypothermia + Asystole ==============
+  {
+    id: 'case4',
+    title: 'Case 4:寒冬倒地 Asystole',
+    theme: 'Hypothermia(嚴重低體溫)',
+    icon: '❄️',
+    color: '#0369a1',
+    overview: '寒冬陸橋下中年男路倒。主軸:嚴重低體溫 + Asystole → 復溫 → ECPR bridge → 不放棄',
+    steps: [
+      {
+        scenario: '寒冬清晨 5 度,陸橋下中年男子被路人發現意識不清。EMT 到場:無自主呼吸、無脈搏、全身冰冷,測肛溫 26°C。Monitor:Asystole。',
+        ekg: 'asystole',
+        question: '第一個動作?',
+        options: [
+          { text: 'CPR + 開始復溫(脫濕衣、保暖毯、暖氣)+ 送有 ECPR 能力的中心', correct: true },
+          { text: '電擊 200J', correct: false },
+          { text: '宣告死亡(體溫太低活不了)', correct: false },
+          { text: '只給 Epi 不需 CPR', correct: false }
+        ],
+        explain: '"Not dead until **warm and dead**"!Asystole + 低體溫 = **不放棄**。處置:① **CPR**(品質可能差,但要繼續) ② **復溫**(脫濕、毯、暖氣、溫鹽水 IV) ③ **送 ECPR 中心**(ECMO 是最快復溫方式)。Asystole 不電擊(浪費時間,且 < 30°C 心臟對電擊無反應)。低體溫病人代謝極慢,大腦耗氧低 → 復溫到 30°C 仍可能救回。'
+      },
+      {
+        scenario: '送到急診,核心溫 26°C、Asystole、瞳孔散大但有微弱反應。家屬到場,得知病人 50 歲、原本 ADL 獨立、無重大病史。',
+        ekg: 'asystole',
+        question: '低體溫 < 30°C 的特殊處置?',
+        options: [
+          { text: 'CPR + 暖鹽水 IV + 不給 Epi(代謝慢累積中毒)+ 復溫到 ≥ 30°C 才電擊或給藥', correct: true },
+          { text: '正常給 Epi q3-5min', correct: false },
+          { text: '電擊 360J × 3 直接', correct: false },
+          { text: '直接放棄,沒救了', correct: false }
+        ],
+        explain: '**< 30°C 的特殊規則**:① **電擊**:只試 1 次,無效就停(等復溫到 30°C 再試) ② **藥物**:暫停 Epi/Amio(代謝慢會累積中毒) ③ **復溫到 30-32°C** 才開始標準 ACLS。處置:溫鹽水 IV(40°C)、暖空氣毯、ECMO 復溫(最快 8-12°C/hr)。瞳孔有反應 = signs of life,值得 ECPR!'
+      },
+      {
+        scenario: '通知 ECPR team。經 VA-ECMO 復溫,3 小時後核心溫 32°C,monitor 顯示 sinus rhythm 60/min,有自主脈搏。',
+        ekg: 'sinus',
+        question: 'ROSC!但仍昏迷,下一步?',
+        options: [
+          { text: '繼續 ECMO 支持 + 體溫控制 32-36°C × 24hr + 找倒地原因 + 神經學持續評估', correct: true },
+          { text: '立刻撤 ECMO', correct: false },
+          { text: '拔管出院', correct: false },
+          { text: '不做神經學評估,反正會醒', correct: false }
+        ],
+        explain: 'ROSC 後不能急。① **ECMO 繼續支持** 24-48 hr(心肺尚未恢復) ② **體溫控制**(復溫後維持 36°C 不要燒) ③ **找原因**:酒精?藥物?低血糖?中風?(此 case 是純低體溫還是有共病?) ④ **神經學評估慢慢來**(至少 72hr 後才預後評估)。低體溫 ECPR 病人神經預後常意外良好,不要太早放棄。'
+      },
+      {
+        scenario: '追問:如果這個 case 是您接到的,什麼條件下會放棄 ECPR?',
+        ekg: null,
+        question: 'ECPR 不適合的徵兆?',
+        options: [
+          { text: 'K > 12、ETCO2 < 10 mmHg 持續、明顯外傷大量出血、無 signs of life', correct: true },
+          { text: '只要 Asystole 就放棄', correct: false },
+          { text: '只要核心溫 < 28°C 就放棄', correct: false },
+          { text: '所有低體溫都試 ECPR', correct: false }
+        ],
+        explain: '低體溫 ECPR 的 stop criteria:**① K > 12**(已細胞溶解)**② ETCO2 持續 < 10**(灌流極差)**③ 明顯外傷大量出血** **④ 無 signs of life > 60min**(瞳孔反應、抽動、gasping 都無)**⑤ 病前已末期共病**。Asystole 在低體溫**不是禁忌**!核心溫 < 28°C **更要積極** ECPR(復溫最快)。HOPE score 和 ICE score 是預測工具。'
+      },
+      {
+        scenario: '【Debrief】病人 7 天後神智清醒、神經學完整,順利出院。',
+        ekg: null,
+        question: '低體溫 ECPR 的最大教訓?',
+        options: [
+          { text: 'Warm and dead 才能宣告;低體溫 + Asystole 是 ECPR 適應症,不是禁忌', correct: true },
+          { text: '低體溫沒救,救了也是植物人', correct: false },
+          { text: 'Asystole 一律不能做 ECPR', correct: false },
+          { text: '< 30°C 標準 ACLS 流程一樣做', correct: false }
+        ],
+        explain: '✅ 5 個教訓:**①** "Not dead until warm and dead" — 復溫到 32-35°C 仍無反應才算死 **②** Asystole 在低體溫**不是禁忌**(可逆原因) **③** < 30°C 暫停藥物/電擊,專注復溫 **④** ECMO 是最快復溫法(救命也救腦) **⑤** Signs of life(瞳孔反應)是 ECPR 候選人關鍵指標。低體溫 OHCA 神經預後常超出預期,不要被表象嚇到。'
+      }
+    ]
+  },
+
+  // ============== CASE 5: STEMI → VF → Cath ==============
+  {
+    id: 'case5',
+    title: 'Case 5:STEMI 進展為 VF',
+    theme: 'Thrombosis(冠狀動脈)+ Cath PCI',
+    icon: '❤️',
+    color: '#dc2626',
+    overview: '50 歲胸痛男在急診忽然倒地。主軸:STEMI → VF → Refractory → ROSC → 立即 Cath',
+    steps: [
+      {
+        scenario: '50 歲男性主訴 1 小時胸痛盜冷汗,自行走進急診。BP 130/80、HR 90。**12 lead**:V2-V5 ST elevation 4mm 墓碑狀。Aspirin 已嚼碎、IV 已建立。準備啟動 Cath。',
+        ekg: 'stemi',
+        question: '在啟動 Cath 同時,並行做哪些事?',
+        options: [
+          { text: 'P2Y12 loading(Ticagrelor 180mg)+ Heparin 60U/kg + 通知家屬 + 預留抽血(TnI / Cr / 凝血)', correct: true },
+          { text: '只給 Aspirin,等 Cath 再說', correct: false },
+          { text: 'NTG drip 即可,不需 P2Y12', correct: false },
+          { text: '直接給 tPA 不需 Cath', correct: false }
+        ],
+        explain: 'STEMI bundle:① **DAPT** = Aspirin 162-325mg + **Ticagrelor 180mg loading**(2025 首選優於 Plavix,亞洲人 30% CYP2C19 慢代謝者效果差) ② **Heparin 60U/kg bolus** + 12U/kg/hr drip ③ **D2B ≤ 90 min** ④ Lab 預留(TnI、Cr 看顯影劑風險、凝血)。NTG 不是首選(注意右室梗塞、PDE5 用藥史)。'
+      },
+      {
+        scenario: '正在準備轉去 Cath lab,病人忽然抓胸口、發出呻吟、倒下。Monitor 顯示 VF。',
+        ekg: 'vf',
+        question: '第一個動作?',
+        options: [
+          { text: 'CPR + 雙相 200J 立即電擊', correct: true },
+          { text: '先轉到 Cath lab 再電擊', correct: false },
+          { text: '給 Amio 再電擊', correct: false },
+          { text: '等 Cath team 來再處理', correct: false }
+        ],
+        explain: 'STEMI 進展為 VF = 急性心肌缺血誘發的致命心律。**目擊心停 + VF = 立即電擊**!不要為了「先送 Cath」延誤電擊 — 沒 ROSC 不能 Cath。雙相 200J 一次即可,然後 CPR 2 min。'
+      },
+      {
+        scenario: 'CPR + 第 1 次電擊 → 仍 VF + Epi 1mg → CPR 2 min → 第 2 次電擊 → 仍 VF。',
+        ekg: 'vf',
+        question: 'Refractory 邊緣,STEMI 病人的 Refractory VF 特殊處置?',
+        options: [
+          { text: '第 3 次電擊 + Amio 300mg + ECPR team 通知 + 「邊 CPR 邊送 Cath」(LUCAS 機械 CPR)', correct: true },
+          { text: '停 CPR 等家屬決定', correct: false },
+          { text: 'CPR 改用 Lidocaine 取代 Amio', correct: false },
+          { text: '只 ROSC 才能 Cath,沒 ROSC 就不 Cath', correct: false }
+        ],
+        explain: 'STEMI 的 Refractory VF 有特殊優勢:**「邊 CPR 邊 Cath」**!使用機械 CPR 設備(LUCAS)維持壓胸,直接推進 Cath lab。此情境下:**① 第 3 次電擊 + Amio 300mg ② ECPR team standby ③ 機械 CPR 啟動 ④ 邊 CPR 邊轉 Cath**(重灌注是根治方法)。Lidocaine 取代 Amio 證據不足。沒 ROSC 不能 Cath 是錯的觀念,選擇性病人可。'
+      },
+      {
+        scenario: 'Cath lab 中,LUCAS CPR 進行中。冠脈攝影:LAD 100% 阻塞。介入心臟科醫師「邊 CPR 邊放 stent」中,5 分鐘後 ROSC,sinus rhythm 95/min,BP 90/60。',
+        ekg: 'sinus',
+        question: 'ROSC + 剛 PCI,此時最關鍵 3 件事?',
+        options: [
+          { text: 'BP 維持(Norepinephrine)+ 體溫管理 32-37.5°C + 持續 P2Y12 + Heparin', correct: true },
+          { text: '立即拔管', correct: false },
+          { text: '停所有藥物觀察', correct: false },
+          { text: '直接送一般病房', correct: false }
+        ],
+        explain: 'Post-PCI ROSC bundle:**① BP 維持** MAP ≥ 65(Norepinephrine 優於 Dopamine)— **避免低血壓造成 stent 內血栓** **② 體溫管理** 32-37.5°C × 36 hr(改善神經預後) **③ 持續 DAPT**(Aspirin + Ticagrelor 90mg BID)+ Heparin × 24-48 hr **④ ICU 監測** + EF 評估(EF < 40 → ACEI/BB)。拔管要等神經學恢復 + 血流動力學穩定。'
+      },
+      {
+        scenario: '【Debrief】病人 5 天後出院,EF 35%(中度左心衰),神經學正常。',
+        ekg: null,
+        question: '這個 case 最關鍵的決策時刻?',
+        options: [
+          { text: '「邊 CPR 邊 Cath」的決定 — 不等 ROSC 才送 Cath', correct: true },
+          { text: 'Aspirin 給的劑量', correct: false },
+          { text: '電擊的角度', correct: false },
+          { text: '降溫的速度', correct: false }
+        ],
+        explain: '✅ 5 個教訓:**①** STEMI 進展為 VF 是急性缺血造成,**重灌注**才是根治(電擊 + 藥只是 bridge) **②** Refractory VF 在 STEMI 中,**邊 CPR 邊 Cath** 是新策略(LUCAS 機械 CPR + 介入心臟科協作) **③** 2025 P2Y12 首選 Ticagrelor(Plavix 退居二線) **④** Post-PCI 維持 BP 比降溫優先 **⑤** Leader 思維:不要等 ROSC 才行動,**並行**才能救命。嘉基有 Cath 24/7 是關鍵資源,平時要熟流程。'
+      }
+    ]
+  }
+];
+
+// ============================================================
+// 一條龍 Case 模式 — UI 與狀態
+// ============================================================
+
+let caseState = {
+  mode: null,        // null = 主選單, 'case' = 跑 case
+  caseId: null,
+  stepIndex: 0,
+  answered: false,
+  selectedOption: null,
+  score: { correct: 0, total: 0 }
+};
+
+function renderCaseMenu() {
+  const wrap = document.getElementById('mega-case-wrap');
+  if (!wrap) return;
+  caseState.mode = null;
+  caseState.caseId = null;
+  caseState.stepIndex = 0;
+  caseState.score = { correct: 0, total: 0 };
+
+  const cards = OHCA_CASES.map(c => `
+    <div class="case-card" onclick="startCase('${c.id}')" style="border-left: 5px solid ${c.color};">
+      <div class="case-card-head">
+        <span class="case-icon">${c.icon}</span>
+        <div>
+          <div class="case-title">${c.title}</div>
+          <div class="case-theme" style="color: ${c.color};">${c.theme}</div>
+        </div>
+      </div>
+      <div class="case-overview">${c.overview}</div>
+      <div class="case-meta">${c.steps.length} 關連續決策</div>
+    </div>
+  `).join('');
+
+  wrap.innerHTML = `
+    <div class="case-mode-header">
+      <h3 style="margin:0;">🎯 OHCA 一條龍 Case 模式</h3>
+      <p style="color:var(--text-muted); margin:.4em 0 0;">5 個完整 case,從第一個動作跑到 ROSC + 後處置。每個 case 8-10 關連續決策,涵蓋 5H5T 主題。</p>
+    </div>
+    <div class="case-grid">${cards}</div>
+    <div style="margin-top:1.5em;">
+      <button class="btn ghost btn-sm" onclick="exitCaseMode()">← 回單題模式</button>
+    </div>
+  `;
+}
+
+function startCase(caseId) {
+  caseState.mode = 'case';
+  caseState.caseId = caseId;
+  caseState.stepIndex = 0;
+  caseState.answered = false;
+  caseState.selectedOption = null;
+  caseState.score = { correct: 0, total: 0 };
+  renderCaseStep();
+}
+
+function renderCaseStep() {
+  const c = OHCA_CASES.find(x => x.id === caseState.caseId);
+  if (!c) return;
+  const step = c.steps[caseState.stepIndex];
+  if (!step) {
+    renderCaseDebrief(c);
+    return;
+  }
+
+  const ekgData = step.ekg ? EKG_DATA.find(e => e.id === step.ekg) : null;
+  const colorMap = { danger: '#E24B4A', warn: '#EF9F27', safe: '#97C459' };
+
+  const wrap = document.getElementById('mega-case-wrap');
+  const total = c.steps.length;
+  const progress = ((caseState.stepIndex) / total * 100).toFixed(0);
+
+  let optionsHtml = step.options.map((o, i) => {
+    let cls = 'case-option';
+    if (caseState.answered) {
+      if (o.correct) cls += ' correct';
+      else if (i === caseState.selectedOption) cls += ' wrong';
+      else cls += ' disabled-other';
+    }
+    return `<button class="${cls}" onclick="answerCaseStep(${i})" ${caseState.answered ? 'disabled' : ''}>${String.fromCharCode(65 + i)}. ${o.text}</button>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="case-progress-bar">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4em;">
+        <span style="font-weight:600;color:${c.color};">${c.icon} ${c.title}</span>
+        <span style="font-size:.9em;color:var(--text-muted);">第 ${caseState.stepIndex + 1} / ${total} 關 · 答對 ${caseState.score.correct}/${caseState.score.total}</span>
+      </div>
+      <div class="case-bar"><div class="case-bar-fill" style="width:${progress}%;background:${c.color};"></div></div>
+    </div>
+
+    <div class="case-step-card">
+      <div class="case-scenario">${step.scenario}</div>
+      ${ekgData ? `
+        <svg width="100%" viewBox="0 0 280 60" style="background:var(--bg-soft);border-radius:6px;padding:6px 4px;margin:0 0 12px;max-height:80px;">
+          <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(128,128,128,0.2)" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <path d="${ekgData.svg}" fill="none" stroke="${colorMap[ekgData.severity]}" stroke-width="1.5"/>
+        </svg>
+      ` : ''}
+      <div class="case-question">${step.question}</div>
+      <div class="case-options">${optionsHtml}</div>
+      ${caseState.answered ? `
+        <div class="case-feedback ${step.options[caseState.selectedOption].correct ? 'correct' : 'wrong'}">
+          <div class="case-feedback-head">${step.options[caseState.selectedOption].correct ? '✓ 答對!' : '✗ 答錯,但繼續學'}</div>
+          <div class="case-feedback-body">${step.explain}</div>
+        </div>
+        <div style="margin-top:1em;display:flex;gap:.5em;flex-wrap:wrap;">
+          <button class="btn primary" onclick="nextCaseStep()">${caseState.stepIndex + 1 < total ? '下一關 →' : '查看 Debrief'}</button>
+          <button class="btn ghost btn-sm" onclick="renderCaseMenu()">中斷回主選單</button>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function answerCaseStep(idx) {
+  if (caseState.answered) return;
+  const c = OHCA_CASES.find(x => x.id === caseState.caseId);
+  const step = c.steps[caseState.stepIndex];
+  caseState.selectedOption = idx;
+  caseState.answered = true;
+  caseState.score.total++;
+  if (step.options[idx].correct) caseState.score.correct++;
+  renderCaseStep();
+}
+
+function nextCaseStep() {
+  caseState.stepIndex++;
+  caseState.answered = false;
+  caseState.selectedOption = null;
+  renderCaseStep();
+}
+
+function renderCaseDebrief(c) {
+  const wrap = document.getElementById('mega-case-wrap');
+  const total = c.steps.length;
+  const pct = Math.round(caseState.score.correct / total * 100);
+  let comment = '';
+  if (pct >= 90) comment = '🏆 優秀!Leader 級表現,真的上場可信賴。';
+  else if (pct >= 75) comment = '🎯 通過!核心決策正確,些微細節再加強。';
+  else if (pct >= 60) comment = '👍 基礎在,但關鍵時刻偶有失誤,建議重跑一次。';
+  else comment = '📖 建議先讀「考前衝刺」相關章節再回來練。';
+
+  wrap.innerHTML = `
+    <div class="case-debrief-card" style="border-top: 5px solid ${c.color};">
+      <div style="font-size:3em;text-align:center;">${c.icon}</div>
+      <h3 style="text-align:center;margin:.3em 0;">${c.title}</h3>
+      <p style="text-align:center;color:${c.color};font-weight:600;">${c.theme}</p>
+      <div style="text-align:center;font-size:1.5em;font-weight:700;margin:1em 0;">
+        ${caseState.score.correct} / ${total} 關 (${pct}%)
+      </div>
+      <p style="text-align:center;background:var(--bg-soft);padding:.8em;border-radius:6px;">${comment}</p>
+      <div style="text-align:center;margin-top:1.2em;">
+        <button class="btn primary" onclick="startCase('${c.id}')">🔁 再跑一次</button>
+        <button class="btn" onclick="renderCaseMenu()">📋 選別個 Case</button>
+        <button class="btn ghost" onclick="exitCaseMode()">回 Megacode 單題</button>
+      </div>
+    </div>
+  `;
+}
+
+function enterCaseMode() {
+  document.getElementById('megaContent').style.display = 'none';
+  document.getElementById('mega-case-mode-toggle').style.display = 'none';
+  let wrap = document.getElementById('mega-case-wrap');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'mega-case-wrap';
+    document.getElementById('tab-mega').appendChild(wrap);
+  }
+  wrap.style.display = 'block';
+  renderCaseMenu();
+}
+
+function exitCaseMode() {
+  const wrap = document.getElementById('mega-case-wrap');
+  if (wrap) wrap.style.display = 'none';
+  document.getElementById('megaContent').style.display = 'block';
+  document.getElementById('mega-case-mode-toggle').style.display = '';
+}
+
+
 let megaIndex = 0;
 let megaScore = { correct: 0, total: 0 };
 
@@ -6967,6 +7917,11 @@ function renderMega() {
   document.getElementById('tab-mega').innerHTML = `
     <h2 class="section-title">Megacode 情境練習</h2>
     <p class="section-sub">${MEGACODE_SCENARIOS.length} 題情境題,模擬考試 megacode 決策節點</p>
+    <div id="mega-case-mode-toggle">
+      <button class="btn" style="background:linear-gradient(135deg,#dc2626,#0891b2);color:#fff;border:none;font-weight:600;" onclick="enterCaseMode()">
+        🎯 進入「OHCA 一條龍 Case」模式
+      </button>
+    </div>
     <div id="megaContent"></div>
   `;
   showMegaQuestion();
@@ -7304,7 +8259,7 @@ const DRUG_DATA = [
   {
     id: 'nahco3',
     name: 'Sodium Bicarbonate',
-    nameZh: '碳酸氫鈉',
+    nameZh: '碳酸氫鈉(也是 TCA / Salicylate 中毒解毒劑)',
     category: 'cpr',
     keywords: ['nahco3', 'bicarb', '碳酸氫鈉', '酸中毒'],
     indication: '★ 2025:Class 3 No Benefit;例外:三環類/Cocaine 中毒',
@@ -8019,7 +8974,149 @@ const DRUG_DATA = [
     }
   },
 
-  // ========== RSI / 鎮靜插管 ==========
+  // ========== 解毒劑(補充)==========
+  {
+    id: 'nac',
+    name: 'N-Acetylcysteine (NAC)',
+    nameZh: '乙醯半胱胺酸(諾弗普錠 / Mucomyst)',
+    category: 'antidote',
+    keywords: ['nac', 'acetylcysteine', '乙醯半胱胺酸', 'acetaminophen', '普拿疼', 'tylenol', 'mucomyst', '解毒劑'],
+    indication: 'Acetaminophen(普拿疼)中毒',
+    quickDose: 'Loading 150 mg/kg over 60 min',
+    detail: {
+      indications: [
+        'Acetaminophen 中毒(首選解毒劑)',
+        '可疑大量服用普拿疼(> 7.5 g 成人 / > 150 mg/kg)',
+        '經 Rumack-Matthew nomogram 判定有肝損傷風險者',
+        '解熱鎮痛藥不明中毒 + 肝功異常',
+        '罕用:延伸用於肝衰竭非普拿疼引起時(經肝臟科醫師決策)'
+      ],
+      doses: [
+        'IV 21 小時方案(常用):',
+        '  Loading: 150 mg/kg in D5W 200mL over 60 min',
+        '  第 2 劑: 50 mg/kg in D5W 500mL over 4 hr',
+        '  第 3 劑: 100 mg/kg in D5W 1000mL over 16 hr',
+        'PO 72 小時方案(較少用,胃口允許者):',
+        '  Loading 140 mg/kg → 70 mg/kg q4h × 17 劑'
+      ],
+      contraindications: [
+        '對 NAC 過敏(罕見)',
+        '注意:臭味嚴重影響口服順從性(常需鼻胃管)'
+      ],
+      sideEffects: [
+        '類過敏反應 anaphylactoid(15-20%):flush、蕁麻疹、支氣管痙攣',
+        '通常出現在 loading dose,減慢輸注速率多可改善',
+        '偶見低血壓'
+      ],
+      monitoring: [
+        '肝功能(AST/ALT、PT/INR)24-48 小時內',
+        'Acetaminophen 血中濃度(攝入後 4 小時抽)',
+        '對照 Rumack-Matthew nomogram 決定治療線'
+      ],
+      pearls: [
+        '⏰ 4-8 小時內給最有效;但即使 24+ 小時遲到仍應給(降低肝衰竭嚴重度)',
+        '🩺 攝入時間不確定 → 直接給,不等檢驗',
+        '💊 慢性酗酒、長期飢餓、用 enzyme inducer(phenytoin/rifampin)→ 治療線降低(更易肝損傷)',
+        '🚨 急診常見錯誤:等血中濃度報告才開始治療 → 應立刻 loading'
+      ]
+    }
+  },
+  {
+    id: 'pralidoxime',
+    name: 'Pralidoxime (2-PAM)',
+    nameZh: '巴拉酮 / 解磷錠',
+    category: 'antidote',
+    keywords: ['pralidoxime', '2-pam', '解磷', '有機磷', 'organophosphate', '農藥', '神經毒', '解毒劑'],
+    indication: '有機磷 / 神經毒劑(Sarin)中毒',
+    quickDose: '1-2 g IV over 30 min,可重複',
+    detail: {
+      indications: [
+        '有機磷殺蟲劑中毒(益達胺、馬拉松等)',
+        '神經毒氣中毒(Sarin、VX、Tabun)',
+        '必須與 Atropine 一起用',
+        '注意:必須在乙醯膽鹼酯酶「老化(aging)」前給才有效'
+      ],
+      doses: [
+        '成人:1-2 g IV in N/S 100mL over 15-30 min',
+        '可在 1 小時後重複,之後 q4-6h × 24-48 hr',
+        '嚴重者:loading 後 drip 8 mg/kg/hr',
+        '兒童:25-50 mg/kg(max 2g)over 30 min'
+      ],
+      contraindications: [
+        'Carbamate 中毒不需要(那種會自動 reactivate)',
+        '腎衰竭需減量'
+      ],
+      sideEffects: [
+        '快速注射:HTN、視力模糊、頭痛',
+        '減慢輸注速率即可'
+      ],
+      monitoring: [
+        '臨床菸鹼症狀改善:肌肉力量、呼吸',
+        'Cholinesterase activity(若可測)',
+        'Atropine 持續需求量'
+      ],
+      pearls: [
+        '🎯 解毒劑分工:Atropine 治蕈毒症狀(SLUDGE)、2-PAM 治菸鹼症狀(肌無力、麻痺)',
+        '⚠️ Atropine 給到「無分泌物」為止,劑量可能很大(2-5 mg q5min)',
+        '⏰ Aging 時間因有機磷而異:Sarin 數分鐘、Soman 2-6 min、農藥常 24-48 hr — 越早越好',
+        '🚨 醫護人員自我保護:接觸者要 PPE + 沖洗,避免二度暴露',
+        '💊 病人持續流口水、痰多 = Atropine 不夠;肌無力、抽搐 = 2-PAM 不夠'
+      ]
+    }
+  },
+  {
+    id: 'digibind',
+    name: 'Digoxin Immune Fab (Digibind)',
+    nameZh: '毛地黃中和抗體',
+    category: 'antidote',
+    keywords: ['digibind', 'digoxin', '毛地黃', 'digifab', 'digitalis', '解毒劑'],
+    indication: 'Digoxin / Digitalis 中毒',
+    quickDose: '視血中濃度或臨床嚴重度,典型 5-20 vials',
+    detail: {
+      indications: [
+        '危及生命的 Digoxin 中毒(任一即可):',
+        '  - 致命性心律不整(VT/VF/嚴重 AV block)',
+        '  - K > 5.5 mmol/L(死亡預測)',
+        '  - 血中 Digoxin > 10 ng/mL(急性)或 > 6 ng/mL(慢性)',
+        '  - 攝入急性 > 10 mg(成人)或 > 4 mg(兒童)',
+        '  - 急性中毒 + 血流動力不穩',
+        '黃花夾竹桃、毛地黃植物中毒(部分有效)'
+      ],
+      doses: [
+        '已知血中濃度:Vials = (level ng/mL × 體重 kg) / 100',
+        '已知攝入量:Vials = (mg 攝入 × 0.8) / 0.5',
+        '不知道兩者:',
+        '  急性:10-20 vials empirically',
+        '  慢性:3-6 vials empirically',
+        '緊急(危及生命心律):立刻 IV bolus',
+        '穩定:over 30 min IV'
+      ],
+      contraindications: [
+        '對綿羊蛋白過敏(Digibind 來源)',
+        '腎衰竭:Fab-Dig 複合物排出慢,可能再釋出 → 監測久'
+      ],
+      sideEffects: [
+        '心衰惡化(Digoxin 控制 AF 速率,中和後可能 RVR)',
+        '低血鉀(K 重新進細胞)',
+        '罕見過敏反應'
+      ],
+      monitoring: [
+        '心律 monitor 持續',
+        'K 連續監測(治療後可能掉)',
+        '腎功能(影響 Digibind 清除)',
+        'Digoxin level 治療後不再準確(Fab 結合)'
+      ],
+      pearls: [
+        '🚨 ⚠️ Digoxin 中毒高鉀絕對禁 Calcium(會引發 stone heart,不可逆)→ 改 Digibind + Insulin/glucose',
+        '⏰ 給藥後 30-60 min 起效,2-4 小時達峰',
+        '💊 給完後 Digoxin 血中濃度測量「全部」(包括結合的)→ 失去臨床意義',
+        '🎯 慢性中毒(老人小劑量累積)劑量比急性低很多',
+        '🩺 黃花夾竹桃(夾竹桃科)中毒台灣偶見 → 也用 Digibind',
+        '💰 高貴(每 vial 約 NT$30,000+)→ 嚴格依適應症'
+      ]
+    }
+  },
+    // ========== RSI / 鎮靜插管 ==========
   {
     id: 'etomidate',
     name: 'Etomidate',
