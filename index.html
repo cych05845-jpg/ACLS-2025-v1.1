@@ -6009,6 +6009,287 @@ const CRAM_SECTIONS = [
     ]
   },
 
+
+  // ========== 床邊 POCUS / UCG / 肺超音波 ==========
+  {
+    id: 'pocus',
+    icon: '🔍',
+    title: '床邊 POCUS 速查',
+    subtitle: '5H5T 床邊超音波 30 秒判讀',
+    color: '#0891b2',
+    blocks: [
+      {
+        h: '為什麼 POCUS 在 Megacode 重要',
+        c: `<div class="cram-tip">床邊 UCG / 肺超音波 = Leader 30 秒做出鑑別診斷的關鍵工具</div>
+        <ul class="cram-list">
+          <li>5H5T 中至少 5 個原因可被 POCUS 立刻判別</li>
+          <li>比抽血、CT、心電圖回報快太多</li>
+          <li>2025 AHA Class 2a:ROSC 後可用 POCUS 找原因</li>
+          <li>嘉基急診 POCUS 已是常規,Megacode 中可說「我做床邊 UCG」</li>
+        </ul>`
+      },
+      {
+        h: 'RUSH protocol — 心停 / 休克 4 步驟',
+        c: `<div class="cram-big">H · I · M · P</div>
+        <table class="cram-table">
+          <tr><th>步驟</th><th>看什麼</th><th>找哪個 5H5T</th></tr>
+          <tr><td><strong>H</strong>eart 心臟</td><td>LV 收縮、RV 大小、心包積液</td><td>MI / PE / Tamponade</td></tr>
+          <tr><td><strong>I</strong>VC 下腔靜脈</td><td>直徑 + 塌陷率</td><td>Hypovolemia / PE / Tamponade</td></tr>
+          <tr><td><strong>M</strong>orrison 腹腔</td><td>肝腎間隙自由液</td><td>隱性出血(Hypovolemia)</td></tr>
+          <tr><td><strong>P</strong>neumothorax 肺</td><td>Lung sliding 是否消失</td><td>Tension PTX</td></tr>
+        </table>
+        <div class="cram-tip">2 分鐘內可跑完整套,每步 30 秒</div>`
+      },
+      {
+        h: '5H 床邊 UCG 表現',
+        c: `<table class="cram-table">
+          <tr><th>原因</th><th>UCG 表現</th></tr>
+          <tr><td><strong>Hypovolemia</strong></td><td>LV <strong>kissing wall</strong>(腔小、收縮過度)、IVC 細小 &lt; 1cm、塌陷 &gt; 50%</td></tr>
+          <tr><td>Hypoxia</td><td>多無特異變化,看 SpO2 + ABG 為主</td></tr>
+          <tr><td>H⁺ 酸中毒</td><td>無特異變化,嚴重時心收縮↓</td></tr>
+          <tr><td>K 異常</td><td>無特異變化,看 EKG 為主</td></tr>
+          <tr><td>Hypothermia</td><td>HR 慢、心收縮弱、可能心包積液</td></tr>
+        </table>
+        <div class="cram-tip">5H 中只有 Hypovolemia 有清楚 UCG 表現,其他靠抽血/EKG</div>`
+      },
+      {
+        h: '5T 床邊 UCG 表現(高診斷價值!)',
+        c: `<table class="cram-table">
+          <tr><th>原因</th><th>UCG 表現</th></tr>
+          <tr><td>Tablets 毒物</td><td>BB/CCB 中毒 → LV 收縮↓ + 徐脈;TCA → 收縮↓</td></tr>
+          <tr><td><strong>Tamponade</strong> ⭐</td><td>環心包液 + <strong>RV 舒張塌陷</strong> + <strong>RA 收縮塌陷</strong> + IVC 飽滿 + swinging heart</td></tr>
+          <tr><td>Tension PTX</td><td>UCG 看不到(空氣阻擋)→ 改肺超音波,<strong>無 lung sliding</strong></td></tr>
+          <tr><td>Thrombosis 心(MI)</td><td>LV <strong>節段性 wall motion abnormality</strong></td></tr>
+          <tr><td><strong>Thrombosis 肺(PE)</strong> ⭐</td><td>RV 擴大(RV/LV &gt; 1)+ <strong>D-shape</strong> + <strong>McConnell</strong> + TAPSE &lt; 17mm</td></tr>
+        </table>
+        <div class="cram-warn">⚡ 5T 中 Tamponade、Tension PTX、PE、MI 都能靠 POCUS 立刻判定,救命關鍵</div>`
+      },
+      {
+        h: '三大 pathognomonic 徵象(必背)',
+        c: `<div class="cram-q">「D-shape sign(D 字徵)」= ?</div>
+        <ul class="cram-list">
+          <li>短軸看 LV 變成 <strong>D 字形</strong>(原本圓形)</li>
+          <li>因 RV 壓力 &gt; LV → IVS 被推向左</li>
+          <li><strong>= Massive PE</strong> → tPA + ECPR</li>
+        </ul>
+        <div class="cram-q">「McConnell sign」= ?</div>
+        <ul class="cram-list">
+          <li>4 chamber 看到 <strong>RV 自由壁中段不動,但心尖正常活動</strong></li>
+          <li>特異性 94%(高);敏感性 77%(中)</li>
+          <li><strong>= Acute Massive PE</strong>(區別慢性 PE / RV 梗塞)</li>
+        </ul>
+        <div class="cram-q">「Swinging heart」= ?</div>
+        <ul class="cram-list">
+          <li>心臟在心包液中<strong>擺動</strong>(像盪鞦韆)</li>
+          <li>EKG 看到 <strong>electrical alternans</strong>(QRS 高低交替)</li>
+          <li><strong>= 大量心包填塞</strong> → 立刻 pericardiocentesis</li>
+        </ul>`
+      },
+      {
+        h: '肺超音波 — A-line vs B-line',
+        c: `<table class="cram-table">
+          <tr><th></th><th>A-line</th><th>B-line</th></tr>
+          <tr><td>方向</td><td>水平、平行胸膜</td><td>垂直、從胸膜延伸到底</td></tr>
+          <tr><td>外觀</td><td>多重 reverberation</td><td>彗星尾巴(comet tail)</td></tr>
+          <tr><td>意義</td><td>充氣良好</td><td>間質有水/纖維化/發炎</td></tr>
+          <tr><td>正常</td><td>A-line + lung sliding</td><td>0-2 條 / 視野</td></tr>
+          <tr><td>異常</td><td><strong>A-line + 無 sliding = 氣胸</strong></td><td><strong>≥ 3 條 / 視野</strong></td></tr>
+        </table>
+        <div class="cram-tip">B-line 數量分級:0-2 正常 / ≥3 異常 / white lung 整片融合 = 重度肺水腫 / ARDS</div>`
+      },
+      {
+        h: 'BLUE protocol — 呼吸窘迫 5 秒判讀',
+        c: `<table class="cram-table">
+          <tr><th>表現</th><th>診斷</th></tr>
+          <tr><td>雙側 B-line 主導</td><td><strong>急性肺水腫(心衰)</strong></td></tr>
+          <tr><td>雙側 A-line + 正常 sliding + DVT(+)</td><td><strong>肺栓塞</strong></td></tr>
+          <tr><td>雙側 A-line + 正常 sliding + DVT(-)</td><td>氣喘 / COPD</td></tr>
+          <tr><td>單側 A-line + 無 sliding</td><td><strong>氣胸</strong>(立刻針減壓)</td></tr>
+          <tr><td>局部 B-line + consolidation</td><td>肺炎</td></tr>
+        </table>
+        <div class="cram-warn">⚠️ ROSC 後病人喘 → 立刻肺超音波,B-line 多 → 別再給水(可能 CPR-induced lung edema)</div>`
+      },
+      {
+        h: 'B-line 容易搞混的陷阱',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>單條 B-line(comet tail)正常人也有</strong> → 要 ≥ 3 條才算病態</li>
+          <li><strong>B-line ≠ 一定是肺水腫</strong> → 也可能是肺纖維化、間質性肺病、肺炎</li>
+          <li><strong>CPR 中的 B-line 不等於肺水腫</strong> → 壓胸本身會造成</li>
+          <li><strong>慢性 COPD 病人 B-line 反而少</strong>(肺氣腫破壞間質)</li>
+          <li><strong>肥胖病人 lung sliding 難看清</strong> → 用 M-mode 看 seashore vs barcode sign</li>
+        </ol>`
+      },
+      {
+        h: 'Megacode 中 POCUS 的實戰應用',
+        c: `<div class="cram-q">「PEA 病人,我做床邊 UCG 看到 RV 擴大、D-shape」→ ?</div>
+        <div>= Massive PE → tPA 50mg + ECPR bridge</div>
+
+        <div class="cram-q">「PEA + UCG 看到大量心包積液 + RA 塌陷」→ ?</div>
+        <div>= Tamponade → 立刻劍突下穿刺</div>
+
+        <div class="cram-q">「PEA + UCG 看到 LV kissing、IVC 細塌陷」→ ?</div>
+        <div>= Hypovolemia → 輸液 / 找出血源(腹腔 Morrison)</div>
+
+        <div class="cram-q">「ROSC 後病人喘,雙側多 B-line」→ ?</div>
+        <div>= 肺水腫(心因性 / CPR-induced)→ Lasix + NIV,別再灌水</div>
+
+        <div class="cram-q cram-trap">「插管後 SpO2 突然掉,聽診雙側不對稱」→ POCUS 找什麼?</div>
+        <div>看 lung sliding!沒有 sliding + A-line → <strong>右主支氣管插太深(D)</strong>或<strong>氣胸(P)</strong>。這是 DOPE 的精準判讀法</div>`
+      }
+    ]
+  },
+
+  // ========== 孕產婦特殊復甦 ==========
+  {
+    id: 'obstetric',
+    icon: '🤰',
+    title: '孕產婦特殊復甦',
+    subtitle: '5/3 上午丁醫師會教,Megacode 可能考',
+    color: '#be185d',
+    blocks: [
+      {
+        h: '七大關鍵差異(一表搞懂)',
+        c: `<table class="cram-table">
+          <tr><th>項目</th><th>孕婦特殊處置</th></tr>
+          <tr><td>體位</td><td><strong>徒手向左推子宮</strong>(LUD)</td></tr>
+          <tr><td>壓胸位置</td><td>胸骨下半段往頭側 <strong>再上 2-3 cm</strong></td></tr>
+          <tr><td>氣道</td><td>水腫困難 → 較小 ETT(6.0-6.5)+ 提早插管</td></tr>
+          <tr><td>4-5 min 無 ROSC</td><td><strong>Resuscitative Hysterotomy</strong>(復甦性子宮切開)</td></tr>
+          <tr><td>找原因</td><td><strong>BEAU-CHOPS</strong> 口訣(產科 9 大原因)</td></tr>
+          <tr><td>藥物</td><td>標準 ACLS 藥都可用,救命優先</td></tr>
+          <tr><td>團隊</td><td>立刻 call OBGYN + NICU</td></tr>
+        </table>`
+      },
+      {
+        h: '為什麼要左推子宮(最重要)',
+        c: `<div class="cram-big">徒手向左推子宮 (LUD)</div>
+        <ul class="cram-list">
+          <li>妊娠 ≥ 20 週子宮壓迫 IVC → <strong>心輸出量降 30%</strong></li>
+          <li>仰臥位 CPR 效果差很多</li>
+          <li><strong>2020 後首選 LUD,不再推薦傾斜身體 30°</strong>(會降低壓胸品質)</li>
+        </ul>
+        <div class="cram-tip">操作:一人專責,站病人左側,雙手放右下腹,用力往<strong>左上方</strong>推</div>
+        <div class="cram-q cram-trap">「孕婦心停先做什麼?」</div>
+        <div>不是傾斜!是 <strong>LUD + 高品質 CPR</strong>(維持平躺壓胸品質才好)</div>`
+      },
+      {
+        h: '⚡ Resuscitative Hysterotomy(2025 新名)',
+        c: `<div class="cram-warn">⚡ <strong>2025 AHA 改名</strong>:過去叫 perimortem C-section,現在叫 resuscitative hysterotomy(復甦性子宮切開)</div>
+        <ul class="cram-list">
+          <li><strong>4 分鐘無 ROSC</strong> → 開始準備</li>
+          <li><strong>5 分鐘內娩出胎兒</strong>(母嬰救活關鍵)</li>
+          <li>適用:孕齡 ≥ <strong>20 週</strong>(子宮高度到肚臍以上)</li>
+          <li>同時救母嬰!媽媽因 IVC 解除壓迫,常常 ROSC</li>
+          <li>地點:<strong>不要轉送!原地做</strong>(時間就是命)</li>
+        </ul>
+        <div class="cram-tip">操作者:OBGYN / 急診 / 外科;CPR 不能停,邊壓邊切</div>`
+      },
+      {
+        h: '產科 5H5T 升級口訣 — BEAU-CHOPS',
+        c: `<div class="cram-big">B · E · A · U · C · H · O · P · S</div>
+        <table class="cram-table">
+          <tr><th>字</th><th>原因</th><th>處置</th></tr>
+          <tr><td><strong>B</strong></td><td>Bleeding / DIC(產後出血、胎盤早剝、子宮破裂)</td><td>輸血、子宮按摩、Oxytocin</td></tr>
+          <tr><td><strong>E</strong></td><td><strong>Embolism</strong>(羊水栓塞、PE)</td><td>tPA、ECPR、massive transfusion</td></tr>
+          <tr><td><strong>A</strong></td><td>Anesthetic(高位脊麻、Local anesthetic toxicity)</td><td><strong>Intralipid 20%</strong> 1.5 mL/kg</td></tr>
+          <tr><td><strong>U</strong></td><td>Uterine atony(子宮收縮無力)</td><td>Oxytocin、子宮按摩、手術止血</td></tr>
+          <tr><td><strong>C</strong></td><td>Cardiac disease(圍產期心肌病、冠脈剝離)</td><td>標準 ACLS、ECPR 適應症</td></tr>
+          <tr><td><strong>H</strong></td><td><strong>Hypertension</strong>(子癇前症 / 子癇症)</td><td>MgSO4 + Labetalol / Hydralazine</td></tr>
+          <tr><td><strong>O</strong></td><td>Other(一般 5H5T)</td><td>標準找原因</td></tr>
+          <tr><td><strong>P</strong></td><td>Placenta(胎盤異常,如 abruption / accreta)</td><td>緊急生產 + 輸血</td></tr>
+          <tr><td><strong>S</strong></td><td>Sepsis(產褥感染、絨毛膜羊膜炎)</td><td>抗生素 + 輸液 + 升壓</td></tr>
+        </table>`
+      },
+      {
+        h: '⚡ 羊水栓塞(Amniotic Fluid Embolism)— 必背',
+        c: `<div class="cram-big">經典三徵:崩 + 喘 + DIC</div>
+        <ol class="cram-list cram-list-num">
+          <li><strong>突發血流動力崩潰</strong>(低血壓、心停)</li>
+          <li>急性<strong>呼吸窘迫</strong>(嚴重缺氧、紫紺)</li>
+          <li><strong>DIC</strong>(瀰漫性血管內凝血,大量出血)</li>
+        </ol>
+        <div class="cram-warn">⚡ <strong>2025 AHA 新建議</strong>:羊水栓塞應使用<strong>平衡輸血</strong>(RBC : FFP : 血小板 = 1:1:1)</div>
+        <ul class="cram-list">
+          <li>處置順序:CPR + ACLS + 立刻 hysterotomy + Massive Transfusion Protocol</li>
+          <li><strong>ECPR 適應症</strong>(年輕、可逆原因)</li>
+          <li>死亡率高(60-80%)— 早期辨識 + 啟動最重要</li>
+        </ul>`
+      },
+      {
+        h: '子癇症 / 子癇前症處置',
+        c: `<div class="cram-q">「BP 180/110 + 蛋白尿 + 頭痛 + 視力模糊」</div>
+        <div>= 重度子癇前症</div>
+
+        <div class="cram-q">「BP 高 + 突然抽搐」</div>
+        <div>= 子癇症 → 立刻處置</div>
+
+        <table class="cram-table">
+          <tr><th>處置</th><th>劑量</th></tr>
+          <tr><td><strong>MgSO4</strong>(抗癲癇 + 預防)</td><td>4-6 g IV loading over 15-20 min,接著 1-2 g/hr drip × 24 hr</td></tr>
+          <tr><td>BP 控制(目標 &lt; 160/110)</td><td><strong>Labetalol</strong> 10-20mg IV 或 <strong>Hydralazine</strong> 5-10mg IV</td></tr>
+          <tr><td>已抽搐</td><td>MgSO4 + 安全環境保護(別插嘴控)</td></tr>
+          <tr><td>根治</td><td><strong>生產</strong>(唯一根治方法)</td></tr>
+        </table>
+        <div class="cram-warn">⚠️ <strong>禁用</strong>:Nitroprusside(氰化物毒性影響胎兒)、ACEI / ARB(致畸)</div>
+        <div class="cram-q cram-trap">「Mg 中毒怎辦?」</div>
+        <div>停 Mg + <strong>Calcium gluconate 1g IV</strong>(拮抗鎂)— SLE/PIH 常考</div>`
+      },
+      {
+        h: '孕婦藥物原則(救命優先)',
+        c: `<div class="cram-tip">原則:標準 ACLS 藥<strong>都可以用</strong>,救命優先,不考慮致畸性</div>
+        <table class="cram-table">
+          <tr><th>狀態</th><th>藥物</th></tr>
+          <tr><td>✅ 可用</td><td>Epi、Amio、Lidocaine、Atropine、Adenosine、MgSO4</td></tr>
+          <tr><td>✅ 可用(權衡)</td><td>tPA(PE / 中風)、Heparin(LMWH 較佳)</td></tr>
+          <tr><td>❌ 致畸禁忌</td><td><strong>ACEI / ARB</strong>(全孕期)、<strong>Warfarin</strong>(改 LMWH)</td></tr>
+          <tr><td>❌ 子癇症禁忌</td><td>Nitroprusside、ACEI</td></tr>
+          <tr><td>⚠️ 慎用</td><td>BB(可能造成 IUGR、新生兒徐脈/低血糖)</td></tr>
+        </table>`
+      },
+      {
+        h: 'Megacode 孕婦題 — Leader 標準答題',
+        c: `<div class="cram-big">CPR + LUD + ACLS + Call OB + Hysterotomy</div>
+        <ol class="cram-list cram-list-num">
+          <li><strong>立刻 CPR</strong>(高品質,平躺)</li>
+          <li><strong>LUD</strong>(指派一人專責推子宮)</li>
+          <li>標準 ACLS:電擊、藥物、找原因</li>
+          <li><strong>Call OBGYN + NICU + 麻醉</strong>(平行任務)</li>
+          <li>提早插管(預期困難氣道)</li>
+          <li><strong>4 分鐘無 ROSC → 準備 hysterotomy</strong></li>
+          <li>BEAU-CHOPS 找原因(別只想標準 5H5T)</li>
+          <li>POCUS:UCG 看心包/RV、找出血</li>
+        </ol>
+        <div class="cram-tip">記住關鍵:<strong>母親存活 = 胎兒存活</strong>。先救媽媽,胎兒才有機會</div>`
+      },
+      {
+        h: '指導員陷阱題',
+        c: `<div class="cram-q cram-trap">「孕婦心停,先傾斜身體 30° 再 CPR?」</div>
+        <div>❌ <strong>2020 後不推薦傾斜</strong>!改 <strong>LUD 徒手推子宮</strong>(維持平躺 CPR 品質)</div>
+
+        <div class="cram-q cram-trap">「孕婦能用 Amiodarone 嗎?」</div>
+        <div>✅ 可以!救命優先,標準 ACLS 藥都用</div>
+
+        <div class="cram-q cram-trap">「孕婦 PE 能給 tPA 嗎?」</div>
+        <div>✅ 可以!危及生命的 PE/中風,tPA 仍是適應症(權衡出血)</div>
+
+        <div class="cram-q cram-trap">「Resuscitative Hysterotomy 何時做?」</div>
+        <div><strong>4 分鐘無 ROSC + 孕齡 ≥ 20 週</strong> → 5 分鐘內娩出。<strong>不要轉送</strong>,原地做</div>
+
+        <div class="cram-q cram-trap">「子癇症抽搐先給 BZD 還是 Mg?」</div>
+        <div><strong>MgSO4 是首選</strong>!BZD 是備用。Mg 同時治療 + 預防再發</div>
+
+        <div class="cram-q cram-trap">「羊水栓塞 DIC 大出血,先輸 RBC 嗎?」</div>
+        <div>❌ 不是只給 RBC!<strong>2025 平衡輸血:RBC : FFP : 血小板 = 1:1:1</strong>(massive transfusion protocol)</div>
+
+        <div class="cram-q cram-trap">「孕婦壓胸位置一樣?」</div>
+        <div>❌ 略往頭側 2-3 cm(子宮把橫膈推高)</div>
+
+        <div class="cram-q cram-trap">「孕婦能電擊嗎?電了胎兒會怎樣?」</div>
+        <div>✅ 可以電,胎兒影響極小。同步整律也可以做</div>`
+      }
+    ]
+  },
+
   // ========== 速記口訣總覽 ==========
   {
     id: 'mnemonics',
