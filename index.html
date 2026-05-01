@@ -5300,7 +5300,7 @@ function renderQbankResult() {
 // ============================================================
 
 // ⚠️ 部署 Apps Script Web App 後,把 URL 貼在這裡
-const FEEDBACK_API = 'https://script.google.com/macros/s/AKfycbzJ3E-0tg7gCIbrNZaGPgyONU4BW6ULnHmTWURBeXzr2H4WIgvjwQO2sYDxiiQkVpJW/exec';
+const FEEDBACK_API = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec';
 
 const FEEDBACK_CATEGORIES = [
   { id: 'bug',     name: '🐞 問題回報',  color: '#ef4444' },
@@ -5677,6 +5677,133 @@ const CRAM_SECTIONS = [
 
         <div class="cram-q cram-trap">「中風病人 AMPLE 哪一項最關鍵?」</div>
         <div><strong>L 和 M</strong> — 最後正常時間決定 tPA 條件,用藥史(抗凝劑)決定能否打 tPA</div>`
+      }
+    ]
+  },
+
+
+  // ========== 2025 BLS 細節更新 ==========
+  {
+    id: 'bls2025',
+    icon: '🆕',
+    title: '2025 BLS 細節更新',
+    subtitle: '哪些改了、哪些沒改但會考',
+    color: '#10b981',
+    blocks: [
+      {
+        h: '成人壓胸位置(沒改,但常被測)',
+        c: `<div class="cram-big">胸骨下半段(lower half of sternum)</div>
+        <ul class="cram-list">
+          <li>手掌根置於<strong>胸部中央、胸骨下半段</strong></li>
+          <li>另一手疊在上,十指交扣或<strong>翹起避免壓肋骨</strong></li>
+          <li>肩膀正在手上方、肘關節打直、用上半身體重往下壓</li>
+        </ul>
+        <div class="cram-q cram-trap">「壓胸位置 2025 改了嗎?」</div>
+        <div>❌ <strong>沒改</strong>!成人維持胸骨下半段。但<strong>嬰兒和新生兒改了</strong>(下方有講)</div>
+        <div class="cram-q cram-trap">「為什麼不能壓劍突?」</div>
+        <div>會傷肝!研究顯示壓劍突或同時壓腹部會造成肝臟撕裂</div>`
+      },
+      {
+        h: '高品質 CPR 五大要素(沒改)',
+        c: `<table class="cram-table">
+          <tr><th>項目</th><th>標準</th></tr>
+          <tr><td>速率</td><td><strong>100-120 / 分</strong></td></tr>
+          <tr><td>深度(成人)</td><td><strong>5-6 cm</strong>(2-2.4 吋)</td></tr>
+          <tr><td>深度(兒童)</td><td>胸廓 1/3 或約 5 cm</td></tr>
+          <tr><td>深度(嬰兒)</td><td>胸廓 1/3 或約 4 cm</td></tr>
+          <tr><td>胸壁回彈</td><td>完全回彈,<strong>不要壓著</strong></td></tr>
+          <tr><td>中斷</td><td>< 10 秒</td></tr>
+          <tr><td>換手</td><td>每 <strong>2 分鐘</strong>換手避免疲勞</td></tr>
+        </table>
+        <div class="cram-tip">EtCO₂ &lt; 10 mmHg → CPR 品質差;突然 ↑ ≥ 40 → 提示 ROSC</div>`
+      },
+      {
+        h: '⚡ 嬰兒 CPR(2025 重大更改)',
+        c: `<div class="cram-warn">⚡ <strong>2025 刪除兩指法</strong>(2-finger technique no longer recommended)</div>
+        <table class="cram-table">
+          <tr><th>情境</th><th>2025 新建議</th></tr>
+          <tr><td>單一施救者</td><td><strong>單手手掌根</strong>(heel of 1 hand)</td></tr>
+          <tr><td>兩位施救者</td><td><strong>雙拇指環抱法</strong>(2-thumb encircling)</td></tr>
+          <tr><td>無法環抱(救者體型)</td><td>單手手掌根</td></tr>
+        </table>
+        <div class="cram-tip">為什麼改?新研究顯示兩指法<strong>無法達到足夠深度</strong>,效果差。</div>
+        <div class="cram-q cram-trap">「指導員問:嬰兒 CPR 第一線?」</div>
+        <div>新答案:<strong>單手手掌根 或 雙拇指環抱法</strong>(別說兩指法!)</div>`
+      },
+      {
+        h: '⚡ 新生兒壓胸位置(2025 微調)',
+        c: `<div class="cram-warn">⚡ 2025 明確建議:<strong>胸骨下三分之一</strong>(lower 1/3 of sternum)</div>
+        <ul class="cram-list">
+          <li><strong>避開劍突</strong>(壓劍突 / 同時壓腹會撕裂肝臟)</li>
+          <li>研究發現心臟在新生兒胸骨下 1/3 下方</li>
+          <li>每 2-5 分鐘換壓胸者(因為新生兒 CPR 時間長)</li>
+        </ul>`
+      },
+      {
+        h: '⚡ 成人創傷氣道(2025 更新)',
+        c: `<div class="cram-warn">⚡ 2025 新加註解</div>
+        <ul class="cram-list">
+          <li>頭頸創傷病人:<strong>Jaw thrust 仍優先</strong>(保護頸椎)</li>
+          <li><strong>但</strong>:若 jaw thrust + 呼吸道輔具(OPA/NPA)<strong>仍打不開</strong> → 可改 <strong>head tilt-chin lift</strong></li>
+          <li>原則:<strong>「呼吸道暢通優先於完美保護頸椎」</strong></li>
+        </ul>
+        <div class="cram-q cram-trap">「指導員問:創傷病人氣道怎做?」</div>
+        <div>Jaw thrust 試 → 加 OPA/NPA → 還是不行 → 換 head tilt-chin lift。<strong>不能因頸椎而讓病人窒息</strong></div>`
+      },
+      {
+        h: '⚡ 女性病人去顫(2025 新加)',
+        c: `<div class="cram-warn">⚡ 2025 新建議:女性病人去顫<strong>可調整內衣位置即可,不必脫除</strong></div>
+        <ul class="cram-list">
+          <li>過去做法:必須移除內衣 → 造成救者尷尬、目擊者卻步</li>
+          <li>研究顯示:<strong>女性公共場所 AED 使用率 < 男性</strong>(尷尬是主因)</li>
+          <li>新做法:<strong>把內衣往上撥或往兩側撥</strong>,貼片貼皮膚即可</li>
+          <li>絕對不要因內衣延誤電擊!</li>
+        </ul>`
+      },
+      {
+        h: '⚡ 肥胖病人 CPR(2025 新明定)',
+        c: `<div class="cram-tip">2025 明確說:肥胖病人 CPR <strong>方法與一般人相同</strong>(no special technique needed)</div>
+        <ul class="cram-list">
+          <li>位置一樣:胸骨下半段</li>
+          <li>深度一樣:5-6 cm(可能要更用力但不要超過 6 cm)</li>
+          <li>速率一樣:100-120 / 分</li>
+          <li>常見挫敗:深度不夠 → 救者直接站到床上、用體重壓</li>
+        </ul>`
+      },
+      {
+        h: '機械式 CPR(2025 微調)',
+        c: `<table class="cram-table">
+          <tr><th></th><th>2020</th><th>2025</th></tr>
+          <tr><td>常規使用</td><td>不建議</td><td><strong>不建議</strong>(維持)</td></tr>
+          <tr><td>特殊情境</td><td>—</td><td>⚡ <strong>可考慮</strong>(轉送中、人手不足、危險環境)</td></tr>
+        </table>
+        <div class="cram-tip">使用條件:必須<strong>嚴格限制裝設與移除時的中斷時間</strong></div>`
+      },
+      {
+        h: '異物哽塞(2025 微調)',
+        c: `<div class="cram-warn">⚡ 2025 新流程:<strong>5 背擊先做、再 5 腹推</strong>(原本是先腹推)</div>
+        <table class="cram-table">
+          <tr><th>對象</th><th>處置</th></tr>
+          <tr><td>有意識成人 / 兒童(嚴重)</td><td><strong>5 背擊 + 5 腹推</strong>循環</td></tr>
+          <tr><td>嬰兒(嚴重)</td><td><strong>5 背擊 + 5 胸推</strong>(不腹推,會傷內臟)</td></tr>
+          <tr><td>孕婦 / 過度肥胖</td><td>胸推取代腹推</td></tr>
+          <tr><td>意識喪失</td><td>立刻 CPR(壓胸有效於排異物)</td></tr>
+        </table>
+        <div class="cram-tip">為什麼改?新研究顯示背擊在腹推前可<strong>提高排出率、減少受傷</strong></div>`
+      },
+      {
+        h: 'BLS 流程速覽(沒改但要會背)',
+        c: `<ol class="cram-list cram-list-num">
+          <li><strong>確認場景安全</strong></li>
+          <li><strong>叫</strong> — 拍肩問「你還好嗎?」</li>
+          <li><strong>叫</strong> — call 119 / 院內 9999 + 拿 AED</li>
+          <li><strong>檢查脈搏 + 呼吸</strong>(同時 ≤ 10 秒)</li>
+          <li><strong>無脈搏 → 立刻 CPR(C-A-B)</strong></li>
+          <li>30:2 直到 AED / 進階呼吸道</li>
+          <li>AED 一到 → 接上、依語音指示</li>
+          <li>進階呼吸道後:<strong>持續壓胸 100-120 / 分 + 通氣每 6 秒一次(10 / 分)</strong></li>
+        </ol>
+        <div class="cram-warn">⚠️ 疑似鴉片中毒呼吸停止 → BLS 流程中加給 <strong>Naloxone</strong>(2025 強調)</div>`
       }
     ]
   },
