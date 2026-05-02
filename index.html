@@ -1302,6 +1302,39 @@ details > div, details > p { font-size: 16px !important; line-height: 1.8 !impor
   .quiz-opt { font-size: 18px !important; }
 }
 
+
+/* ===== PEA 人形圖熱點 hover/active 效果 ===== */
+.peaHot { cursor: pointer; transition: all 0.2s ease; transform-box: fill-box; transform-origin: center; }
+.peaHot:hover { transform: scale(1.25); filter: drop-shadow(0 0 6px currentColor) brightness(1.05); }
+.peaHot:active { transform: scale(1.1); }
+@keyframes peaHotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.peaHot { animation: peaHotPulse 2.5s ease-in-out infinite; }
+
+
+/* ===== 考前衝刺快跳導覽 ===== */
+.cram-quick-jump { background: linear-gradient(135deg, #fef3c7, #fee2e2); border-radius: 12px; padding: 1em; margin-bottom: 1em; }
+.cqj-row { display: flex; gap: .5em; align-items: center; margin-bottom: .5em; flex-wrap: wrap; }
+.cqj-row:last-child { margin-bottom: 0; }
+.cqj-label { font-weight: 700; font-size: 15px; min-width: 80px; padding: .3em .5em; border-radius: 6px; color: #fff; text-align: center; }
+.cqj-label.cqj-dead { background: #dc2626; }
+.cqj-label.cqj-alive { background: #059669; }
+.cqj-label.cqj-find { background: #0891b2; }
+.cqj-label.cqj-special { background: #be185d; }
+.cqj-label.cqj-leader { background: #f59e0b; }
+.cqj-btn { background: #fff; border: 2px solid #e2e8f0; border-radius: 8px; padding: .5em .9em; cursor: pointer; font-size: 14px; font-weight: 600; transition: all .15s; color: #1e293b; }
+.cqj-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,.1); }
+.cqj-btn.dead:hover { border-color: #dc2626; background: #fef2f2; }
+.cqj-btn.alive:hover { border-color: #059669; background: #f0fdf4; }
+.cqj-btn.find:hover { border-color: #0891b2; background: #f0fdfa; }
+.cqj-btn.special:hover { border-color: #be185d; background: #fdf2f8; }
+.cqj-btn.leader:hover { border-color: #f59e0b; background: #fffbeb; }
+
+@media (max-width: 520px) {
+  .cqj-row { flex-direction: column; align-items: stretch; }
+  .cqj-label { min-width: auto; text-align: left; }
+  .cqj-btn { padding: .55em .8em; font-size: 13px; }
+}
+
 </style>
 </head>
 <body>
@@ -1436,7 +1469,7 @@ const EKG_DATA = [
       ],
       treatment: [
         '無脈 VT(pulseless VT):當作 VF 處理,200J 去顫',
-        '有脈穩定 VT:Adenosine 6mg 看反應 → Amiodarone 150mg → 100J 同步電擊',
+        '穩定 wide QRS regular monomorphic VT:可考慮 Adenosine 6→12mg(2025 仍保留)→ Amio 150mg over 10min → 不穩定 100J 同步',
         '有脈不穩定 VT:100J 同步電擊 → Amiodarone 150mg → 重複電擊',
         '不穩定定義:昏痛喘休克低血壓(意識/胸痛/喘/SBP ≤ 80)'
       ],
@@ -1531,7 +1564,7 @@ const EKG_DATA = [
     tag: '規則、窄 QRS、>150bpm、無 P 波',
     keywords: ['psvt', 'svt', '上心室', 'adenosine', '窄'],
     svg: 'M 0 30 L 16 30 L 18 16 L 20 44 L 22 30 L 38 30 L 40 16 L 42 44 L 44 30 L 60 30 L 62 16 L 64 44 L 66 30 L 82 30 L 84 16 L 86 44 L 88 30 L 104 30 L 106 16 L 108 44 L 110 30 L 126 30 L 128 16 L 130 44 L 132 30 L 148 30 L 150 16 L 152 44 L 154 30 L 170 30 L 172 16 L 174 44 L 176 30 L 192 30 L 194 16 L 196 44 L 198 30 L 214 30 L 216 16 L 218 44 L 220 30 L 236 30 L 238 16 L 240 44 L 242 30 L 258 30 L 260 16 L 262 44 L 264 30 L 280 30',
-    action: '→ Adenosine 6→12→12mg;不穩 100J 同步',
+    action: '→ Adenosine 6→12mg(2 次);不穩 100J 同步',
     detail: {
       identify: [
         '快速規則、窄 QRS(< 0.12 秒)',
@@ -1544,7 +1577,7 @@ const EKG_DATA = [
         '無效:Amiodarone、BB、CCB(Diltiazem、Verapamil)',
         '不穩定:100J 同步電擊 → Amiodarone 150mg → 重複電擊'
       ],
-      doses: 'Adenosine 6mg → 12mg → 12mg(IV push,3-way + flush)| 同步 50J',
+      doses: 'Adenosine 6mg → 12mg(IV rapid push + 20mL N/S flush)| 同步 100J(2025)',
       pitfall: 'Adenosine 必須「快推 + 立即 flush」,從周邊大靜脈。給完病人會有短暫 asystole 感(會嚇到),先告知。',
       update2025: '無變動。Adenosine 在孕婦仍可使用(C 級)。'
     }
@@ -1643,7 +1676,7 @@ const EKG_DATA = [
       ],
       treatment: [
         '即使無症狀也當「不穩定」處理',
-        'Atropine 通常無效(因為不在 AV node)',
+        'Atropine 不要依賴(可試但常無效,病灶在 AV node 下方),不要等它生效',
         '直接準備 TCP,植入永久節律器是最終解',
         '備用:Dopamine、Epinephrine'
       ],
@@ -1964,7 +1997,7 @@ function renderEKGGrid() {
         <div class="ekg-tag">${d.tag}</div>
         <div class="ekg-svg">
           <svg width="100%" viewBox="0 0 280 60" role="img">
-            <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(128,128,128,0.2)" stroke-width="0.5" stroke-dasharray="2 2"/>
+            <defs><pattern id="ekgsm1" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="none" stroke="rgba(255,182,193,0.5)" stroke-width="0.3"/></pattern><pattern id="ekgbg1" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="url(#ekgsm1)" stroke="rgba(220,38,38,0.55)" stroke-width="0.6"/></pattern></defs><rect width="280" height="60" fill="url(#ekgbg1)"/><line x1="0" y1="30" x2="280" y2="30" stroke="rgba(75,85,99,0.35)" stroke-width="0.5"/>
             <path d="${d.svg}" fill="none" stroke="${d.severity === 'danger' ? '#E24B4A' : d.severity === 'warn' ? '#EF9F27' : '#97C459'}" stroke-width="1.5"/>
           </svg>
         </div>
@@ -1988,7 +2021,7 @@ function showEKGDetail(id) {
     <h2>${d.name}</h2>
     <div class="modal-tag">${d.nameEn} | ${d.tag}</div>
     <svg width="100%" viewBox="0 0 280 60" role="img" style="background: var(--bg-soft); border-radius: 6px; padding: 8px 4px; margin: 0 0 14px;">
-      <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(128,128,128,0.2)" stroke-width="0.5" stroke-dasharray="2 2"/>
+      <defs><pattern id="ekgsm2" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="none" stroke="rgba(255,182,193,0.5)" stroke-width="0.3"/></pattern><pattern id="ekgbg2" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="url(#ekgsm2)" stroke="rgba(220,38,38,0.55)" stroke-width="0.6"/></pattern></defs><rect width="280" height="60" fill="url(#ekgbg2)"/><line x1="0" y1="30" x2="280" y2="30" stroke="rgba(75,85,99,0.35)" stroke-width="0.5"/>
       <path d="${d.svg}" fill="none" stroke="${colorMap[d.severity]}" stroke-width="1.5"/>
     </svg>
     <div class="modal-body">
@@ -2137,10 +2170,11 @@ function renderFlow() {
 
         <g style="cursor:pointer;" onclick="showFlowDetail('tachy')">
           <rect x="400" y="295" width="140" height="80" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
-          <text x="470" y="318" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#173404">Tachy &gt; 150</text>
-          <text x="470" y="338" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#27500A">穩定:給藥</text>
-          <text x="470" y="354" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#27500A">不穩定:同步電</text>
-          <text x="470" y="370" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#27500A">(寬不規則 = TdP 去顫)</text>
+          <text x="470" y="313" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#173404">Tachy &gt; 150</text>
+          <text x="470" y="328" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#27500A">不穩 → 同步整流</text>
+          <text x="470" y="343" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#27500A">穩窄規 → Adeno 6→12</text>
+          <text x="470" y="358" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#27500A">穩窄不規 → BB/CCB</text>
+          <text x="470" y="372" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#27500A">穩寬規 → Adeno 或 Amio</text>
         </g>
 
         <g style="cursor:pointer;" onclick="showFlowDetail('brady')">
@@ -2156,8 +2190,8 @@ function renderFlow() {
         <g style="cursor:pointer;" onclick="showFlowDetail('rosc')">
           <rect x="60" y="430" width="260" height="100" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
           <text x="190" y="452" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">ROSC ─ Post-arrest care</text>
-          <text x="190" y="472" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#A32D2D" font-weight="500">★ 2025 溫控 32–37.5°C ≥ 24hr</text>
-          <text x="190" y="488" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#633806">SpO2 ≥ 94 / MAP ≥ 65</text>
+          <text x="190" y="472" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#A32D2D" font-weight="500">★ 體溫控制 32-37.5°C ≥ 36hr</text>
+          <text x="190" y="488" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#633806">SpO2 90-98% / MAP ≥ 65</text>
           <text x="190" y="504" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#633806">EtCO2 &gt; 40 / BS 144-180</text>
           <text x="190" y="520" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#A32D2D" font-weight="500">★ 2025 CAG 改選擇性策略</text>
         </g>
@@ -2276,20 +2310,28 @@ const FLOW_DETAILS = {
     `
   },
   tachy: {
-    title: 'Tachycardia 處置',
-    body: `
-      <h3>四象限速查</h3>
-      <table style="width:100%; border-collapse:collapse; font-size:13px; margin: 8px 0;">
-        <tr style="background:#F7F6F1;"><td style="padding:6px;border:1px solid #ddd;"></td><td style="padding:6px;border:1px solid #ddd;font-weight:600;">規則</td><td style="padding:6px;border:1px solid #ddd;font-weight:600;">不規則</td></tr>
-        <tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">窄</td><td style="padding:6px;border:1px solid #ddd;">PSVT → Adeno → 100J 同步</td><td style="padding:6px;border:1px solid #ddd;">AF → Amio → 200J 同步</td></tr>
-        <tr><td style="padding:6px;border:1px solid #ddd;font-weight:600;">寬</td><td style="padding:6px;border:1px solid #ddd;">VT → Amio → 100J 同步</td><td style="padding:6px;border:1px solid #ddd;">TdP → MgSO4 / 200J 去顫</td></tr>
-      </table>
-      <h3>穩定 vs 不穩定</h3>
-      <ul>
-        <li>穩定:先給藥(Adenosine、Amiodarone、CCB、BB)</li>
-        <li>不穩定:同步電擊(寬不規 TdP 用去顫)</li>
-      </ul>
-    `
+    title: 'Tachycardia 處置(2025 AHA)',
+    bullets: [
+      '<strong>不穩定徵象「昏痛喘休克低血壓」</strong> → 立刻同步整流(任何心律)',
+      '<strong>穩定:看 QRS 寬度</strong>',
+      '',
+      '<strong>窄 QRS(< 0.12s)</strong>',
+      '  規則(PSVT):Vagal → Adenosine <strong>6→12 mg</strong>(2 次)→ BB/CCB',
+      '  不規則(Af/Aflutter):BB / CCB(Diltiazem 0.25 mg/kg)— <strong>禁 Adenosine</strong>',
+      '',
+      '<strong>寬 QRS(≥ 0.12s)</strong>',
+      '  ⚡ 規則 + monomorphic:可 <strong>Adenosine 6→12 mg</strong>(2025 仍保留)或 Procainamide / Amiodarone / Sotalol',
+      '  不規則 / polymorphic:<strong>禁 Adenosine</strong>(會誘發 VF)→ 當 VF 處理,200J 不同步去顫',
+      '',
+      '<strong>同步整流能量(2025)</strong>',
+      '  PSVT: 100J | Af: <strong>200J 起(2025 新)</strong> | AFlutter: 200J | 寬規則 VT: 100J | TdP: 200J 不同步',
+      '',
+      '<strong>Adenosine 給法</strong>',
+      '  Rapid IV push + 20 mL N/S flush(三通管同推)',
+      '  半衰期 < 10 秒,警告病人「會胸悶幾秒,然後好了」',
+      '  總共只給 2 次(2010 起改;不再給第 3 劑)'
+    ],
+    doses: 'Adenosine 6→12mg | Amio 150mg over 10 min | Diltiazem 0.25 mg/kg | 同步整流 PSVT 100J / Af 200J(2025)/ VT 100J'
   },
   brady: {
     title: 'Bradycardia 處置',
@@ -2321,7 +2363,7 @@ const FLOW_DETAILS = {
       </ul>
       <h3>其他生理目標</h3>
       <ul>
-        <li>SpO2 ≥ 94%(避免高氧)</li>
+        <li>SpO2 <strong>90-98%</strong>(2025 新:過去 92-98%,避免高氧 + 強調避免低氧)</li>
         <li>MAP ≥ 65 mmHg,SBP > 90(用升壓劑)</li>
         <li>EtCO2 > 40 mmHg,PaCO2 35-45 mmHg(避免過度通氣)</li>
         <li>血糖 144-180 mg/dL(8-10 mmol/L)</li>
@@ -4080,7 +4122,7 @@ const QBANK_DATA = [
       { text: 'Dopamine 5 mg/kg/min IV', correct: false }
     ],
     ans: 'C',
-    exp: '3° AVB 合併寬 QRS 對 Atropine 反應差,應立即 TCP。Epi 劑量錯誤(那是心停劑量)。'
+    exp: 'AHA 2025:3° AVB(尤其合併寬 QRS)<strong>不要依賴 Atropine</strong>,應立即 TCP。可試 Atropine 但不要為等它生效而延誤 TCP。Epi 劑量錯誤(那是心停劑量)。'
   },
   {
     id: 117, cat: 'brady',
@@ -4104,7 +4146,7 @@ const QBANK_DATA = [
       { text: 'Epinephrine 1 mg IV push', correct: false }
     ],
     ans: 'B',
-    exp: 'Mobitz II 或 3° AVB 合併寬 QRS 病人,Atropine 效果不佳,應 TCP 或二線 Dopamine/Epi。'
+    exp: 'AHA 2025:Mobitz II 或 3° AVB(尤其寬 QRS)<strong>不要依賴 Atropine</strong>(do not rely on),應 TCP 或二線 Dopamine/Epi 不延誤。Atropine 可試但不能等它生效。'
   },
   {
     id: 119, cat: 'brady',
@@ -6161,6 +6203,54 @@ const CRAM_SECTIONS = [
           <li>間歇性 ROSC</li>
         </ul>
         <div class="cram-warn">這些有 → 預後較好 → 強烈考慮 ECPR;完全無 → 預後差 → 慎重評估</div>`
+      },
+      {
+        h: '🆕 2026/04 ROSC 後處置最新更新(台灣急診醫學會)',
+        c: `<div class="cram-tip">⚡ 5/3 早上丁老師 special resuscitation 必考 — 2026/04 最新發表</div>
+
+        <div class="cram-q">「血壓目標?」</div>
+        <div><strong>MAP ≥ 65 mmHg</strong>(2025 統一目標)<br>⚠️ <strong>SBP ≥ 90 目標已移除</strong>!BOX、EXACT trials 證實過高血壓無益</div>
+
+        <div class="cram-q">「SpO2 目標?」</div>
+        <div><strong>90-98%</strong>(原 92-98%)<br>強調:避免高氧 + <strong>更強調避免低氧</strong></div>
+
+        <div class="cram-q">「體溫控制(舊稱 TTM)?」</div>
+        <ul class="cram-list">
+          <li><strong>正式改名 Temperature Control(體溫控制)</strong></li>
+          <li>目標 32-37.5°C(範圍擴大)</li>
+          <li>時長 <strong>≥ 36 小時</strong>(原 24 hr)</li>
+          <li>回溫速率 <strong>≤ 0.25-0.5°C/hr</strong></li>
+          <li>核心精神:<strong>預防發燒</strong>(不再強制 33°C 低溫)</li>
+        </ul>
+
+        <div class="cram-q">「ROSC 後該不該緊急 Cath?」</div>
+        <ul class="cram-list">
+          <li>STEMI / 缺血證據 → ✅ 立刻 Cath</li>
+          <li>合併<strong>心因性休克</strong>或<strong>反覆 VF/VT</strong> → ✅ 仍合理</li>
+          <li>⚠️ <strong>non-ST + 血流動力穩定 + 持續昏迷</strong> → <strong>不建議常規緊急 Cath</strong>(COACT、TOMAHAWK trials)</li>
+          <li>避免為了 Cath 而耽誤血流穩定與神經保護</li>
+        </ul>
+
+        <div class="cram-q">「ROSC 後診斷評估?」</div>
+        <ul class="cram-list">
+          <li>所有人:<strong>12 lead EKG</strong></li>
+          <li><strong>全身 CT(頭到骨盆)</strong>:對重大臨床診斷檢出率達 <strong>30%</strong>!找非心因性原因(顱內出血、PE)+ CPR 併發症</li>
+          <li><strong>POCUS</strong>:急救當下找可逆原因 + ROSC 後找需介入病灶</li>
+        </ul>
+
+        <div class="cram-q">「神經預後評估?」</div>
+        <div><strong>多重模式</strong>(臨床 + 生物標記 + 神經影像)<br>⚠️ 嚴格:<strong>恢復正常體溫且停用鎮靜藥 72 小時後</strong>才能評估,不可單一指標決定</div>
+
+        <div class="cram-warn">⚠️ <strong>癲癇處置</strong>:不建議常規預防性抗癲癇藥;有臨床發作才積極治療;EEG 診斷 non-convulsive 視情況考慮</div>
+
+        <div class="cram-q cram-trap">「ECLS 適應症大擴展?」</div>
+        <div>2025 新增:① 嚴重環境性低體溫 ② 妊娠相關心停 ③ <strong>嚴重氣喘</strong> ④ <strong>肺栓塞</strong> ⑤ <strong>BB / CCB 中毒</strong></div>
+
+        <div class="cram-q cram-trap">「高血鉀心停 Calcium / NaHCO3?」</div>
+        <div>⚠️ <strong>2025 警示</strong>:在心停狀態下,Ca/NaHCO3 改善存活率 / 神經預後<strong>證據不足</strong>。雖未禁止,<strong>不應為了準備這些藥延誤 CPR</strong>。高品質 CPR 才是根本</div>
+
+        <div class="cram-q cram-trap">「嚴重高體溫(> 40°C)處置?」</div>
+        <div><strong>冰水浸泡 1-5°C</strong>;降溫速率 ≥ <strong>0.15°C/分鐘</strong>;降到 <strong>38.6°C</strong> 停。惡性高熱加 <strong>Dantrolene 2.5 mg/kg</strong></div>`
       }
     ]
   },
@@ -6308,7 +6398,7 @@ const CRAM_SECTIONS = [
         c: `<table class="cram-table">
           <tr><th>項目</th><th>孕婦特殊處置</th></tr>
           <tr><td>體位</td><td><strong>徒手向左推子宮</strong>(LUD)</td></tr>
-          <tr><td>壓胸位置</td><td>胸骨下半段往頭側 <strong>再上 2-3 cm</strong></td></tr>
+          <tr><td>壓胸位置</td><td><strong>胸骨下半段(與一般人相同)</strong> ⚡2025</td></tr>
           <tr><td>氣道</td><td>水腫困難 → 較小 ETT(6.0-6.5)+ 提早插管</td></tr>
           <tr><td>4-5 min 無 ROSC</td><td><strong>Resuscitative Hysterotomy</strong>(復甦性子宮切開)</td></tr>
           <tr><td>找原因</td><td><strong>BEAU-CHOPS</strong> 口訣(產科 9 大原因)</td></tr>
@@ -6437,8 +6527,8 @@ const CRAM_SECTIONS = [
         <div class="cram-q cram-trap">「羊水栓塞 DIC 大出血,先輸 RBC 嗎?」</div>
         <div>❌ 不是只給 RBC!<strong>2025 平衡輸血:RBC : FFP : 血小板 = 1:1:1</strong>(massive transfusion protocol)</div>
 
-        <div class="cram-q cram-trap">「孕婦壓胸位置一樣?」</div>
-        <div>❌ 略往頭側 2-3 cm(子宮把橫膈推高)</div>
+        <div class="cram-q cram-trap">「孕婦壓胸位置要往頭側移嗎?」</div>
+        <div>✅ <strong>不用!2025 AHA 與一般人相同 = 胸骨下半段</strong>。<br>過去 2010 年指引曾建議略往頭側,但 2025 AHA 科學聲明明文:<strong>「無科學證據支持」</strong>,已撤回此建議</div>
 
         <div class="cram-q cram-trap">「孕婦能電擊嗎?電了胎兒會怎樣?」</div>
         <div>✅ 可以電,胎兒影響極小。同步整律也可以做</div>`
@@ -6535,6 +6625,7 @@ const CRAM_SECTIONS = [
         h: '高鉀治療三步驟 = 「穩 → 趕 → 排」',
         c: `<ol class="cram-list cram-list-num">
           <li><strong>穩</strong>心肌:Calcium gluconate 1g IV(EKG 變化才給)</li>
+          <li>⚠️ <strong>2025 新警示</strong>:已 <strong>心跳停止</strong>狀態下,Ca/NaHCO3「臨床證據不足」改善存活率/神經預後 — <strong>不應為了準備這些藥延誤 CPR 和標準急救</strong>(高品質 CPR 才是根本)</li>
           <li><strong>趕</strong>進細胞:Insulin + 葡萄糖、NaHCO3、β2 agonist</li>
           <li><strong>排</strong>出體外:Lasix、Kayexalate、洗腎</li>
         </ol>
@@ -6590,14 +6681,32 @@ const CRAM_SECTIONS = [
         </table>`
       },
       {
-        h: 'Atropine 無效 = 「移、寬、二快、三阻」',
+        h: '🆕 徐脈 6 大原因 = ABCDOK',
+        c: `<div class="cram-big">A · B · C · D · O · K</div>
+        <table class="cram-table">
+          <tr><th>字</th><th>原因</th><th>處置線索</th></tr>
+          <tr><td><strong>A</strong></td><td>AMI(急性心肌梗塞)</td><td>下壁 RCA → SA/AV node 缺血;<strong>Cath 通血管</strong>後常自己好</td></tr>
+          <tr><td><strong>B</strong></td><td>Beta-blocker 中毒</td><td><strong>Glucagon 3-10mg IV</strong> + 高劑量 Insulin</td></tr>
+          <tr><td><strong>C</strong></td><td>CCB 中毒</td><td><strong>Calcium + Glucagon + HIET</strong>(高劑量 Insulin/glucose)</td></tr>
+          <tr><td><strong>D</strong></td><td>Digoxin 中毒</td><td><strong>Digibind</strong>(⚠️ <strong>禁 Calcium!</strong>stone heart)</td></tr>
+          <tr><td><strong>O</strong></td><td>hyp<strong>O</strong>xia 缺氧</td><td>給氧、處理呼吸道、DOPE 檢查</td></tr>
+          <tr><td><strong>K</strong></td><td>hyper<strong>K</strong>alemia 高血鉀</td><td><strong>穩 → 趕 → 排</strong>;Atropine 對高鉀無效!</td></tr>
+        </table>
+        <div class="cram-tip">⚡ 看到徐脈不要只想 Atropine — 先用 ABCDOK 想可逆原因,有時候根除原因比給藥重要</div>
+        <div class="cram-q cram-trap">「洗腎病人徐脈,先給 Atropine?」</div>
+        <div>❌ 不要!想 hyper<strong>K</strong>alemia,Atropine 對高鉀無效。立刻 12 lead + bedside K + Calcium</div>
+        <div class="cram-q cram-trap">「老人家心衰用藥多,徐脈來?」</div>
+        <div>想 <strong>BCD</strong>:Beta-blocker / CCB / Digoxin 中毒。看用藥史 + 對應解毒劑</div>`
+      },
+      {
+        h: 'Atropine 不要依賴 = 「移、寬、二快、三阻」(2025 AHA)',
         c: `<ul class="cram-list">
           <li><strong>移</strong>植後(無迷走神經)</li>
           <li><strong>寬</strong> QRS 徐脈</li>
           <li><strong>二</strong>度 AVB Mobitz II</li>
           <li><strong>三</strong>度 AVB(尤其寬 QRS)</li>
         </ul>
-        <div class="cram-tip">這些直接準備 TCP / Dopamine / Epi drip,別浪費時間</div>`
+        <div class="cram-tip">2025 AHA 原文:「<strong>do not rely on atropine</strong>」(不要依賴 Atropine)— 不是禁忌,可試但別等。直接準備 TCP / Dopamine / Epi drip</div>`
       },
       {
         h: '下壁 STEMI 必做動作',
@@ -6625,8 +6734,17 @@ const CRAM_SECTIONS = [
           <li>給 tPA <strong>前</strong>:&lt; <strong>185/110</strong></li>
           <li>給 tPA <strong>後</strong> 24 hr:&lt; <strong>180/105</strong></li>
           <li>一般缺血性中風(不打 tPA):&lt; <strong>220/120</strong> 才需降</li>
-          <li>降壓首選:<strong>Labetalol</strong> 10-20mg IV</li>
-        </ul>`
+          <li>降壓首選(並列):
+            <ul style="margin:.3em 0;padding-left:1.5em;">
+              <li><strong>Labetalol</strong> 10-20mg IV bolus(α+β 阻斷,可降心率)</li>
+              <li><strong>Nicardipine(Perdipine 佩爾地平)</strong> 5 mg/hr drip,可調至 15 mg/hr(CCB,不影響心率)</li>
+            </ul>
+          </li>
+          <li><strong>子癇症 / 子癇前症</strong>:首選 Labetalol 或 Hydralazine(<strong>不是 Perdipine</strong>)</li>
+          <li><strong>主動脈剝離</strong>:首選 Labetalol(同時降心率)</li>
+          <li><strong>氣喘 / COPD / 緩慢心律</strong>:選 Perdipine,避免 Labetalol</li>
+        </ul>
+        <div class="cram-warn">⚠️ <strong>Labetalol ≠ Perdipine</strong>!Labetalol 是 α+β 阻斷劑(Trandate),Perdipine 是 CCB(Nicardipine)。台灣中風常用 Perdipine drip,但子癇症用 Labetalol</div>`
       }
     ]
   },
@@ -6654,35 +6772,35 @@ const CRAM_SECTIONS = [
             <path d="M 150 100 L 180 200 L 185 240" fill="none" stroke="#1e293b" stroke-width="2"/>
 
             <!-- 熱點圓 (data-h 為 key) -->
-            <circle cx="110" cy="35" r="11" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" onclick="togglePEABody('hypoxia')"/>
-            <text x="110" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a" pointer-events="none">😮</text>
+            <circle cx="110" cy="35" r="15" fill="#dbeafe" class="peaHot" stroke="#3b82f6" stroke-width="2" onclick="togglePEABody('hypoxia')"/>
+            <text x="110" y="42" text-anchor="middle" font-size="18" font-weight="700" fill="#1e3a8a" pointer-events="none">😮</text>
 
-            <circle cx="110" cy="80" r="9" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" onclick="togglePEABody('ptx')"/>
-            <text x="110" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f" pointer-events="none">P</text>
+            <circle cx="110" cy="80" r="13" fill="#fef3c7" class="peaHot" stroke="#f59e0b" stroke-width="2" onclick="togglePEABody('ptx')"/>
+            <text x="110" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f" pointer-events="none">P</text>
 
-            <circle cx="92" cy="115" r="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2" onclick="togglePEABody('tampo')"/>
-            <text x="92" y="119" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d" pointer-events="none">T</text>
+            <circle cx="92" cy="115" r="13" fill="#fee2e2" class="peaHot" stroke="#ef4444" stroke-width="2" onclick="togglePEABody('tampo')"/>
+            <text x="92" y="121" text-anchor="middle" font-size="14" font-weight="700" fill="#7f1d1d" pointer-events="none">T</text>
 
-            <circle cx="128" cy="120" r="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2" onclick="togglePEABody('mi')"/>
-            <text x="128" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d" pointer-events="none">❤</text>
+            <circle cx="128" cy="120" r="13" fill="#fee2e2" class="peaHot" stroke="#ef4444" stroke-width="2" onclick="togglePEABody('mi')"/>
+            <text x="128" y="126" text-anchor="middle" font-size="14" font-weight="700" fill="#7f1d1d" pointer-events="none">❤</text>
 
-            <circle cx="42" cy="195" r="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="2" onclick="togglePEABody('toxin')"/>
-            <text x="42" y="199" text-anchor="middle" font-size="11" font-weight="700" fill="#312e81" pointer-events="none">💉</text>
+            <circle cx="42" cy="195" r="13" fill="#e0e7ff" class="peaHot" stroke="#6366f1" stroke-width="2" onclick="togglePEABody('toxin')"/>
+            <text x="42" y="201" text-anchor="middle" font-size="14" font-weight="700" fill="#312e81" pointer-events="none">💉</text>
 
             <circle cx="178" cy="195" r="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="2" onclick="togglePEABody('toxin')"/>
-            <text x="178" y="199" text-anchor="middle" font-size="11" font-weight="700" fill="#312e81" pointer-events="none">💉</text>
+            <text x="178" y="201" text-anchor="middle" font-size="14" font-weight="700" fill="#312e81" pointer-events="none">💉</text>
 
-            <circle cx="110" cy="200" r="11" fill="#fecaca" stroke="#dc2626" stroke-width="2" onclick="togglePEABody('hypovol')"/>
-            <text x="110" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d" pointer-events="none">血</text>
+            <circle cx="110" cy="200" r="15" fill="#fecaca" class="peaHot" stroke="#dc2626" stroke-width="2" onclick="togglePEABody('hypovol')"/>
+            <text x="110" y="207" text-anchor="middle" font-size="14" font-weight="700" fill="#7f1d1d" pointer-events="none">血</text>
 
-            <circle cx="110" cy="245" r="10" fill="#fce7f3" stroke="#ec4899" stroke-width="2" onclick="togglePEABody('acid')"/>
-            <text x="110" y="249" text-anchor="middle" font-size="11" font-weight="700" fill="#831843" pointer-events="none">H⁺</text>
+            <circle cx="110" cy="245" r="14" fill="#fce7f3" class="peaHot" stroke="#ec4899" stroke-width="2" onclick="togglePEABody('acid')"/>
+            <text x="110" y="251" text-anchor="middle" font-size="13" font-weight="700" fill="#831843" pointer-events="none">H⁺</text>
 
-            <circle cx="100" cy="320" r="11" fill="#cffafe" stroke="#0891b2" stroke-width="2" onclick="togglePEABody('pe')"/>
-            <text x="100" y="324" text-anchor="middle" font-size="11" font-weight="700" fill="#164e63" pointer-events="none">PE</text>
+            <circle cx="100" cy="320" r="15" fill="#cffafe" class="peaHot" stroke="#0891b2" stroke-width="2" onclick="togglePEABody('pe')"/>
+            <text x="100" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#164e63" pointer-events="none">PE</text>
 
-            <circle cx="100" cy="455" r="11" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" onclick="togglePEABody('hypothermia')"/>
-            <text x="100" y="459" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a" pointer-events="none">❄</text>
+            <circle cx="100" cy="455" r="15" fill="#dbeafe" class="peaHot" stroke="#3b82f6" stroke-width="2" onclick="togglePEABody('hypothermia')"/>
+            <text x="100" y="461" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a" pointer-events="none">❄</text>
 
             <!-- 標題 -->
             <text x="110" y="475" text-anchor="middle" font-size="9" fill="#64748b">點各部位看詳情</text>
@@ -6697,6 +6815,134 @@ const CRAM_SECTIONS = [
         <div class="cram-tip" style="margin-top:1em;">
           <strong>關鍵教訓:</strong>不是「CPR 完才找原因」,而是「CPR 中,Leader 派 5 個人各看一個地方」 — 這就是 Walter Kloeck 1995 圖最值錢的觀念
         </div>`
+      },
+      {
+        h: '⚡ 5H5T 完整成因清單',
+        c: `<div class="cram-tip">不是死背 5H5T 名稱 — 要會反推「<strong>什麼樣的病人 / 哪種情境</strong>會走向這個原因」</div>
+
+        <h4 style="margin-top:.8em;color:#dc2626;">🩸 Hypovolemia 低血容 — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>外出血</strong>:外傷、產後出血、消化道出血</li>
+          <li><strong>內出血</strong>:腹腔(肝脾破裂)、後腹腔(主動脈瘤破裂)、骨盆骨折、腹主動脈剝離</li>
+          <li><strong>燒燙傷</strong>:大面積 → 第三空間流失</li>
+          <li><strong>大量腹瀉 / 嘔吐</strong>:霍亂、急性腸胃炎</li>
+          <li><strong>過度利尿</strong>:Lasix 過量、糖尿病酮酸中毒</li>
+          <li><strong>敗血症</strong>:血管擴張造成相對低血容</li>
+          <li><strong>第三空間流失</strong>:胰臟炎、腸阻塞、腹膜炎</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#3b82f6;">😮 Hypoxia 低氧 — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>氣道阻塞</strong>:異物、舌頭後墜、口咽水腫(過敏)</li>
+          <li><strong>器質性肺問題</strong>:COPD 急性發作、氣喘、肺炎、ARDS、肺水腫</li>
+          <li><strong>氣體交換障礙</strong>:Massive PE、肺纖維化、肺塌陷</li>
+          <li><strong>機械通氣問題</strong>:DOPE(管位錯、阻塞、氣胸、設備)</li>
+          <li><strong>神經性</strong>:中風、腦幹損傷、Guillain-Barre、重症肌無力</li>
+          <li><strong>中毒</strong>:鴉片、BZD 過量造成呼吸抑制</li>
+          <li><strong>溺水</strong>(吸入水)、<strong>窒息</strong>、<strong>吊頸</strong></li>
+          <li><strong>環境因素</strong>:高山症、密閉空間缺氧</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#ec4899;">🧪 H⁺ 酸中毒 — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>代謝性酸中毒</strong>:糖尿病酮酸中毒(DKA)、敗血性休克、腎衰、橫紋肌溶解、中毒(methanol、ethylene glycol)</li>
+          <li><strong>呼吸性酸中毒</strong>:呼吸衰竭、CO₂ 滯留</li>
+          <li><strong>長時間 CPR</strong>:乳酸堆積</li>
+          <li><strong>心臟驟停後</strong>:組織灌流不足</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#7c2d12;">🩸 Hyperkalemia 高血鉀 — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>腎衰竭</strong>:CKD、AKI、洗腎沒做</li>
+          <li><strong>細胞釋放</strong>:<strong>橫紋肌溶解症</strong>(壓傷、運動過度)、<strong>溶血</strong>、<strong>tumor lysis syndrome</strong>(化療後)、<strong>燒燙傷</strong></li>
+          <li><strong>用藥</strong>:K-sparing 利尿劑(Spironolactone)、ACEI/ARB、NSAIDs、Heparin、TMP-SMX</li>
+          <li><strong>大量輸血</strong>:儲存血 K 高</li>
+          <li><strong>DKA</strong>:Insulin 不足 + 細胞外移</li>
+          <li><strong>急性酸中毒</strong>:H⁺ 進入細胞,K 出來</li>
+          <li><strong>Addison's disease</strong>:醛固酮不足</li>
+        </ul>
+        <div class="cram-q cram-trap">「Hypokalemia 也會引起心停?」</div>
+        <div>會!K < 2.5 → Torsades / VF。常見原因:利尿劑、嘔吐腹瀉、refeeding、DKA 治療中</div>
+
+        <h4 style="margin-top:.8em;color:#0369a1;">❄️ Hypothermia 低體溫 — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>環境暴露</strong>:寒冬遊民、戶外迷路、登山失溫</li>
+          <li><strong>溺水</strong>(尤其冷水)— 救起時體溫已低</li>
+          <li><strong>職業暴露</strong>:冷凍庫工作者、冷藏運輸員</li>
+          <li><strong>酒精</strong>:周邊血管擴張散熱(醉漢路倒)</li>
+          <li><strong>術中暴露</strong>:長時間手術、大量輸液(無加溫)</li>
+          <li><strong>燒燙傷</strong>(早期):皮膚屏障喪失</li>
+          <li><strong>內分泌</strong>:甲狀腺低下、腎上腺不足</li>
+          <li><strong>新生兒 / 老人</strong>:體溫調節差</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#6366f1;">💉 Tablets / Toxins 毒物 — 容易發生在?</h4>
+        <div class="cram-tip">不只是「中毒」 — 要分類想</div>
+        <ul class="cram-list">
+          <li><strong>心血管藥</strong>:BB、CCB、Digoxin、抗心律不整藥(TCA、Flecainide)</li>
+          <li><strong>鴉片類</strong>:Heroin、Fentanyl(含貼片)、Morphine、Tramadol</li>
+          <li><strong>鎮靜安眠</strong>:BZD、Barbiturate、Z-drugs</li>
+          <li><strong>農藥</strong>:有機磷、巴拉刈、除草劑</li>
+          <li><strong>家用毒物</strong>:漂白水、洗劑、樟腦丸</li>
+          <li><strong>氣體中毒</strong>:CO(火災、燒炭)、<strong>氰化物(火災煙霧)</strong>、H₂S、瓦斯</li>
+          <li><strong>毒品</strong>:安非他命、古柯鹼、海洛因、K 他命</li>
+          <li><strong>意外</strong>:Acetaminophen 過量、阿斯匹靈中毒、鐵劑</li>
+          <li><strong>植物</strong>:夾竹桃、姑婆芋、毒菇</li>
+          <li><strong>動物</strong>:蜂螫、蛇咬</li>
+          <li><strong>局部麻醉劑中毒(LAST)</strong>:Bupivacaine、Lidocaine 過量</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#f59e0b;">🫁 Tension Pneumothorax — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>機械通氣</strong>:正壓通氣 + 高 PEEP / 高 peak pressure</li>
+          <li><strong>外傷</strong>:肋骨骨折刺穿肺、刀傷、槍傷</li>
+          <li><strong>CVP 置放</strong>:鎖骨下、頸內靜脈穿刺後</li>
+          <li><strong>胸腔手術後</strong>:肺楔形切除、肺移植</li>
+          <li><strong>原發性氣胸惡化</strong>:高瘦年輕人、Marfan 症候群</li>
+          <li><strong>COPD 急性發作</strong>:bullae 破裂</li>
+          <li><strong>CPR 壓胸</strong>:壓胸壓出氣胸(罕見)</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#ef4444;">❤️ Tamponade 心包填塞 — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>外傷</strong>:刺傷、貫穿傷</li>
+          <li><strong>主動脈剝離</strong>:Type A 破入心包</li>
+          <li><strong>STEMI 後</strong>:心臟自由壁破裂(3-7 天高峰)</li>
+          <li><strong>抗凝血劑</strong>:Heparin、Warfarin 出血</li>
+          <li><strong>術後</strong>:心臟手術、PCI、起搏器置放</li>
+          <li><strong>感染</strong>:結核性、化膿性心包炎</li>
+          <li><strong>腫瘤</strong>:肺癌、乳癌、淋巴癌轉移到心包</li>
+          <li><strong>尿毒症</strong>:長期未透析</li>
+          <li><strong>自體免疫</strong>:SLE、類風濕</li>
+          <li><strong>放射線治療後</strong>(可能延遲幾個月-年)</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#0891b2;">🫁 Thrombosis 肺(PE) — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>長期臥床</strong>:術後、中風、骨折</li>
+          <li><strong>骨科大手術後</strong>(髖、膝關節置換)</li>
+          <li><strong>癌症</strong>:尤其腺癌(肺、胰、卵巢)</li>
+          <li><strong>口服避孕藥 / 荷爾蒙治療</strong></li>
+          <li><strong>懷孕 + 產後 6 週</strong>(高凝血狀態)</li>
+          <li><strong>長途旅行</strong>(經濟艙症候群)</li>
+          <li><strong>遺傳性</strong>:Factor V Leiden、Protein C/S 缺乏</li>
+          <li><strong>抗磷脂抗體症候群</strong></li>
+          <li><strong>下肢 DVT</strong>:不對稱腿腫、Homan's sign</li>
+        </ul>
+
+        <h4 style="margin-top:.8em;color:#dc2626;">💔 Thrombosis 心(MI) — 容易發生在?</h4>
+        <ul class="cram-list">
+          <li><strong>傳統危險因子</strong>:高血壓、糖尿病、高血脂、吸菸、家族史、年齡</li>
+          <li><strong>SCAD</strong>(自發性冠脈剝離):年輕女性、產後</li>
+          <li><strong>Takotsubo</strong>:極度情緒壓力(失去親人、財務崩潰)</li>
+          <li><strong>古柯鹼</strong>:年輕無 risk factor 的胸痛</li>
+          <li><strong>冠脈痙攣</strong>(Prinzmetal):凌晨胸痛 + 抽菸</li>
+          <li><strong>CABG / PCI 後</strong>:Stent 內血栓 / 再狹窄</li>
+          <li><strong>感染後</strong>:流感、肺炎後 MI 風險上升</li>
+          <li><strong>發炎性疾病</strong>:川崎病、SLE 血管炎</li>
+        </ul>
+
+        <div class="cram-warn">⚠️ <strong>核心精神</strong>:不背 5H5T 名稱,要會「看到病人(年齡、病史、職業、用藥、情境)→ 反推可能原因」 — 這才是 Leader 思維</div>`
       },
       {
         h: 'Hypovolemia 低血容',
@@ -6857,15 +7103,76 @@ const CRAM_SECTIONS = [
     color: '#ec4899',
     blocks: [
       {
-        h: 'STEMI 診斷 — EKG criteria',
-        c: `<ul class="cram-list">
-          <li>兩個相鄰導程 ST 抬高</li>
-          <li>男性 V2-V3 ≥ <strong>2mm</strong>,其他導程 ≥ 1mm</li>
-          <li>女性 V2-V3 ≥ <strong>1.5mm</strong></li>
-          <li><strong>新發 LBBB</strong> 視同 STEMI</li>
+        h: '⚡ J point + Baseline — STEMI 判讀關鍵',
+        c: `<div class="cram-tip">指導員必考:「ST 抬高從哪量到哪?」答案不是看波形最高點,是 <strong>J point vs baseline</strong></div>
+
+        <div class="cram-q">「J point 是什麼?」</div>
+        <div>QRS 結束、ST 段開始的<strong>轉折點</strong>(就是 S 波結束、ST 段起點)</div>
+
+        <div class="cram-q">「Baseline(基準線)在哪?」</div>
+        <div>用 <strong>TP segment</strong>(T 波結束到下個 P 波開始)為基線<br>若心率太快沒有 TP → 用 <strong>PR segment</strong>(P 結束到 QRS 開始)</div>
+
+        <div class="cram-q">「ST 抬高怎麼量?」</div>
+        <ol class="cram-list cram-list-num">
+          <li>找 <strong>baseline</strong>(TP 或 PR segment)</li>
+          <li>找 <strong>J point</strong>(QRS 結束處)</li>
+          <li>量 J point <strong>距離 baseline</strong> 幾 mm</li>
+          <li>≥ 1 mm(肢導 / V4-V6) 或 ≥ 2 mm(V1-V3 男)/ ≥ 1.5 mm(V1-V3 女)= STEMI</li>
+        </ol>
+
+        <div class="cram-warn">⚠️ <strong>常見錯誤</strong>:把波形最高點當 ST 抬高量 → 量到的是 T 波,不是 ST</div>
+
+        <div class="cram-q cram-trap">「LBBB 病人怎麼量 ST?」</div>
+        <div>用 <strong>Sgarbossa criteria</strong>(LBBB 干擾 ST 判讀)— 看 concordant ST 抬高 ≥ 1mm、V1-V3 ST 壓低 ≥ 1mm、discordant ST 抬高 ≥ 5mm</div>
+
+        <div class="cram-q cram-trap">「J point 抬高但沒症狀?」</div>
+        <div>可能是 <strong>早期復極化(Early Repolarization)</strong>— 年輕運動員常見,J 波 + 凹型 ST 抬高,但 PR 不壓低、無動態變化、無胸痛</div>
+
+        <div class="cram-q cram-trap">「ST 抬高的鑑別?」</div>
+        <ul class="cram-list">
+          <li><strong>STEMI</strong>:凸型 ST 抬高 + 動態變化 + 對應導程鏡像壓低</li>
+          <li><strong>心包炎</strong>:廣泛 ST 抬高 + <strong>PR 壓低</strong>(典型)</li>
+          <li><strong>早期復極化</strong>:J 波 + 凹型 + 無動態</li>
+          <li><strong>LBBB</strong>:用 Sgarbossa</li>
+          <li><strong>Brugada</strong>:V1-V3 cove-shaped 抬高</li>
+          <li><strong>高血鉀</strong>:Peaked T,易誤判</li>
+        </ul>`
+      },
+      {
+        h: 'STEMI 診斷 — Lead-by-Lead 完整 ST 抬高標準(林老師版)',
+        c: `<div class="cram-tip">⚡ 林老師上課強調 — 不是所有 lead 都用 1mm,要分 lead + 性別 + 年齡</div>
+        <table class="cram-table">
+          <tr><th>Lead</th><th>ST 抬高 ≥ </th><th>部位</th></tr>
+          <tr><td><strong>V7, V8, V9</strong></td><td><strong>0.5 mm</strong></td><td>後壁(V1-V3 ST 壓低時必做!)</td></tr>
+          <tr><td>I, aVL</td><td>1 mm</td><td>高側壁</td></tr>
+          <tr><td>II, III, aVF</td><td>1 mm</td><td>下壁</td></tr>
+          <tr><td>aVR</td><td>1 mm</td><td>左主幹病變 / 多支血管</td></tr>
+          <tr><td>V1, V4, V5, V6</td><td>1 mm</td><td>前壁 / 側壁</td></tr>
+          <tr><td><strong>V3R, V4R</strong></td><td><strong>0.5 mm</strong></td><td>右室梗塞(下壁必加做)</td></tr>
+          <tr><td>V2, V3(女)</td><td><strong>1.5 mm</strong></td><td>前壁</td></tr>
+          <tr><td>V2, V3(男 ≥ 40)</td><td><strong>2 mm</strong></td><td>前壁</td></tr>
+          <tr><td>V2, V3(男 < 40)</td><td><strong>2.5 mm</strong> ⚡</td><td>前壁(年輕人標準較嚴)</td></tr>
+        </table>
+        <div class="cram-warn">⚠️ <strong>年輕男性 V2-V3 標準特別嚴(2.5 mm)</strong>!因為早期復極化(early repolarization)偽陽性多見於這群人</div>
+
+        <div class="cram-q">「STEMI 診斷必要條件?」</div>
+        <ul class="cram-list">
+          <li>至少<strong>兩個相鄰導程</strong>都符合上述標準</li>
+          <li>新發 <strong>LBBB</strong> 視同 STEMI(用 Sgarbossa criteria)</li>
+          <li>新發 <strong>RBBB + 胸痛</strong> 也警訊(LAD 近端 / PE)</li>
         </ul>
+
+        <div class="cram-q cram-trap">「V1-V3 看到 ST 壓低 + R 高 + T 倒立?」</div>
+        <div>= <strong>後壁 STEMI</strong>!立刻做 V7-V8-V9(只要 ≥ 0.5 mm 就是)</div>
+
+        <div class="cram-q cram-trap">「下壁 STEMI 一定要做什麼?」</div>
+        <div>= <strong>V3R + V4R</strong>(只要 ≥ 0.5 mm 就是右室梗塞)→ NTG 絕對禁忌、Fluid first</div>
+
         <div class="cram-q cram-trap">「ST 抬高 = STEMI 嗎?」</div>
-        <div>不一定!鑑別:① 心包炎(廣泛抬高 + PR 壓低)② 早期復極化 ③ LBBB ④ Brugada ⑤ 電解質異常</div>`
+        <div>不一定!鑑別:① 心包炎(廣泛抬高 + PR 壓低)② 早期復極化 ③ LBBB ④ Brugada ⑤ 電解質異常</div>
+
+        <div class="cram-q cram-trap">「年輕男性運動員 V2-V3 ST 抬 2mm,要 Cath?」</div>
+        <div>❌ 不一定!<strong>年輕男 < 40 標準是 2.5 mm</strong>,2mm 可能是早期復極化(常見於運動員)。看症狀 + 動態變化決定</div>`
       },
       {
         h: 'Atypical 表現族群',
@@ -7071,6 +7378,49 @@ const CRAM_SECTIONS = [
         </ul>`
       },
       {
+        h: '⚡ 2025 Tachycardia Algorithm 完整版',
+        c: `<div class="cram-tip">2025 AHA 完整版 — 與簡化版差異大,常考細節</div>
+
+        <div class="cram-big">不穩 → 同步整流(任何心律)</div>
+        <div class="cram-tip"><strong>不穩定徵象</strong>(您本院教法):<strong>昏痛喘休克低血壓</strong></div>
+
+        <h4 style="margin-top:1em;color:#0891b2;">穩定 → 看 QRS 寬度</h4>
+
+        <table class="cram-table">
+          <tr><th>QRS</th><th>規則性</th><th>處置(2025)</th></tr>
+          <tr><td rowspan="2"><strong>窄</strong><br>< 0.12s</td><td>規則(PSVT)</td><td>Vagal → <strong>Adenosine 6→12mg</strong>(2 次)→ BB/CCB</td></tr>
+          <tr><td>不規則(Af/Aflutter)</td><td>BB / CCB(Diltiazem)— <strong>❌ 禁 Adenosine</strong></td></tr>
+          <tr><td rowspan="2"><strong>寬</strong><br>≥ 0.12s</td><td>規則 + monomorphic</td><td>⚡ <strong>可 Adenosine 6→12mg</strong>(2025 仍保留)<br>或 Procainamide / Amio / Sotalol</td></tr>
+          <tr><td>不規則 / polymorphic</td><td><strong>❌ 禁 Adenosine</strong>(誘發 VF)→ 當 VF 200J 去顫</td></tr>
+        </table>
+
+        <div class="cram-warn">⚡ <strong>關鍵改變</strong>:<br>① Adenosine 從 6→12→12(3 次)改為 <strong>6→12(2 次)</strong>(2010 起)<br>② 寬規則 monomorphic <strong>仍可給 Adenosine</strong>(可診斷兼治療)<br>③ 寬不規則 / polymorphic <strong>絕對禁 Adenosine</strong></div>
+
+        <div class="cram-q">「Adenosine 給法?」</div>
+        <ul class="cram-list">
+          <li><strong>Rapid IV push</strong>(越快越好,半衰期 < 10 秒)</li>
+          <li><strong>同時 20mL N/S flush</strong>(三通管同推)</li>
+          <li>事先告訴病人:「會胸悶 / 想吐 / 要死掉的感覺幾秒,然後就好」</li>
+          <li>monitor 連續記錄看效果</li>
+          <li>2025 只給 2 次(2010 改),不再給第 3 劑</li>
+        </ul>
+
+        <div class="cram-q cram-trap">「寬 QRS 規則 monomorphic,給 Adenosine 安全嗎?」</div>
+        <div>✅ <strong>2025 AHA 仍保留</strong>!可以診斷兼治療(房室結傳導暫停看清原本心律)。但要在 monitor 下、有去顫器準備</div>
+
+        <div class="cram-q cram-trap">「Af RVR 不穩可以 Adenosine?」</div>
+        <div>❌ <strong>絕對不行</strong>!Af 不規則,Adenosine 對它無效甚至誘發 VF。應 BB / CCB 控速率,或不穩定直接同步電擊</div>
+
+        <div class="cram-q cram-trap">「規則寬 QRS 是 SVT with aberrancy 還是 VT?」</div>
+        <div>不確定時當 <strong>VT 處理</strong>(較安全)。Adenosine 對 SVT 有效、對 VT 通常無效但無害(monomorphic) → 可作為診斷工具</div>
+
+        <div class="cram-q cram-trap">「Polymorphic VT 為什麼禁 Adenosine?」</div>
+        <div>polymorphic VT 不規則,給 Adenosine 可能<strong>誘發 VF</strong>!直接當 VF 處理:不同步 200J 去顫</div>
+
+        <div class="cram-q cram-trap">「同步整流能量怎麼選?」</div>
+        <div>PSVT: 100J / <strong>Af: 200J 起(2025 新)</strong> / AFlutter: 200J / 寬規則 VT: 100J / Polymorphic VT: 不同步 200J 去顫</div>`
+      },
+      {
         h: '🔥 Refractory VF/VT — 五大武器(Leader 必懂)',
         c: `<div class="cram-tip"><strong>定義</strong>:≥ 3 次去顫 + Epi + Amiodarone 仍持續 VF/VT,或反覆復發</div>
         <div class="cram-big">向 · 雙 · 藥 · 因 · E</div>
@@ -7201,8 +7551,8 @@ const CRAM_SECTIONS = [
         <div class="cram-q cram-trap">「TCP 是長期解嗎?」</div>
         <div>❌ 不是!Bridge to <strong>transvenous pacing 或 permanent pacemaker</strong></div>
 
-        <div class="cram-q cram-trap">「Atropine 預知無效有哪些?」</div>
-        <div><strong>「移、寬、二快、三阻」</strong>:移植後 / 寬 QRS / Mobitz II / 3° AVB</div>
+        <div class="cram-q cram-trap">「Atropine 不要依賴的情況有哪些?」</div>
+        <div><strong>「移、寬、二快、三阻」</strong>:移植後 / 寬 QRS / Mobitz II / 3° AVB<br>⚠️ 注意 AHA 2025 用詞:這些情況「<strong>do not rely on Atropine</strong>(不要依賴)」— 不是絕對禁忌,可試,但不要等它生效就 TCP</div>
 
         <div class="cram-q cram-trap">「TCP 貼片要貼哪?」</div>
         <div>標準 Anterior-Posterior:前胸 V3-V4 + 後背左肩胛下;不要貼在 ICD/pacemaker 上方</div>`
@@ -7349,6 +7699,41 @@ function renderCram() {
     <h2 class="section-title">🎯 考前衝刺</h2>
     <p class="section-sub">指導員猜題 + 速記口訣 — 上課中場休息打開掃一遍</p>
 
+    <div class="cram-quick-jump">
+      <div class="cqj-row">
+        <span class="cqj-label cqj-dead">💀 死人</span>
+        <button class="cqj-btn dead" onclick="cramSwitch('rhythm')">VF/pVT/PEA/Asys</button>
+        <button class="cqj-btn dead" onclick="cramSwitch('rhythm')">Refractory VF</button>
+        <button class="cqj-btn dead" onclick="cramSwitch('ecpr_ihca')">ECPR 啟動</button>
+      </div>
+      <div class="cqj-row">
+        <span class="cqj-label cqj-alive">🫀 活人</span>
+        <button class="cqj-btn alive" onclick="cramSwitch('rhythm')">💓 心跳快</button>
+        <button class="cqj-btn alive" onclick="cramSwitch('mnemonics')">🐢 心跳慢 ABCDOK</button>
+        <button class="cqj-btn alive" onclick="cramSwitch('acs')">💔 ACS / STEMI</button>
+      </div>
+      <div class="cqj-row">
+        <span class="cqj-label cqj-find">🔍 找因</span>
+        <button class="cqj-btn find" onclick="cramSwitch('5h5t')">5H5T 成因</button>
+        <button class="cqj-btn find" onclick="cramSwitch('pocus')">POCUS</button>
+        <button class="cqj-btn find" onclick="cramSwitch('5h5t')">人形圖</button>
+      </div>
+      <div class="cqj-row">
+        <span class="cqj-label cqj-special">🤰 特殊</span>
+        <button class="cqj-btn special" onclick="cramSwitch('obstetric')">孕產婦</button>
+        <button class="cqj-btn special" onclick="cramSwitch('5h5t')">毒物 / 解毒劑</button>
+        <button class="cqj-btn special" onclick="cramSwitch('survey')">📋 Primary/Secondary</button>
+      </div>
+      <div class="cqj-row">
+        <span class="cqj-label cqj-leader">👑 Leader</span>
+        <button class="cqj-btn leader" onclick="cramSwitch('leader')">Team Leader 思維</button>
+        <button class="cqj-btn leader" onclick="cramSwitch('mnemonics')">🧠 速記口訣大全</button>
+        <button class="cqj-btn leader" onclick="cramSwitch('bls2025')">🆕 2025 BLS</button>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px dashed #cbd5e1;margin:1em 0;">
+    <p class="section-sub" style="font-size:13px;color:#94a3b8;">完整章節 ↓</p>
     <div class="cram-nav">${navHtml}</div>
 
     <div class="cram-content">${contentHtml}</div>
@@ -7446,11 +7831,11 @@ const MEGACODE_SCENARIOS = [
     question: '依 2025 指引,下一步處置?',
     options: [
       { text: '不需特別處理體溫,維持目前狀態即可', correct: false },
-      { text: '啟動 deliberate temperature control,維持 32-37.5°C ≥ 24hr', correct: true },
+      { text: '啟動 Temperature Control(2025 改名),維持 32-37.5°C ≥ 36hr', correct: true },
       { text: '立即降溫到 33°C 持續 24hr', correct: false },
       { text: '主動加溫到 37°C 以上', correct: false }
     ],
-    explain: '2025 版改變:所有 ROSC 後不依指令反應者都應 deliberate temperature control,維持 32-37.5°C ≥ 24 小時(上限放寬到 37.5)。不再強制 33°C。'
+    explain: '2025 版改變:① 正式改名 <strong>Temperature Control(體溫控制)</strong> ② 32-37.5°C ≥ <strong>36 小時</strong>(原 24hr) ③ 回溫速率 ≤ 0.25-0.5°C/hr ④ 核心精神 = 預防發燒。不再強制 33°C。'
   },
   {
     id: 'mc6',
@@ -8389,7 +8774,7 @@ function renderCaseStep() {
       <div class="case-scenario">${step.scenario}</div>
       ${ekgData ? `
         <svg width="100%" viewBox="0 0 280 60" style="background:var(--bg-soft);border-radius:6px;padding:6px 4px;margin:0 0 12px;max-height:80px;">
-          <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(128,128,128,0.2)" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <defs><pattern id="ekgsm3" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="none" stroke="rgba(255,182,193,0.5)" stroke-width="0.3"/></pattern><pattern id="ekgbg3" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="url(#ekgsm3)" stroke="rgba(220,38,38,0.55)" stroke-width="0.6"/></pattern></defs><rect width="280" height="60" fill="url(#ekgbg3)"/><line x1="0" y1="30" x2="280" y2="30" stroke="rgba(75,85,99,0.35)" stroke-width="0.5"/>
           <path d="${ekgData.svg}" fill="none" stroke="${colorMap[ekgData.severity]}" stroke-width="1.5"/>
         </svg>
       ` : ''}
@@ -8507,7 +8892,7 @@ function showMegaQuestion() {
       <div class="quiz-scenario">${q.scenario}</div>
       ${ekgData ? `
         <svg width="100%" viewBox="0 0 280 60" style="background:var(--bg-soft);border-radius:6px;padding:6px 4px;margin:0 0 12px;max-height:80px;">
-          <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(128,128,128,0.2)" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <defs><pattern id="ekgsm4" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="none" stroke="rgba(255,182,193,0.5)" stroke-width="0.3"/></pattern><pattern id="ekgbg4" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="url(#ekgsm4)" stroke="rgba(220,38,38,0.55)" stroke-width="0.6"/></pattern></defs><rect width="280" height="60" fill="url(#ekgbg4)"/><line x1="0" y1="30" x2="280" y2="30" stroke="rgba(75,85,99,0.35)" stroke-width="0.5"/>
           <path d="${ekgData.svg}" fill="none" stroke="${colorMap[ekgData.severity]}" stroke-width="1.5"/>
         </svg>
       ` : ''}
@@ -8618,7 +9003,7 @@ function newQuizQuestion() {
     <div class="quiz-container">
       <div class="quiz-question">這是什麼心律?</div>
       <svg width="100%" viewBox="0 0 280 60" style="background:var(--bg-soft);border-radius:8px;padding:10px;margin:0 0 16px;max-height:120px;">
-        <line x1="0" y1="30" x2="280" y2="30" stroke="rgba(128,128,128,0.2)" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <defs><pattern id="ekgsm5" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="none" stroke="rgba(255,182,193,0.5)" stroke-width="0.3"/></pattern><pattern id="ekgbg5" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="url(#ekgsm5)" stroke="rgba(220,38,38,0.55)" stroke-width="0.6"/></pattern></defs><rect width="280" height="60" fill="url(#ekgbg5)"/><line x1="0" y1="30" x2="280" y2="30" stroke="rgba(75,85,99,0.35)" stroke-width="0.5"/>
         <path d="${correct.svg}" fill="none" stroke="${colorMap[correct.severity]}" stroke-width="1.5"/>
       </svg>
       <div class="quiz-options" id="quizOptions">
