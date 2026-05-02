@@ -6640,6 +6640,65 @@ const CRAM_SECTIONS = [
     color: '#dc2626',
     blocks: [
       {
+        h: '🫀 身評同時找 H&Ts(致敬 Walter Kloeck 1995 經典圖)',
+        c: `<div class="cram-tip"><strong>核心觀念</strong>:身評 = 找原因。Leader 指派人手「邊 CPR 邊身評」,不是 CPR 完才找原因</div>
+        <p style="text-align:center;color:#dc2626;font-weight:600;margin:.6em 0;">👇 點擊人形圖各部位,看 Leader 指派詞</p>
+        <div style="display:flex;gap:1em;flex-wrap:wrap;align-items:flex-start;">
+          <svg viewBox="0 0 220 480" style="max-width:240px;width:100%;background:#f0f9ff;border-radius:12px;padding:12px;cursor:pointer;flex-shrink:0;">
+            <!-- 人形輪廓 -->
+            <ellipse cx="110" cy="40" rx="28" ry="32" fill="none" stroke="#1e293b" stroke-width="2"/>
+            <line x1="110" y1="72" x2="110" y2="90" stroke="#1e293b" stroke-width="2"/>
+            <path d="M 70 95 Q 110 88 150 95 L 158 220 Q 145 230 130 230 L 130 360 L 122 460 L 105 460 L 110 360 L 110 230 L 105 230 L 105 360 L 95 460 L 78 460 L 90 360 L 90 230 Q 75 230 62 220 Z" fill="none" stroke="#1e293b" stroke-width="2"/>
+            <!-- 手臂 -->
+            <path d="M 70 100 L 40 200 L 35 240" fill="none" stroke="#1e293b" stroke-width="2"/>
+            <path d="M 150 100 L 180 200 L 185 240" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+            <!-- 熱點圓 (data-h 為 key) -->
+            <circle cx="110" cy="35" r="11" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" onclick="togglePEABody('hypoxia')"/>
+            <text x="110" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a" pointer-events="none">😮</text>
+
+            <circle cx="110" cy="80" r="9" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" onclick="togglePEABody('ptx')"/>
+            <text x="110" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f" pointer-events="none">P</text>
+
+            <circle cx="92" cy="115" r="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2" onclick="togglePEABody('tampo')"/>
+            <text x="92" y="119" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d" pointer-events="none">T</text>
+
+            <circle cx="128" cy="120" r="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2" onclick="togglePEABody('mi')"/>
+            <text x="128" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d" pointer-events="none">❤</text>
+
+            <circle cx="42" cy="195" r="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="2" onclick="togglePEABody('toxin')"/>
+            <text x="42" y="199" text-anchor="middle" font-size="11" font-weight="700" fill="#312e81" pointer-events="none">💉</text>
+
+            <circle cx="178" cy="195" r="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="2" onclick="togglePEABody('toxin')"/>
+            <text x="178" y="199" text-anchor="middle" font-size="11" font-weight="700" fill="#312e81" pointer-events="none">💉</text>
+
+            <circle cx="110" cy="200" r="11" fill="#fecaca" stroke="#dc2626" stroke-width="2" onclick="togglePEABody('hypovol')"/>
+            <text x="110" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d" pointer-events="none">血</text>
+
+            <circle cx="110" cy="245" r="10" fill="#fce7f3" stroke="#ec4899" stroke-width="2" onclick="togglePEABody('acid')"/>
+            <text x="110" y="249" text-anchor="middle" font-size="11" font-weight="700" fill="#831843" pointer-events="none">H⁺</text>
+
+            <circle cx="100" cy="320" r="11" fill="#cffafe" stroke="#0891b2" stroke-width="2" onclick="togglePEABody('pe')"/>
+            <text x="100" y="324" text-anchor="middle" font-size="11" font-weight="700" fill="#164e63" pointer-events="none">PE</text>
+
+            <circle cx="100" cy="455" r="11" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" onclick="togglePEABody('hypothermia')"/>
+            <text x="100" y="459" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a" pointer-events="none">❄</text>
+
+            <!-- 標題 -->
+            <text x="110" y="475" text-anchor="middle" font-size="9" fill="#64748b">點各部位看詳情</text>
+          </svg>
+
+          <div id="pea-body-detail" style="flex:1;min-width:240px;background:#fafafa;border-radius:8px;padding:1em;border:1px solid #e2e8f0;font-size:14px;line-height:1.7;">
+            <p style="color:#64748b;margin:0;text-align:center;">👈 點擊人形圖看 Leader 怎麼派人身評</p>
+          </div>
+        </div>
+
+
+        <div class="cram-tip" style="margin-top:1em;">
+          <strong>關鍵教訓:</strong>不是「CPR 完才找原因」,而是「CPR 中,Leader 派 5 個人各看一個地方」 — 這就是 Walter Kloeck 1995 圖最值錢的觀念
+        </div>`
+      },
+      {
         h: 'Hypovolemia 低血容',
         c: `<div class="cram-q">「你怎麼知道是低血容?」</div>
         <ul class="cram-list">
@@ -7799,6 +7858,25 @@ const MEGACODE_SCENARIOS = [
   }
 
 ];
+
+// ===== 5H5T 人形圖資料與切換 =====
+        const PEA_BODY_DATA = {
+          hypoxia: { color: '#3b82f6', icon: '😮', title: '🧠 頭/嘴 — Hypoxia 缺氧', body: '<strong>派人:</strong>「你來看 ETT 位置 + EtCO₂ 波形」<br><strong>找:</strong> 插管深淺、痰塞、SpO₂、呼吸器設定<br><strong>口訣:</strong> <strong>DOPE</strong>(Displacement / Obstruction / Pneumothorax / Equipment)<br><strong>處置:</strong> 抽痰、調整 ETT、確認氧氣源' },
+          ptx: { color: '#f59e0b', icon: 'P', title: '🫁 頸/胸 — Tension Pneumothorax 張力性氣胸', body: '<strong>派人:</strong>「你來聽雙側肺音 + 看氣管」<br><strong>找:</strong> 氣管偏移(向健側)、JVD、患側無呼吸音、過度共鳴<br><strong>⚠️ 不要等 CXR!</strong> 臨床診斷即處置<br><strong>處置:</strong> 立刻針減壓 — 第 5 肋間腋前線(新版)或第 2 肋間鎖骨中線' },
+          tampo: { color: '#ef4444', icon: 'T', title: '❤️ 胸前 — Tamponade 心包填塞', body: '<strong>派人:</strong>「你來聽心音 + 看 JVD」<br><strong>找:</strong> Beck\'s triad — 低血壓 + JVD + 心音遠<br><strong>UCG:</strong> 心包積液 + RV 舒張塌陷 + RA 收縮塌陷 + Swinging heart<br><strong>處置:</strong> 緊急 Pericardiocentesis(劍突下穿刺,UCG 引導)' },
+          mi: { color: '#dc2626', icon: '❤', title: '💔 胸 — Heart attack 心肌梗塞', body: '<strong>派人:</strong>「ROSC 後立刻 12 lead!」<br><strong>找:</strong> ST elevation、新發 LBBB(視同 STEMI)、wall motion abnormality<br><strong>UCG:</strong> 節段性收縮異常<br><strong>處置:</strong> Aspirin + Ticagrelor + Heparin + Cath(D2B ≤ 90 min)' },
+          toxin: { color: '#6366f1', icon: '💉', title: '💉 手臂 — Toxins 毒物', body: '<strong>派人:</strong>「你來翻看四肢、找 patch / 針孔 / 手環」<br><strong>找:</strong> Fentanyl patch、針孔(毒癮)、糖尿病手環、藥袋<br><strong>解毒劑:</strong><br>• 鴉片 → Naloxone<br>• BB → Glucagon<br>• CCB → Calcium + Insulin<br>• TCA → NaHCO3<br>• Digoxin → Digibind<br>• Acetaminophen → NAC<br>• 有機磷 → Atropine + 2-PAM' },
+          hypovol: { color: '#dc2626', icon: '血', title: '🩸 腹部 — Hypovolemia 低血容', body: '<strong>派人:</strong>「你來看腹、查出血源 + UCG 看 IVC」<br><strong>找:</strong> 病史(出血 / 腹瀉 / 燒燙傷)、JVD 塌陷<br><strong>UCG:</strong> LV kissing wall、IVC < 1 cm 塌陷 > 50%<br><strong>POCUS:</strong> Morrison\'s pouch 找腹腔自由液<br><strong>處置:</strong> 1-2L crystalloid bolus(老人肺水腫疑慮 → 250mL 試)' },
+          acid: { color: '#ec4899', icon: 'H⁺', title: '🧪 全身 — H⁺ 酸中毒', body: '<strong>派人:</strong>「你來抽 ABG + lactate」<br><strong>找:</strong> 嚴重代謝性酸中毒(pH < 7.0)、敗血症、CPR 久<br><strong>NaHCO3 適應症只有 3 個:</strong><br>① 已知高血鉀<br>② TCA 中毒(QRS > 100ms)<br>③ 長時間 CPR(> 10 min)且確定酸中毒<br><strong>劑量:</strong> 1 mEq/kg IV<br>⚠️ Routine 給反而傷害(細胞內酸化、左移氧解離曲線)' },
+          pe: { color: '#0891b2', icon: 'PE', title: '🦵 下肢 / 肺 — PE 肺栓塞', body: '<strong>派人:</strong>「你看下肢有無不對稱腫 + UCG 看 RV」<br><strong>找:</strong> 術後 / 長期臥床 / DVT 史 / 突然喘<br><strong>EKG:</strong> 竇性頻脈最常見、新發 RBBB(34%)、V1-V4 T 倒立(68%)、S1Q3T3(僅 20%)<br><strong>UCG:</strong> RV 擴大、D-shape、McConnell sign、TAPSE < 17mm<br><strong>處置:</strong> Massive PE → tPA 50mg IV bolus + ECPR bridge' },
+          hypothermia: { color: '#3b82f6', icon: '❄', title: '🦶 末梢 — Hypothermia 低體溫', body: '<strong>派人:</strong>「你來摸四肢溫度 + 量肛溫」<br><strong>找:</strong> 戶外暴露、酒精、溺水、術中暴露<br><strong>< 30°C 特殊規則:</strong><br>• 電擊只試 1 次<br>• 暫停 Epi/Amio(代謝慢累積)<br>• 復溫到 30°C 才標準 ACLS<br><strong>"Not dead until WARM and dead"</strong><br><strong>處置:</strong> 溫鹽水 IV + 暖空氣毯 + ECMO 復溫(最快)' }
+        };
+        function togglePEABody(key) {
+          const d = PEA_BODY_DATA[key];
+          const wrap = document.getElementById('pea-body-detail');
+          if (!d || !wrap) return;
+          wrap.innerHTML = '<div style="border-left:4px solid '+d.color+';padding-left:.8em;"><div style="font-weight:700;font-size:1.05em;color:'+d.color+';margin-bottom:.5em;">'+d.title+'</div><div>'+d.body+'</div></div>';
+        }
 
 // ============================================================
 // 🎯 OHCA 一條龍 Megacode Cases — 5 個完整情境
