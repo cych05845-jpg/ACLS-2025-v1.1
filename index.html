@@ -120,6 +120,341 @@ body {
   width: 16px;
   height: 16px;
 }
+/* === 全域搜尋 dropdown === */
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-height: 60vh;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+.search-dropdown.show { display: block; }
+.search-result-group {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.search-result-group:last-child { border-bottom: none; }
+.search-result-group-title {
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.search-result-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  border-left: 3px solid transparent;
+}
+.search-result-item:hover {
+  background: var(--bg-soft);
+  border-left-color: var(--blue);
+}
+.search-result-icon {
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.search-result-content {
+  flex: 1;
+  min-width: 0;
+}
+.search-result-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+  line-height: 1.35;
+}
+.search-result-snippet {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-result-snippet mark {
+  background: #fef08a;
+  color: #713f12;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+.search-result-empty {
+  padding: 16px 12px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.search-result-count {
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+}
+/* 跳到 cram block 後的高亮動畫 */
+@keyframes flash-highlight {
+  0%, 100% { background: #fff; box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+  20%, 80% { background: #fef9c3; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3); }
+}
+.cram-block.search-flash {
+  animation: flash-highlight 2s ease-in-out;
+}
+
+/* === AI 功能 === */
+.ai-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0;
+  transition: opacity 0.15s;
+}
+.ai-search-btn:hover { opacity: 0.9; }
+.ai-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ai-search-btn .ai-quota {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+.ai-explain-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: opacity 0.15s;
+}
+.ai-explain-btn:hover { opacity: 0.9; }
+.ai-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.ai-modal-overlay.show { display: flex; }
+.ai-modal {
+  background: var(--bg);
+  border-radius: 12px;
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.ai-modal-h {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  flex-shrink: 0;
+}
+.ai-modal-h-title {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-modal-h-close {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+.ai-modal-h-close:hover { background: rgba(255,255,255,0.3); }
+.ai-modal-body {
+  padding: 18px;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.ai-modal-body h3 { margin: 14px 0 8px; font-size: 15px; color: var(--text); }
+.ai-modal-body h4 { margin: 12px 0 6px; font-size: 14px; color: var(--text); }
+.ai-modal-body ul, .ai-modal-body ol { margin: 6px 0 6px 22px; }
+.ai-modal-body li { margin-bottom: 4px; }
+.ai-modal-body strong { color: var(--blue); }
+.ai-modal-body code {
+  background: var(--bg-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.ai-modal-body .ai-disclaimer {
+  background: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  padding: 10px 14px;
+  margin: 0 0 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #78350f;
+}
+.ai-modal-body .ai-source {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.ai-modal-body .ai-source-link {
+  display: inline-block;
+  margin: 4px 4px 0 0;
+  padding: 4px 10px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--blue);
+  border: 1px solid var(--border);
+}
+.ai-modal-body .ai-source-link:hover { background: var(--blue); color: white; }
+.ai-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px;
+  color: var(--text-muted);
+}
+.ai-loading-dots {
+  display: inline-block;
+  position: relative;
+}
+.ai-loading-dots::after {
+  content: '...';
+  animation: ai-dots 1.4s infinite;
+}
+@keyframes ai-dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+.ai-error {
+  background: #fee;
+  border-left: 4px solid #ef4444;
+  padding: 12px 16px;
+  border-radius: 4px;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+/* AI Settings */
+.ai-settings-form { display: flex; flex-direction: column; gap: 12px; }
+.ai-settings-form label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: -4px;
+}
+.ai-settings-form input, .ai-settings-form select {
+  padding: 8px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--bg);
+  color: var(--text);
+}
+.ai-settings-form input:focus { outline: none; border-color: var(--blue); }
+.ai-settings-form .hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: -4px;
+  line-height: 1.4;
+}
+.ai-settings-form .ai-key-status {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+.ai-settings-form .ai-key-status.ok { background: #d1fae5; color: #065f46; }
+.ai-settings-form .ai-key-status.bad { background: #fee2e2; color: #991b1b; }
+.ai-settings-form .row {
+  display: flex;
+  gap: 8px;
+}
+.ai-settings-form .row > * { flex: 1; }
+.ai-settings-form button {
+  padding: 8px 12px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.ai-settings-form button:hover { opacity: 0.9; }
+.ai-settings-form button.secondary { background: var(--bg-soft); color: var(--text); border: 1px solid var(--border); }
+.ai-quota-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.ai-icon-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.ai-icon-btn:hover { background: var(--bg-soft); }
 .header-actions {
   display: flex;
   gap: 6px;
@@ -1044,18 +1379,254 @@ body {
 
 /* ===== 考前衝刺 (cram) ===== */
 .cram-nav { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:.5em; margin-bottom:1.2em; }
-.cram-nav-btn { background:#fff; border:2px solid #e2e8f0; border-radius:10px; padding:.7em .8em; cursor:pointer; transition:all .15s; display:flex; flex-direction:column; align-items:center; gap:.3em; --c:#3b82f6; }
+.cram-nav-btn { background:#fff; border:2px solid #e2e8f0; border-radius:10px; padding:.7em .8em; cursor:pointer; transition:all .15s; display:flex; flex-direction:column; align-items:center; gap:.3em; --c:#3b82f6; position:relative; }
 .cram-nav-btn:hover { border-color:var(--c); transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.08); }
 .cram-nav-btn.active { background:var(--c); border-color:var(--c); color:#fff; }
 .cram-nav-btn.active .cram-nav-title { color:#fff; }
 .cram-nav-icon { font-size:1.6em; }
 .cram-nav-title { font-size:.85em; font-weight:600; color:#1e293b; text-align:center; line-height:1.3; }
+/* 章節按鈕上的進度徽章 */
+.cram-nav-progress {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0,0,0,0.08);
+  color: #64748b;
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.cram-nav-btn.active .cram-nav-progress {
+  background: rgba(255,255,255,0.35);
+  color: #fff;
+}
+.cram-nav-progress.done { background: #10b981; color: #fff; }
+
+/* === 整體進度條 (頂部) === */
+.cram-progress-bar {
+  margin: 0 0 1em;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.cram-progress-text {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+  min-width: 130px;
+}
+.cram-progress-text strong { color: #0f172a; font-size: 16px; }
+.cram-progress-rail {
+  flex: 1;
+  min-width: 200px;
+  background: #f1f5f9;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+.cram-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  transition: width 0.3s;
+}
+.cram-progress-fill.split {
+  display: flex;
+  height: 100%;
+}
+.cram-progress-fill.split > span {
+  height: 100%;
+  display: block;
+}
+.cram-progress-actions {
+  display: flex;
+  gap: 6px;
+}
+.cram-progress-btn {
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+}
+.cram-progress-btn:hover { background: #f8fafc; border-color: #94a3b8; }
+.cram-progress-btn.danger:hover { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
+
+/* === Block 進度 dot === */
+.cram-block { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:1em 1.1em; margin-bottom:.7em; border-top:3px solid var(--bc); --bc:#3b82f6; position:relative; }
+.cram-block.is-read { background: #f0fdf4; border-color: #86efac; }
+.cram-block.is-star { background: #fffbeb; border-color: #fcd34d; }
+.cram-block.is-weak { background: #fef2f2; border-color: #fca5a5; }
+.cram-block-h { font-weight:700; color:#1e293b; font-size:1.02em; margin-bottom:.7em; line-height:1.5; padding-right: 90px; }
+.cram-block-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.cram-mark-btn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all .12s;
+  color: #94a3b8;
+}
+.cram-mark-btn:hover { background: #f8fafc; transform: scale(1.1); }
+.cram-mark-btn.active.read { background: #10b981; border-color: #10b981; color: #fff; }
+.cram-mark-btn.active.star { background: #f59e0b; border-color: #f59e0b; color: #fff; }
+.cram-mark-btn.active.weak { background: #ef4444; border-color: #ef4444; color: #fff; }
+
+/* === 浮動「回章首」 === */
+.cram-floating-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 100;
+  display: none;
+  transition: opacity .2s, transform .2s;
+}
+.cram-floating-top.show { display: flex; align-items: center; justify-content: center; }
+.cram-floating-top:hover { transform: translateY(-2px); }
+
+/* === 章節概覽模式 === */
+.cram-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.cram-overview-section {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid var(--c);
+  border-radius: 10px;
+  padding: 12px 14px;
+  --c: #3b82f6;
+}
+.cram-overview-section-h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.cram-overview-section-icon { font-size: 24px; }
+.cram-overview-section-title { font-weight: 700; font-size: 14px; color: #0f172a; }
+.cram-overview-section-progress {
+  margin-left: auto;
+  font-size: 11px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.cram-overview-block-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+.cram-overview-block-list li {
+  padding: 4px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #475569;
+  border-bottom: 1px dashed #f1f5f9;
+}
+.cram-overview-block-list li:hover { color: #0f172a; background: #f8fafc; padding-left: 4px; }
+.cram-overview-block-list li:last-child { border-bottom: none; }
+.cram-overview-block-list .ovw-mark {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background: #e2e8f0;
+}
+.cram-overview-block-list .ovw-mark.read { background: #10b981; }
+.cram-overview-block-list .ovw-mark.star { background: #f59e0b; }
+.cram-overview-block-list .ovw-mark.weak { background: #ef4444; }
+
+/* === Mode 切換 (章節 vs 概覽) === */
+.cram-mode-tabs {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 12px;
+  margin-right: 8px;
+}
+.cram-mode-tab {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #64748b;
+}
+.cram-mode-tab.active { background: #fff; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+/* === 篩選 === */
+.cram-filter-bar {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cram-filter-btn {
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cram-filter-btn:hover { border-color: #94a3b8; }
+.cram-filter-btn.active.read { background: #d1fae5; border-color: #10b981; color: #047857; }
+.cram-filter-btn.active.star { background: #fef3c7; border-color: #f59e0b; color: #b45309; }
+.cram-filter-btn.active.weak { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+.cram-filter-btn.active.unread { background: #f1f5f9; border-color: #94a3b8; color: #1e293b; }
+
 .cram-section-head { display:flex; gap:.8em; align-items:center; padding:1em 1.2em; background:#fff; border-left:5px solid var(--c); border-radius:8px; margin-bottom:1em; box-shadow:0 1px 3px rgba(0,0,0,.05); --c:#3b82f6; }
 .cram-section-icon { font-size:2em; }
 .cram-section-title { font-size:1.2em; font-weight:700; color:#1e293b; }
 .cram-section-sub { font-size:.85em; color:#64748b; margin-top:.15em; }
-.cram-block { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:1em 1.1em; margin-bottom:.7em; border-top:3px solid var(--bc); --bc:#3b82f6; }
-.cram-block-h { font-weight:700; color:#1e293b; font-size:1.02em; margin-bottom:.7em; line-height:1.5; }
 .cram-block-c { color:#334155; line-height:1.7; font-size:.95em; }
 .cram-block-c strong { color:#dc2626; font-weight:700; }
 .cram-list { list-style:none; padding-left:0; margin:.4em 0; }
@@ -1345,14 +1916,30 @@ details > div, details > p { font-size: 16px !important; line-height: 1.8 !impor
     <span class="subtitle">視覺化辨識卡 v1.0</span>
     <div class="search-box">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="search" id="searchInput" placeholder="搜尋:VT、不穩定、AVB...">
+      <input type="search" id="searchInput" placeholder="搜尋(全域):VT、孕婦、Atropine、賴韋安..." autocomplete="off">
+      <div class="search-dropdown" id="searchDropdown"></div>
     </div>
     <div class="header-actions">
       <button class="icon-btn" id="favBtn" onclick="toggleFavView()">★ 收藏</button>
+      <button class="icon-btn" onclick="openAISettings()" title="AI 設定">🤖 AI</button>
       <button class="icon-btn" onclick="window.print()">列印</button>
     </div>
   </div>
 </header>
+
+<!-- AI Modal: 共用結果展示 / 設定 -->
+<div class="ai-modal-overlay" id="aiModalOverlay" onclick="closeAIModal(event)">
+  <div class="ai-modal" onclick="event.stopPropagation()">
+    <div class="ai-modal-h">
+      <div class="ai-modal-h-title" id="aiModalTitle">🤖 AI</div>
+      <button class="ai-modal-h-close" onclick="closeAIModal()">✕</button>
+    </div>
+    <div class="ai-modal-body" id="aiModalBody"></div>
+  </div>
+</div>
+
+<!-- 浮動「回頂」按鈕 -->
+<button class="cram-floating-top" id="floatingTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂部">↑</button>
 
 <nav class="tab-bar">
   <div class="tab-bar-inner">
@@ -2075,29 +2662,706 @@ function switchTab(name, btn) {
   if (name === 'feedback' && !window._fbRendered) { renderFeedback(); window._fbRendered = true; }
 }
 
-// 搜尋
+// ============================================================
+// 全域搜尋 (Global Search) — 涵蓋 EKG / 藥物 / 考前衝刺 109 區塊
+// ============================================================
+// 把 HTML 字串去 tag,只留純文字(用於搜尋 + snippet)
+function _stripHtml(html) {
+  return html.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+// 從文字中找出含 query 的片段,做 snippet(前後留 30 字)
+function _makeSnippet(text, q, maxLen = 80) {
+  if (!text) return '';
+  const lower = text.toLowerCase();
+  const idx = lower.indexOf(q.toLowerCase());
+  if (idx < 0) return text.length > maxLen ? text.slice(0, maxLen) + '…' : text;
+  const start = Math.max(0, idx - 25);
+  const end = Math.min(text.length, idx + q.length + 50);
+  let snip = text.slice(start, end);
+  if (start > 0) snip = '…' + snip;
+  if (end < text.length) snip = snip + '…';
+  // 高亮 query
+  const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return snip.replace(re, '<mark>$1</mark>');
+}
+
+// 主搜尋函式 — 回傳分組結果
+function globalSearch(q) {
+  q = q.toLowerCase().trim();
+  if (!q) return { ekg: [], drug: [], cram: [], total: 0 };
+
+  // 1. EKG 圖鑑
+  const ekg = EKG_DATA.filter(d =>
+    d.name.toLowerCase().includes(q) ||
+    d.nameEn.toLowerCase().includes(q) ||
+    d.tag.toLowerCase().includes(q) ||
+    d.keywords.some(k => k.toLowerCase().includes(q))
+  ).slice(0, 8);
+
+  // 2. 藥物
+  const drug = DRUG_DATA.filter(d =>
+    d.name.toLowerCase().includes(q) ||
+    d.nameZh.includes(q) ||
+    (d.indication || '').toLowerCase().includes(q) ||
+    (d.keywords || []).some(k => k.toLowerCase().includes(q))
+  ).slice(0, 8);
+
+  // 3. 考前衝刺(109 區塊)
+  const cram = [];
+  CRAM_SECTIONS.forEach(sec => {
+    const secMatch = sec.title.toLowerCase().includes(q) || (sec.subtitle || '').toLowerCase().includes(q);
+    sec.blocks.forEach((b, i) => {
+      const hText = _stripHtml(b.h);
+      const cText = _stripHtml(b.c);
+      const hLow = hText.toLowerCase();
+      const cLow = cText.toLowerCase();
+      if (hLow.includes(q) || cLow.includes(q) || secMatch) {
+        // 優先用標題的 snippet,沒有再用內容
+        const snippetSrc = hLow.includes(q) ? hText : (cLow.includes(q) ? cText : hText);
+        cram.push({
+          secId: sec.id,
+          secTitle: sec.title,
+          secIcon: sec.icon,
+          blockIdx: i,
+          h: hText,
+          snippet: _makeSnippet(snippetSrc, q),
+          color: sec.color
+        });
+      }
+    });
+  });
+
+  return {
+    ekg,
+    drug,
+    cram: cram.slice(0, 15),
+    total: ekg.length + drug.length + cram.length
+  };
+}
+
+// 渲染 dropdown
+function renderSearchDropdown(q) {
+  const dropdown = document.getElementById('searchDropdown');
+  if (!q || !q.trim()) {
+    dropdown.classList.remove('show');
+    return;
+  }
+  const r = globalSearch(q);
+
+  let html = '';
+
+  if (r.total === 0) {
+    html += `<div class="search-result-empty">🔍 找不到「${q}」相關內容</div>`;
+  } else {
+    html += `<div class="search-result-count">找到 ${r.total} 筆結果</div>`;
+
+    // EKG 圖鑑
+    if (r.ekg.length) {
+      html += `<div class="search-result-group">
+        <div class="search-result-group-title">🩺 EKG 圖鑑(${r.ekg.length})</div>
+        ${r.ekg.map(d => `
+          <div class="search-result-item" onclick="jumpToEkg('${d.id}')">
+            <div class="search-result-icon">${d.severity === 'danger' ? '💀' : d.severity === 'warn' ? '⚠️' : '✅'}</div>
+            <div class="search-result-content">
+              <div class="search-result-title">${d.name} <span style="color:var(--text-muted);font-weight:400;font-size:11px;">${d.nameEn}</span></div>
+              <div class="search-result-snippet">${_makeSnippet(d.tag + ' · ' + d.keywords.join('、'), q, 90)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+    }
+
+    // 藥物
+    if (r.drug.length) {
+      html += `<div class="search-result-group">
+        <div class="search-result-group-title">💊 急救用藥(${r.drug.length})</div>
+        ${r.drug.map(d => `
+          <div class="search-result-item" onclick="jumpToDrug('${d.id}')">
+            <div class="search-result-icon">💊</div>
+            <div class="search-result-content">
+              <div class="search-result-title">${d.name} <span style="color:var(--text-muted);font-weight:400;font-size:11px;">${d.nameZh}</span></div>
+              <div class="search-result-snippet">${_makeSnippet(d.indication || '', q, 90)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+    }
+
+    // 考前衝刺
+    if (r.cram.length) {
+      html += `<div class="search-result-group">
+        <div class="search-result-group-title">📚 考前衝刺(${r.cram.length})</div>
+        ${r.cram.map(c => `
+          <div class="search-result-item" onclick="jumpToCram('${c.secId}', ${c.blockIdx})">
+            <div class="search-result-icon" style="color:${c.color};">${c.secIcon}</div>
+            <div class="search-result-content">
+              <div class="search-result-title">${c.h}</div>
+              <div class="search-result-snippet"><span style="color:${c.color};font-weight:600;">${c.secTitle}</span> · ${c.snippet}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+    }
+  }
+
+  // AI 補充搜尋按鈕(永遠顯示在底部)
+  const quotaInfo = aiGetQuotaInfo();
+  const disabledAttr = quotaInfo.remaining <= 0 ? 'disabled' : '';
+  html += `<button class="ai-search-btn" onclick="aiSearchAsk('${q.replace(/'/g, "\\'")}')" ${disabledAttr}>
+    🤖 用 AI 整合回答
+    <span class="ai-quota">(剩 ${quotaInfo.remaining}/${quotaInfo.total})</span>
+  </button>`;
+
+  dropdown.innerHTML = html;
+  dropdown.classList.add('show');
+}
+
+// 跳轉:EKG 圖鑑
+function jumpToEkg(id) {
+  closeSearchDropdown();
+  // 切到 atlas 分頁
+  const atlasBtn = document.querySelector('.tab-btn');
+  if (!document.getElementById('tab-atlas').classList.contains('active')) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-atlas').classList.add('active');
+    atlasBtn.classList.add('active');
+  }
+  // 開 modal
+  showEKGDetail(id);
+}
+
+// 跳轉:藥物
+function jumpToDrug(id) {
+  closeSearchDropdown();
+  // 切到 drug 分頁
+  const drugBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes('用藥') || b.getAttribute('onclick')?.includes('drug'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-drug').classList.add('active');
+  if (drugBtn) drugBtn.classList.add('active');
+  if (!window._drugRendered) { renderDrug(); window._drugRendered = true; }
+  // 開該藥物的 modal(showDrugDetail)
+  setTimeout(() => {
+    if (typeof showDrugDetail === 'function') showDrugDetail(id);
+  }, 100);
+}
+
+// 跳轉:考前衝刺區塊
+function jumpToCram(secId, blockIdx) {
+  closeSearchDropdown();
+  // 切到 cram 分頁
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-cram').classList.add('active');
+  const cramBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick')?.includes("'cram'"));
+  if (cramBtn) cramBtn.classList.add('active');
+  if (!window._cramRendered) { renderCram(); window._cramRendered = true; }
+  // 切換到該章節
+  cramOpenSection = secId;
+  renderCram();
+  // scroll + flash
+  setTimeout(() => {
+    const el = document.getElementById('cb-' + secId + '-' + blockIdx);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.remove('search-flash');
+      void el.offsetWidth; // 強制 reflow 重啟動畫
+      el.classList.add('search-flash');
+    }
+  }, 150);
+}
+
+function closeSearchDropdown() {
+  document.getElementById('searchDropdown').classList.remove('show');
+}
+
+// ============================================================
+// 🤖 AI 功能 (Gemini Flash) — 補充搜尋 + 章節重講
+// ============================================================
+
+// ╔════════════════════════════════════════════════════════════════════╗
+// ║  ⬇️⬇️⬇️ 在下面這一行雙引號內填入您的 Gemini API key ⬇️⬇️⬇️           ║
+// ║                                                                    ║
+// ║  範例:const AI_DEFAULT_KEY = "AIzaSyB9isR-ECzPLENRRWrTyFgDRU4Qkoh4h5A";                    ║
+// ║                                                                    ║
+// ║  ★ 申請 key: https://aistudio.google.com/apikey                    ║
+// ║  ★ 留空 ("") 也可以,學員可以填自己的 key                          ║
+// ║  ★ 注意: 此 key 會被任何打開 index.html 的人看到                   ║
+// ║    建議只用來給「公開教學」的場景,不要放重要 key                  ║
+// ╚════════════════════════════════════════════════════════════════════╝
+const AI_DEFAULT_KEY = ""; // ← 在這裡填您的 key (留空也可以)
+
+// ────────────────────────────────────────────────────────────────────
+// 上面這個 key 會作為「預設 key」自動套用,學員不需要設定就能用 AI
+// 學員仍可在 AI 設定中填自己的 key 覆蓋預設值(優先用學員自己的)
+// ────────────────────────────────────────────────────────────────────
+
+const AI_DAILY_QUOTA = 30; // 每天每裝置最多 30 次(防止爆量,僅針對預設 key)
+const AI_MODEL = 'gemini-2.5-flash-lite'; // 主要使用的模型(免費 1000/day)
+
+function aiGetKey() {
+  return localStorage.getItem('aclsAiKey') || AI_DEFAULT_KEY;
+}
+
+function aiSetKey(key) {
+  if (key) {
+    localStorage.setItem('aclsAiKey', key.trim());
+  } else {
+    localStorage.removeItem('aclsAiKey');
+  }
+}
+
+function aiGetQuotaInfo() {
+  const today = new Date().toISOString().slice(0, 10);
+  const data = JSON.parse(localStorage.getItem('aclsAiQuota') || '{}');
+  if (data.date !== today) {
+    return { date: today, used: 0, total: AI_DAILY_QUOTA, remaining: AI_DAILY_QUOTA };
+  }
+  return { date: today, used: data.used, total: AI_DAILY_QUOTA, remaining: Math.max(0, AI_DAILY_QUOTA - data.used) };
+}
+
+function aiIncrementQuota() {
+  const today = new Date().toISOString().slice(0, 10);
+  const data = JSON.parse(localStorage.getItem('aclsAiQuota') || '{}');
+  if (data.date !== today) {
+    localStorage.setItem('aclsAiQuota', JSON.stringify({ date: today, used: 1 }));
+  } else {
+    localStorage.setItem('aclsAiQuota', JSON.stringify({ date: today, used: (data.used || 0) + 1 }));
+  }
+}
+
+// 通用 Gemini 呼叫(回 streaming 文字)
+async function callGemini(prompt, systemInstruction = '') {
+  const key = aiGetKey();
+  if (!key) {
+    throw new Error('NO_KEY');
+  }
+  const quota = aiGetQuotaInfo();
+  if (quota.remaining <= 0) {
+    throw new Error('QUOTA_EXHAUSTED');
+  }
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL}:generateContent?key=${key}`;
+  const body = {
+    contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: 0.3,
+      maxOutputTokens: 2000,
+      responseMimeType: 'text/plain'
+    }
+  };
+  if (systemInstruction) {
+    body.systemInstruction = { parts: [{ text: systemInstruction }] };
+  }
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    if (res.status === 429) throw new Error('RATE_LIMIT');
+    if (res.status === 401 || res.status === 403) throw new Error('INVALID_KEY');
+    throw new Error('API_ERROR: ' + err.slice(0, 200));
+  }
+
+  aiIncrementQuota();
+
+  const data = await res.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  if (!text) throw new Error('EMPTY_RESPONSE');
+  return text;
+}
+
+// 簡單 markdown → HTML(限定:粗體、斜體、列表、標題、code)
+function aiMarkdownToHtml(md) {
+  let html = md
+    // 標題
+    .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+    .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+    // 粗體
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // 斜體(限定一行內)
+    .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
+    // inline code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // 換行 → <br>(暫時)
+    .replace(/\n/g, '<br>');
+
+  // 列表(粗略處理)
+  html = html.replace(/(<br>[•·\-\*] [^<]+)+/g, m => {
+    const items = m.split(/<br>[•·\-\*] /).filter(x => x.trim()).map(x => `<li>${x}</li>`).join('');
+    return '<ul>' + items + '</ul>';
+  });
+  html = html.replace(/(<br>\d+\. [^<]+)+/g, m => {
+    const items = m.split(/<br>\d+\. /).filter(x => x.trim()).map(x => `<li>${x}</li>`).join('');
+    return '<ol>' + items + '</ol>';
+  });
+
+  return html;
+}
+
+// 從工具索引取得相關章節摘要(給 AI 當 context)
+function aiGetRelevantContext(query) {
+  const r = globalSearch(query);
+  let ctx = '';
+  if (r.ekg.length) {
+    ctx += '【EKG 圖鑑相關】\n';
+    r.ekg.slice(0, 3).forEach(d => {
+      ctx += `- ${d.name} (${d.nameEn}): ${d.tag}; 關鍵字: ${d.keywords.join('、')}\n`;
+    });
+  }
+  if (r.drug.length) {
+    ctx += '\n【藥物資料】\n';
+    r.drug.slice(0, 3).forEach(d => {
+      ctx += `- ${d.name} (${d.nameZh}): ${(d.indication || '').slice(0, 80)}\n`;
+    });
+  }
+  if (r.cram.length) {
+    ctx += '\n【考前衝刺相關區塊】\n';
+    r.cram.slice(0, 5).forEach(c => {
+      ctx += `- [${c.secTitle}] ${c.h}\n`;
+    });
+  }
+  return ctx || '(工具索引無直接相關內容)';
+}
+
+// AI 補充搜尋
+async function aiSearchAsk(query) {
+  closeSearchDropdown();
+  showAIModal('🤖 AI 整合回答', `<div class="ai-loading">AI 思考中<span class="ai-loading-dots"></span></div>`);
+
+  const ctx = aiGetRelevantContext(query);
+  const systemPrompt = `你是 ACLS 2025 教學助理,專門協助護理人員和學員理解急救內容。
+
+回答規則:
+1. 必須符合 2025 AHA ACLS Guidelines
+2. 不確定就明確說「不確定」,絕對不亂編劑量或臨床數據
+3. 用繁體中文回答,簡潔扼要(以條列為主)
+4. 醫療術語第一次出現時保留英文原文(如 "心室顫動 (VF)")
+5. 如果問題涉及具體病人決策,提醒「以實際臨床判斷為準」
+6. 結尾簡短列出 1-3 個工具裡的相關章節讓使用者參考`;
+
+  const prompt = `學員問題:「${query}」
+
+工具中找到的相關內容:
+${ctx}
+
+請基於 2025 AHA ACLS Guidelines 與工具中的相關內容,給學員一個結構化的回答。`;
+
+  try {
+    const result = await callGemini(prompt, systemPrompt);
+    const r = globalSearch(query);
+    let sourceLinks = '';
+    if (r.cram.length || r.ekg.length || r.drug.length) {
+      sourceLinks = '<div class="ai-source"><strong>📚 工具中的相關章節:</strong><br>';
+      r.cram.slice(0, 3).forEach(c => {
+        sourceLinks += `<span class="ai-source-link" onclick="closeAIModal();jumpToCram('${c.secId}', ${c.blockIdx})">📖 ${c.h.slice(0, 30)}</span>`;
+      });
+      r.ekg.slice(0, 2).forEach(d => {
+        sourceLinks += `<span class="ai-source-link" onclick="closeAIModal();jumpToEkg('${d.id}')">🩺 ${d.name}</span>`;
+      });
+      r.drug.slice(0, 2).forEach(d => {
+        sourceLinks += `<span class="ai-source-link" onclick="closeAIModal();jumpToDrug('${d.id}')">💊 ${d.name}</span>`;
+      });
+      sourceLinks += '</div>';
+    }
+    const html = `
+      <div class="ai-disclaimer">⚠️ AI 回答僅供參考,可能有誤,以 ACLS 教材與臨床判斷為準。</div>
+      ${aiMarkdownToHtml(result)}
+      ${sourceLinks}
+    `;
+    document.getElementById('aiModalBody').innerHTML = html;
+  } catch (err) {
+    showAIError(err);
+  }
+}
+
+// AI 章節重講
+async function aiExplainBlock(secId, blockIdx) {
+  // 找到這個 block 的 h + c
+  const sec = CRAM_SECTIONS.find(s => s.id === secId);
+  if (!sec || !sec.blocks[blockIdx]) {
+    alert('找不到該區塊');
+    return;
+  }
+  const block = sec.blocks[blockIdx];
+  const blockTitle = _stripHtml(block.h);
+  const blockContent = _stripHtml(block.c);
+
+  showAIModal(`💡 AI 重講:${blockTitle.slice(0, 30)}`, `<div class="ai-loading">AI 重新解釋中<span class="ai-loading-dots"></span></div>`);
+
+  const systemPrompt = `你是 ACLS 2025 教學助理,擅長把臨床知識用「白話 + 比喻」教給護理人員。
+
+任務:把工具中的某個區塊內容用更白話、容易記住的方式重新講解。
+
+規則:
+1. 必須完全準確 — 不能改劑量、改藥名、改適應症
+2. 用繁體中文,口語化但專業
+3. 善用比喻、類比讓抽象概念具體化
+4. 如果是流程,用「先...再...然後」讓步驟感清楚
+5. 如果有口訣,要強化口訣
+6. 結尾用 1-2 句總結重點`;
+
+  const prompt = `章節標題:「${blockTitle}」
+所在大章:${sec.title}
+
+原始內容:
+${blockContent.slice(0, 2000)}
+
+請用更白話、更容易記住的方式重新講解這段內容,讓護理同仁第一次看就能懂。`;
+
+  try {
+    const result = await callGemini(prompt, systemPrompt);
+    const html = `
+      <div class="ai-disclaimer">⚠️ AI 解釋僅供輔助理解,內容以原章節為準。</div>
+      <div style="background:var(--bg-soft);padding:8px 12px;border-radius:6px;margin-bottom:12px;font-size:12px;color:var(--text-muted);">
+        📖 原章節:<strong>${blockTitle}</strong>(${sec.title})
+      </div>
+      ${aiMarkdownToHtml(result)}
+    `;
+    document.getElementById('aiModalBody').innerHTML = html;
+  } catch (err) {
+    showAIError(err);
+  }
+}
+
+// 顯示 AI Modal(共用)
+function showAIModal(title, bodyHtml) {
+  document.getElementById('aiModalTitle').innerHTML = title;
+  document.getElementById('aiModalBody').innerHTML = bodyHtml;
+  document.getElementById('aiModalOverlay').classList.add('show');
+}
+
+function closeAIModal(e) {
+  if (e && e.target.closest('.ai-modal') && !e.target.closest('.ai-modal-h-close')) return;
+  document.getElementById('aiModalOverlay').classList.remove('show');
+}
+
+// 錯誤顯示
+function showAIError(err) {
+  const isDefault = !localStorage.getItem('aclsAiKey');
+  let msg = '';
+  let action = '';
+  if (err.message === 'NO_KEY') {
+    msg = '尚未設定 Gemini API key,需要設定後才能使用 AI 功能。';
+    action = '<button class="ai-icon-btn" onclick="openAISettings(true)" style="margin-top:10px;background:#3b82f6;color:#fff;border-color:#3b82f6;">🚀 立刻設定 API key</button>';
+  } else if (err.message === 'INVALID_KEY') {
+    msg = 'API key 無效或已被撤銷,請檢查設定的 key 是否正確。';
+    action = '<button class="ai-icon-btn" onclick="openAISettings()" style="margin-top:10px;">⚙️ 重新設定</button>';
+  } else if (err.message === 'QUOTA_EXHAUSTED') {
+    if (isDefault) {
+      msg = '<strong>今天的預設 key 額度已用完(30 次/天)</strong><br><br>選擇:<br>① 明天 00:00 自動 reset<br>② 立刻填入您自己的 Gemini API key 解鎖每天 1000 次免費額度';
+      action = '<button class="ai-icon-btn" onclick="openAISettings(true)" style="margin-top:10px;background:#10b981;color:#fff;border-color:#10b981;">🚀 立刻申請我的 key(5 分鐘)</button>';
+    } else {
+      msg = '今天的額度已達上限。請等明天 reset,或檢查您的 Gemini quota。';
+    }
+  } else if (err.message === 'RATE_LIMIT') {
+    msg = '<strong>AI 服務忙碌中(rate limit)</strong>,請稍等幾秒再試。<br><br>如果常常發生,代表此 key 被很多人共用 — 建議填入自己的 key。';
+    action = '<button class="ai-icon-btn" onclick="openAISettings()" style="margin-top:10px;">⚙️ 設定我的 key</button>';
+  } else if (err.message === 'EMPTY_RESPONSE') {
+    msg = 'AI 沒有回傳內容,可能是 query 不適合或被安全過濾。請換個說法再試。';
+  } else {
+    msg = '發生錯誤:' + err.message;
+  }
+  document.getElementById('aiModalBody').innerHTML = `<div class="ai-error">❌ ${msg}</div>${action ? `<div style="margin-top:10px;text-align:center;">${action}</div>` : ''}`;
+}
+
+// AI Settings 視窗
+function openAISettings(showOnboarding = false) {
+  const currentKey = aiGetKey();
+  const isDefault = !localStorage.getItem('aclsAiKey');
+  const quota = aiGetQuotaInfo();
+  const maskedKey = currentKey ? currentKey.slice(0, 8) + '...' + currentKey.slice(-4) : '(無)';
+
+  // 額度狀態判斷
+  const usedPct = (quota.used / quota.total * 100);
+  const isLowQuota = quota.remaining <= 5 && quota.remaining > 0; // 快用完
+  const isOutOfQuota = quota.remaining <= 0; // 用完
+  const useDefaultKey = isDefault && currentKey; // 在用預設 key
+
+  // 額度警告 banner
+  let quotaWarning = '';
+  if (useDefaultKey && isOutOfQuota) {
+    quotaWarning = `
+      <div style="background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fca5a5;border-radius:8px;padding:14px;margin-bottom:8px;">
+        <div style="font-weight:700;color:#991b1b;margin-bottom:6px;">⚠️ 今日預設 key 額度已用完</div>
+        <div style="font-size:12px;color:#7f1d1d;line-height:1.5;">
+          您今天使用了 ${quota.used} 次 AI(預設 key 共用上限 30 次/天)。<br>
+          • 明天 00:00 會自動 reset<br>
+          • <strong>填入自己的 API key 可立刻解除</strong>(每天 1000 次免費)
+        </div>
+      </div>
+    `;
+  } else if (useDefaultKey && isLowQuota) {
+    quotaWarning = `
+      <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fcd34d;border-radius:8px;padding:12px;margin-bottom:8px;">
+        <div style="font-weight:700;color:#92400e;margin-bottom:4px;">💡 額度即將用完(剩 ${quota.remaining} 次)</div>
+        <div style="font-size:12px;color:#78350f;">填入自己的 key 解鎖每日 1000 次免費額度</div>
+      </div>
+    `;
+  }
+
+  // 第一次使用引導
+  let onboarding = '';
+  if (showOnboarding && !currentKey) {
+    onboarding = `
+      <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #93c5fd;border-radius:8px;padding:14px;margin-bottom:12px;">
+        <div style="font-weight:700;color:#1e40af;margin-bottom:6px;">👋 歡迎使用 AI 學習助理</div>
+        <div style="font-size:12.5px;color:#1e3a8a;line-height:1.6;">
+          AI 由 Google Gemini 驅動,可以:<br>
+          • 整合工具中相關內容回答您的問題<br>
+          • 用更白話方式重新講解任何區塊<br>
+          需要 Gemini API key 才能用(免費申請,5 分鐘搞定)。
+        </div>
+      </div>
+    `;
+  }
+
+  showAIModal(showOnboarding ? '🎉 AI 學習助理 — 5 分鐘設定' : '🤖 AI 設定', `
+    <div class="ai-settings-form">
+      ${onboarding}
+      ${quotaWarning}
+
+      <div class="ai-key-status ${currentKey ? 'ok' : 'bad'}">
+        ${currentKey
+          ? (isDefault
+              ? `✓ 目前使用:<strong>預設教學 key</strong> · 額度 ${quota.used}/${quota.total}`
+              : `✓ 目前使用:<strong>您自己的 key</strong> (${maskedKey})`)
+          : '✗ 尚未設定 API key,請填入下方'}
+      </div>
+
+      <details ${!currentKey || isOutOfQuota ? 'open' : ''} style="margin:6px 0;">
+        <summary style="cursor:pointer;font-weight:600;color:#1e40af;font-size:13px;padding:6px 0;">
+          📝 怎麼申請自己的 Gemini API Key?(5 步驟)
+        </summary>
+        <ol style="font-size:12.5px;color:#475569;line-height:1.8;padding-left:24px;margin:6px 0;">
+          <li>點擊前往 <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#3b82f6;font-weight:700;text-decoration:underline;">Google AI Studio →</a></li>
+          <li>用您的 Google 帳號登入(任何 Gmail 都可以)</li>
+          <li>點擊「<strong>Create API key</strong>」按鈕</li>
+          <li>複製出現的長字串(以 <code>AIza</code> 開頭)</li>
+          <li>貼到下方輸入框,點「💾 儲存」</li>
+        </ol>
+        <div style="font-size:11px;color:#94a3b8;padding:6px 10px;background:#f8fafc;border-radius:6px;margin-top:4px;">
+          💡 完全免費,沒有付費版的話不會被收費。每天 1000 次 Gemini Flash-Lite 免費額度,夠您用一整天的學習。
+        </div>
+      </details>
+
+      <label>您的 Gemini API Key</label>
+      <input type="password" id="aiKeyInput" placeholder="${isDefault && currentKey ? '使用預設 key 中(填入此處改用您自己的)' : 'AIzaSy...(以 AIza 開頭)'}" value="" autocomplete="off">
+      <div class="hint">
+        填入自己的 key 後,本工具會優先使用您的 key,不再用預設 key。<br>
+        Key 只儲存在您裝置的 localStorage,不會上傳到我們的伺服器。
+      </div>
+      <div class="row">
+        <button onclick="aiSaveKeyFromSettings()">💾 儲存我的 Key</button>
+        ${!isDefault ? '<button class="secondary" onclick="aiClearKey()">🔄 改回預設 key</button>' : ''}
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:8px 0 6px;">
+
+      <label>今日使用額度</label>
+      <div class="ai-quota-bar">
+        <span>已使用 ${quota.used} / ${quota.total}</span>
+        <span>剩餘 ${quota.remaining}</span>
+      </div>
+      <div style="background:var(--bg-soft);height:8px;border-radius:4px;overflow:hidden;">
+        <div style="height:100%;background:${usedPct >= 80 ? '#ef4444' : usedPct >= 50 ? '#f59e0b' : 'var(--blue)'};width:${usedPct.toFixed(0)}%;transition:width 0.3s;"></div>
+      </div>
+      <div class="hint">
+        每日額度<strong>只針對預設 key</strong>,避免一個 key 被洗爆。<br>
+        填您自己的 key 後不受此限,只受 Gemini 官方免費 quota(1000/天)。
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:8px 0 6px;">
+
+      <details>
+        <summary style="cursor:pointer;font-weight:600;font-size:12px;color:#64748b;padding:4px 0;">
+          ⚙️ 進階資訊
+        </summary>
+        <div class="hint" style="margin-top:6px;">
+          • 模型:<strong>${AI_MODEL}</strong>(Gemini 最快、最便宜的模型)<br>
+          • Query 會送到 Google 伺服器處理 — 請<strong>不要輸入真實病人資料</strong>(姓名、病歷號等)<br>
+          • AI 回答僅供學習參考,臨床決策以 ACLS 教材與專業判斷為準
+        </div>
+      </details>
+    </div>
+  `);
+}
+
+function aiSaveKeyFromSettings() {
+  const input = document.getElementById('aiKeyInput');
+  const key = input.value.trim();
+  if (!key) {
+    alert('請輸入 API key');
+    return;
+  }
+  if (!/^AIza[A-Za-z0-9_\-]{30,}$/.test(key)) {
+    if (!confirm('這個 key 看起來格式不太對(Gemini key 通常以 AIza 開頭,長 39+ 字元),確定要儲存嗎?')) return;
+  }
+  aiSetKey(key);
+  // 用視覺反饋取代 alert
+  document.getElementById('aiModalBody').innerHTML = `
+    <div style="text-align:center;padding:30px 20px;">
+      <div style="font-size:48px;margin-bottom:14px;">✅</div>
+      <div style="font-size:16px;font-weight:700;color:#10b981;margin-bottom:8px;">已儲存您的 API Key!</div>
+      <div style="font-size:13px;color:#64748b;margin-bottom:20px;">每天 1000 次免費額度已解鎖</div>
+      <button onclick="closeAIModal()" style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;">開始使用</button>
+    </div>
+  `;
+}
+
+function aiClearKey() {
+  if (!confirm('確定要清除自己的 key,改回使用預設教學 key 嗎?\n預設 key 有每日 30 次的限制。')) return;
+  aiSetKey('');
+  openAISettings();
+}
+
+// 搜尋輸入監聽
+let _searchDebounce;
 document.getElementById('searchInput').addEventListener('input', (e) => {
   searchQuery = e.target.value;
-  // 判斷目前在哪個分頁,搜尋對應內容
-  const inDrug = document.getElementById('tab-drug').classList.contains('active');
-  if (inDrug) {
-    renderDrug();
-  } else {
-    renderEKGGrid();
-    // 自動切到圖鑑分頁
-    if (searchQuery && !document.getElementById('tab-atlas').classList.contains('active')) {
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-atlas').classList.add('active');
-      document.querySelector('.tab-btn').classList.add('active');
-    }
+  clearTimeout(_searchDebounce);
+  _searchDebounce = setTimeout(() => renderSearchDropdown(searchQuery), 100);
+});
+
+// focus 時若有內容也顯示 dropdown
+document.getElementById('searchInput').addEventListener('focus', (e) => {
+  if (e.target.value) renderSearchDropdown(e.target.value);
+});
+
+// 點擊外部關閉 dropdown
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-box')) {
+    closeSearchDropdown();
   }
 });
 
-// ESC 關閉 modal
+// ESC 關閉 modal + dropdown
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Escape') {
+    closeSearchDropdown();
+    closeAIModal();
+    closeModal();
+  }
+  // Ctrl/Cmd + K 開搜尋
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
 });
+
+// 浮動「回頂」按鈕的顯示控制
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('floatingTopBtn');
+  if (!btn) return;
+  if (window.scrollY > 600) btn.classList.add('show');
+  else btn.classList.remove('show');
+}, { passive: true });
 
 // 初始渲染
 renderEKGGrid();
@@ -7675,29 +8939,193 @@ const CRAM_SECTIONS = [
 // 渲染
 // ============================================================
 
+// ============================================================
+// Cram 進度管理 (localStorage)
+// ============================================================
+function cramGetProgress() {
+  try {
+    return JSON.parse(localStorage.getItem('aclsCramProgress') || '{}');
+  } catch (e) {
+    return {};
+  }
+}
+
+function cramSetMark(blockKey, mark) {
+  const data = cramGetProgress();
+  if (data[blockKey] === mark) {
+    delete data[blockKey]; // 重複點同一個 = 取消
+  } else {
+    data[blockKey] = mark;
+  }
+  localStorage.setItem('aclsCramProgress', JSON.stringify(data));
+  // 更新該 block 的視覺 + 進度條
+  cramUpdateBlockUI(blockKey);
+  cramUpdateProgressBar();
+  cramUpdateNavBadges();
+}
+
+function cramUpdateBlockUI(blockKey) {
+  const data = cramGetProgress();
+  const mark = data[blockKey] || '';
+  const el = document.getElementById('cb-' + blockKey);
+  if (!el) return;
+  el.classList.remove('is-read', 'is-star', 'is-weak');
+  if (mark === 'read') el.classList.add('is-read');
+  if (mark === 'star') el.classList.add('is-star');
+  if (mark === 'weak') el.classList.add('is-weak');
+  // 更新按鈕狀態
+  el.querySelectorAll('.cram-mark-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mark === mark);
+  });
+}
+
+function cramGetSectionStats(secId) {
+  const sec = CRAM_SECTIONS.find(s => s.id === secId);
+  if (!sec) return { total: 0, read: 0, star: 0, weak: 0 };
+  const data = cramGetProgress();
+  let read = 0, star = 0, weak = 0;
+  sec.blocks.forEach((_, i) => {
+    const m = data[secId + '-' + i];
+    if (m === 'read') read++;
+    else if (m === 'star') star++;
+    else if (m === 'weak') weak++;
+  });
+  return { total: sec.blocks.length, read, star, weak };
+}
+
+function cramGetGlobalStats() {
+  const data = cramGetProgress();
+  let total = 0, read = 0, star = 0, weak = 0;
+  CRAM_SECTIONS.forEach(s => {
+    total += s.blocks.length;
+    s.blocks.forEach((_, i) => {
+      const m = data[s.id + '-' + i];
+      if (m === 'read') read++;
+      else if (m === 'star') star++;
+      else if (m === 'weak') weak++;
+    });
+  });
+  return { total, read, star, weak };
+}
+
+function cramUpdateProgressBar() {
+  const stats = cramGetGlobalStats();
+  const bar = document.getElementById('cramProgressBar');
+  if (!bar) return;
+  const readPct = (stats.read / stats.total * 100).toFixed(1);
+  const starPct = (stats.star / stats.total * 100).toFixed(1);
+  const weakPct = (stats.weak / stats.total * 100).toFixed(1);
+  const textEl = bar.querySelector('.cram-progress-text');
+  if (textEl) textEl.innerHTML = `📚 進度 <strong>${stats.read}/${stats.total}</strong>`;
+  const fill = bar.querySelector('.cram-progress-fill');
+  if (fill) fill.innerHTML = `
+    <span style="width:${readPct}%;background:#10b981;"></span>
+    <span style="width:${starPct}%;background:#f59e0b;"></span>
+    <span style="width:${weakPct}%;background:#ef4444;"></span>
+  `;
+}
+
+function cramUpdateNavBadges() {
+  document.querySelectorAll('.cram-nav-btn').forEach(btn => {
+    const secId = btn.dataset.secId;
+    if (!secId) return;
+    const stats = cramGetSectionStats(secId);
+    let badge = btn.querySelector('.cram-nav-progress');
+    if (!badge) return;
+    badge.textContent = `${stats.read}/${stats.total}`;
+    badge.classList.toggle('done', stats.read === stats.total && stats.total > 0);
+  });
+}
+
+function cramResetProgress() {
+  if (!confirm('確定要清除全部進度標記?(已讀/重點/不熟)\n此動作無法回復。')) return;
+  localStorage.removeItem('aclsCramProgress');
+  renderCram();
+}
+
 let cramOpenSection = 'mnemonics'; // 預設開啟速記口訣
+let cramViewMode = 'detail'; // 'detail' 或 'overview'
+let cramFilter = 'all'; // all / unread / read / star / weak
+
+function cramSetMode(mode) {
+  cramViewMode = mode;
+  renderCram();
+}
+
+function cramSetFilter(f) {
+  cramFilter = (cramFilter === f) ? 'all' : f;
+  renderCram();
+}
 
 function renderCram() {
   const wrap = document.getElementById('tab-cram');
   if (!wrap) return;
 
-  // 章節導覽列
-  const navHtml = CRAM_SECTIONS.map(s => `
+  const stats = cramGetGlobalStats();
+
+  // 章節導覽列(卡片版)
+  const navHtml = CRAM_SECTIONS.map(s => {
+    const ss = cramGetSectionStats(s.id);
+    const done = ss.read === ss.total && ss.total > 0;
+    return `
     <button class="cram-nav-btn ${s.id === cramOpenSection ? 'active' : ''}"
+            data-sec-id="${s.id}"
             onclick="cramSwitch('${s.id}')"
             style="--c:${s.color};">
       <span class="cram-nav-icon">${s.icon}</span>
       <span class="cram-nav-title">${s.title}</span>
+      <span class="cram-nav-progress ${done ? 'done' : ''}">${ss.read}/${ss.total}</span>
     </button>
-  `).join('');
+  `;
+  }).join('');
 
-  // 內容
-  const sec = CRAM_SECTIONS.find(s => s.id === cramOpenSection);
-  const contentHtml = sec ? renderCramSection(sec) : '';
+  // 內容(視 mode 而定)
+  let contentHtml = '';
+  if (cramViewMode === 'overview') {
+    contentHtml = renderCramOverview();
+  } else {
+    const sec = CRAM_SECTIONS.find(s => s.id === cramOpenSection);
+    contentHtml = sec ? renderCramSection(sec) : '';
+  }
+
+  // 篩選提示
+  const filterLabel = cramFilter === 'all' ? '' :
+    cramFilter === 'unread' ? '🔵 未標記' :
+    cramFilter === 'read' ? '✅ 已讀' :
+    cramFilter === 'star' ? '⭐ 重點' :
+    cramFilter === 'weak' ? '❓ 不熟' : '';
 
   wrap.innerHTML = `
     <h2 class="section-title">🎯 考前衝刺</h2>
     <p class="section-sub">指導員猜題 + 速記口訣 — 上課中場休息打開掃一遍</p>
+
+    <!-- 整體進度條 -->
+    <div class="cram-progress-bar" id="cramProgressBar">
+      <div class="cram-progress-text">📚 進度 <strong>${stats.read}/${stats.total}</strong></div>
+      <div class="cram-progress-rail">
+        <div class="cram-progress-fill split">
+          <span style="width:${(stats.read/stats.total*100).toFixed(1)}%;background:#10b981;"></span>
+          <span style="width:${(stats.star/stats.total*100).toFixed(1)}%;background:#f59e0b;"></span>
+          <span style="width:${(stats.weak/stats.total*100).toFixed(1)}%;background:#ef4444;"></span>
+        </div>
+      </div>
+      <div class="cram-progress-actions">
+        <button class="cram-progress-btn" onclick="cramSetMode('${cramViewMode === 'overview' ? 'detail' : 'overview'}')">${cramViewMode === 'overview' ? '📖 章節閱讀' : '📋 全部概覽'}</button>
+        <button class="cram-progress-btn danger" onclick="cramResetProgress()">🔄 清除進度</button>
+      </div>
+    </div>
+
+    <!-- Filter bar (僅在 detail mode) -->
+    ${cramViewMode === 'detail' ? `
+    <div class="cram-filter-bar">
+      <span style="font-size:12px;color:#64748b;font-weight:600;margin-right:4px;">篩選:</span>
+      <button class="cram-filter-btn ${cramFilter==='unread'?'active unread':''}" onclick="cramSetFilter('unread')">🔵 未標記</button>
+      <button class="cram-filter-btn ${cramFilter==='read'?'active read':''}" onclick="cramSetFilter('read')">✅ 已讀(${stats.read})</button>
+      <button class="cram-filter-btn ${cramFilter==='star'?'active star':''}" onclick="cramSetFilter('star')">⭐ 重點(${stats.star})</button>
+      <button class="cram-filter-btn ${cramFilter==='weak'?'active weak':''}" onclick="cramSetFilter('weak')">❓ 不熟(${stats.weak})</button>
+      ${filterLabel ? `<span style="font-size:11px;color:#94a3b8;margin-left:6px;">→ 顯示${filterLabel}</span>` : ''}
+    </div>
+    ` : ''}
 
     <div class="cram-quick-jump">
       <div class="cqj-row">
@@ -7732,31 +9160,99 @@ function renderCram() {
       </div>
     </div>
 
-    <hr style="border:none;border-top:1px dashed #cbd5e1;margin:1em 0;">
-    <p class="section-sub" style="font-size:13px;color:#94a3b8;">完整章節 ↓</p>
+    ${cramViewMode === 'detail' ? `
     <div class="cram-nav">${navHtml}</div>
-
     <div class="cram-content">${contentHtml}</div>
+    ` : `
+    <div class="cram-content">${contentHtml}</div>
+    `}
   `;
 }
 
+// 章節概覽模式 — 一覽 109 區塊
+function renderCramOverview() {
+  const data = cramGetProgress();
+  const sectionsHtml = CRAM_SECTIONS.map(sec => {
+    const ss = cramGetSectionStats(sec.id);
+    const blocksHtml = sec.blocks.map((b, i) => {
+      const key = sec.id + '-' + i;
+      const mark = data[key] || '';
+      return `
+        <li onclick="cramJumpFromOverview('${sec.id}', ${i})">
+          <span class="ovw-mark ${mark}"></span>
+          <span>${_stripHtml(b.h)}</span>
+        </li>
+      `;
+    }).join('');
+    return `
+      <div class="cram-overview-section" style="--c:${sec.color};">
+        <div class="cram-overview-section-h">
+          <span class="cram-overview-section-icon">${sec.icon}</span>
+          <span class="cram-overview-section-title">${sec.title}</span>
+          <span class="cram-overview-section-progress">${ss.read}/${ss.total}</span>
+        </div>
+        <ul class="cram-overview-block-list">
+          ${blocksHtml}
+        </ul>
+      </div>
+    `;
+  }).join('');
+  return `<div class="cram-overview-grid">${sectionsHtml}</div>`;
+}
+
+// 從概覽跳到 detail mode 並 scroll 到區塊
+function cramJumpFromOverview(secId, blockIdx) {
+  cramViewMode = 'detail';
+  cramOpenSection = secId;
+  renderCram();
+  setTimeout(() => {
+    const el = document.getElementById('cb-' + secId + '-' + blockIdx);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.remove('search-flash');
+      void el.offsetWidth;
+      el.classList.add('search-flash');
+    }
+  }, 100);
+}
+
 function renderCramSection(sec) {
-  const blocks = sec.blocks.map((b, i) => `
-    <div class="cram-block" style="--bc:${sec.color};">
+  const data = cramGetProgress();
+  const blocks = sec.blocks.map((b, i) => {
+    const key = sec.id + '-' + i;
+    const mark = data[key] || '';
+    // 篩選邏輯
+    if (cramFilter === 'unread' && mark) return '';
+    if (cramFilter === 'read' && mark !== 'read') return '';
+    if (cramFilter === 'star' && mark !== 'star') return '';
+    if (cramFilter === 'weak' && mark !== 'weak') return '';
+
+    const cls = mark ? 'is-' + mark : '';
+    return `
+    <div class="cram-block ${cls}" style="--bc:${sec.color};" data-cram-block="${key}" id="cb-${key}">
+      <div class="cram-block-actions">
+        <button class="cram-mark-btn ${mark==='read'?'active read':''}" data-mark="read" onclick="cramSetMark('${key}', 'read')" title="已讀">✓</button>
+        <button class="cram-mark-btn ${mark==='star'?'active star':''}" data-mark="star" onclick="cramSetMark('${key}', 'star')" title="重點 / 收藏">⭐</button>
+        <button class="cram-mark-btn ${mark==='weak'?'active weak':''}" data-mark="weak" onclick="cramSetMark('${key}', 'weak')" title="不熟 / 需複習">?</button>
+        <button class="ai-explain-btn" onclick="aiExplainBlock('${sec.id}', ${i})" title="讓 AI 用更白話重新解釋這段">🤖 AI 重講</button>
+      </div>
       <div class="cram-block-h">${b.h}</div>
       <div class="cram-block-c">${b.c}</div>
     </div>
-  `).join('');
+  `;
+  }).join('');
+
+  const filtered = cramFilter !== 'all' && !blocks.trim();
 
   return `
     <div class="cram-section-head" style="--c:${sec.color};">
       <span class="cram-section-icon">${sec.icon}</span>
       <div>
         <div class="cram-section-title">${sec.title}</div>
-        <div class="cram-section-sub">${sec.subtitle}</div>
+        ${sec.subtitle ? `<div class="cram-section-sub">${sec.subtitle}</div>` : ''}
       </div>
     </div>
-    ${blocks}
+    ${filtered ? `<div style="text-align:center;padding:40px;color:#94a3b8;">此章節沒有符合篩選條件的區塊</div>` : blocks}
   `;
 }
 
